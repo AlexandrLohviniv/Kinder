@@ -1,5 +1,6 @@
 using KinderApi.ServiceProtos;
 using KinderApi.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -11,6 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.IdentityModel.Tokens;
 
 namespace KinderApi
 {
@@ -26,6 +28,25 @@ namespace KinderApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            .AddJwtBearer(option => 
+            {
+                option.RequireHttpsMetadata = false;
+                option.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidIssuer = AuthOptions.ISSUER,
+                    
+                    ValidateAudience = true,
+                    ValidAudience = AuthOptions.AUDIENCE,
+
+                    ValidateLifetime = true,
+                    
+                    IssuerSigningKey = AuthOptions.GetSymmetricSecurityKey(),
+                    ValidateIssuerSigningKey = true
+                };
+            });
+
             services.AddControllers();
             services.AddScoped<ILoginService, LoginService>();
         }
@@ -41,6 +62,7 @@ namespace KinderApi
             app.UseRouting();
 
             app.UseAuthorization();
+            app.UseAuthentication();
 
             app.UseEndpoints(endpoints =>
             {

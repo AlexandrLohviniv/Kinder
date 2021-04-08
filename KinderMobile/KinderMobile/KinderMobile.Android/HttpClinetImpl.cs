@@ -62,8 +62,9 @@ namespace KinderMobile.Droid
 
             if (response.IsSuccessStatusCode) 
             {
-                string result = await response.Content.ReadAsStringAsync();
-                return Convert.ToBoolean(result);
+            //string result = await response.Content.ReadAsStringAsync(); 
+            //TODO: save jwt token
+                return true;
             }
 
             return false;
