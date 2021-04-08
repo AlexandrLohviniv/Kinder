@@ -25,15 +25,30 @@ namespace KinderMobile
 
             http = DependencyService.Get<IHttpClient>();
 
-
-            InitWeatherInfo();
+            //InitWeatherInfo();
 
         }
 
         async void InitWeatherInfo()
         {
             weatherInfo = await http.RetrieveWeatherInfo();
-            WeatherForecast.ItemsSource = weatherInfo;
+            //WeatherForecast.ItemsSource = weatherInfo;
+        }
+
+        private async void ShowPopup(object sender, EventArgs e)
+        {
+            string mail = mailTxt.Text;
+            string pass = PassTxt.Text;
+
+            bool result = await http.authUser(mail, pass);
+
+            if (!result)
+                await DisplayAlert("Attention", "Your password or mail is incorrect", "OK");
+            else
+            {
+                await Navigation.PushModalAsync(new NavPage());
+                //await DisplayAlert("Well done", "You guessed your password", "OK");
+            }
         }
     }
 }

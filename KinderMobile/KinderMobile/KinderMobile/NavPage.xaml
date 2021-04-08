@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+            xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+            xmlns:page="clr-namespace:KinderMobile.NavMenu"  
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="KinderMobile.NavPage">
+
+
+    <ContentPage.Content>
+        <Grid>
+            <xct:TabView TabStripPlacement="Bottom" IsSwipeEnabled="False">
+
+                <xct:TabView.TabStripBackgroundView>
+                    <BoxView BackgroundColor="LightGreen" WidthRequest="25" CornerRadius="20, 20, 0, 0"/>
+                </xct:TabView.TabStripBackgroundView>
+
+                <xct:TabViewItem 
+                    x:Name="PeopleNearbySection"
+                    FontFamily="MyIcon"
+                    FontSize="25"
+                    FontSizeSelected="25"
+                    TextColorSelected="White">
+                    <page:PeopleNearBy></page:PeopleNearBy>
+                </xct:TabViewItem>
+                <xct:TabViewItem 
+                    x:Name="MatchSection"
+                    FontSize="25"
+                    FontSizeSelected="25"
+                    FontFamily="MyIcon"
+                    TextColorSelected="White">
+                    <page:Matches></page:Matches>
+                </xct:TabViewItem>
+                <xct:TabViewItem 
+                    x:Name="MessageSection"
+                    FontFamily="MyIcon"
+                    FontSize="25"
+                    FontSizeSelected="25"
+                    TextColorSelected="White">
+                    <page:Messages></page:Messages>
+                </xct:TabViewItem>
+                <xct:TabViewItem 
+                    x:Name="PersonalSection"
+                    FontFamily="MyIcon"
+                    FontSize="25"
+                    FontSizeSelected="25"
+                    TextColorSelected="White">
+                    <page:Personal></page:Personal>
+                </xct:TabViewItem>
+            </xct:TabView>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

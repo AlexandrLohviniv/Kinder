@@ -2,16 +2,43 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="KinderMobile.MainPage">
-
-    <ListView x:Name="WeatherForecast"
+    <StackLayout>
+        <!--<ListView x:Name="WeatherForecast"
               ItemsSource="{Binding Data}">
         <ListView.ItemTemplate>
             <DataTemplate>
                 <TextCell Text="{Binding Summary}" />
             </DataTemplate>
         </ListView.ItemTemplate>
-    </ListView>
-    
-    
+       </ListView>-->
+
+        <Label Margin="0,40,0,20"
+               Text="Kinder"
+               FontFamily="Lobster" 
+               FontSize="40" 
+               HorizontalTextAlignment="Center" 
+               WidthRequest="100"
+               TextColor="Green"/>
+
+        <Entry Placeholder="Enter your mail..."
+               ClearButtonVisibility="WhileEditing"
+               Margin="10, 0, 10, 0"
+               x:Name="mailTxt"/>
+        <Entry Placeholder="Enter your pass..."
+               IsPassword="True"
+               ClearButtonVisibility="WhileEditing"
+               Margin="10, 0, 10, 0"
+               x:Name="PassTxt"/>
+
+
+        <Button Text="Login"
+                HorizontalOptions="FillAndExpand"
+                Margin="10,20,10,0"
+                Clicked="ShowPopup"/>
+
+    </StackLayout>
+
+
+
 
 </ContentPage>

@@ -8,5 +8,6 @@ namespace KinderMobile
     public interface IHttpClient
     {
         Task<List<WeatherDTO>> RetrieveWeatherInfo();
+        Task<bool> authUser(string mail, string password);
     }
 }
