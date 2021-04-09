@@ -51,12 +51,9 @@ namespace KinderApi
             });
 
             services.AddControllers();
-<<<<<<< HEAD
             services.AddDbContext<DatabaseContext>();
             services.AddControllersWithViews();
-=======
             services.AddScoped<ILoginService, LoginService>();
->>>>>>> 116860fa13c4b22c5aac6b4e28efc838267bbc9c
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
