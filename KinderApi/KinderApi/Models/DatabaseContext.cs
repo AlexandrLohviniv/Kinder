@@ -27,8 +27,8 @@ namespace KinderApi.Models
     {
         public DatabaseContext()
         {
-            Database.EnsureDeleted();
-            Database.EnsureCreated();
+            // Database.EnsureDeleted();
+            // Database.EnsureCreated();
         }
         protected override void OnConfiguring(DbContextOptionsBuilder contextOptions)
         {
