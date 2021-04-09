@@ -15476,7 +15476,6 @@ namespace KinderMobile.Droid
 			public const int buttonPanel = 2131230799;
 			
 			// aapt resource value: 0x7F080050
-<<<<<<< HEAD
 			public const int cancel_action = 2131230800;
 			
 			// aapt resource value: 0x7F080051
