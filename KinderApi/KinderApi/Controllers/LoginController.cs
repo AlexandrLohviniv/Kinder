@@ -20,6 +20,7 @@ namespace KinderApi.Controllers
         public LoginController(ILoginService loginService)
         {
             this.loginService = loginService;
+            
         }
 
         [HttpPost]
