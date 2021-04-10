@@ -14,20 +14,20 @@ namespace KinderMobile
     public partial class LikePage : ContentPage
     {
         IHttpClient http;
+        List<UserDto> users;
 
         public LikePage()
         {
             InitializeComponent();
             http = DependencyService.Get<IHttpClient>();
-
-            GetAllUsers();
-
+            DisplayUserInfo();
         }
-
-        public async void GetAllUsers()
+        private async void DisplayUserInfo()
         {
-            List<UserDto> users = await http.getAllUsers();
-
+            users = await http.getAllUsers();            
+            UserDto user = users.FirstOrDefault();
+            AgeLabel.Text = (DateTime.Now - user.DateOfBith).ToString();
+            UserNameLabel.Text = user.FirstName + " " + user.LastName;
         }
     }
 }

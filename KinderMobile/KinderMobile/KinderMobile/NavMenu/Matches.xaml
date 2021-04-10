@@ -3,8 +3,22 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="KinderMobile.NavMenu.Matches">
   <ContentView.Content>
-      <StackLayout>
-          <Label Text="This is match page" />
-      </StackLayout>
+        <Grid x:Name="MainGrid">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid x:Name="PhotoGrid" BackgroundColor="Red">
+                <Rectangle BackgroundColor="Yellow" HeightRequest="200"/>
+
+
+            </Grid>
+            <ScrollView VerticalOptions="FillAndExpand" Grid.Row="1" Orientation="Vertical">
+                <StackLayout Orientation="Horizontal">
+                    <Label x:Name="UserNameLabel" Text="Hellow world" FontSize="30" Margin="5"/>
+                    <Label x:Name="AgeLabel" FontSize="30"/>
+                </StackLayout>
+            </ScrollView>
+        </Grid>
   </ContentView.Content>
 </ContentView>
