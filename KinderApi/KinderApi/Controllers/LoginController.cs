@@ -7,6 +7,7 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using System.Collections.Generic;
+using KinderApi.Models;
 
 namespace KinderApi.Controllers
 {
@@ -16,11 +17,12 @@ namespace KinderApi.Controllers
     public class LoginController:ControllerBase
     {
         private readonly ILoginService loginService;
+        private readonly DatabaseContext context;
 
-        public LoginController(ILoginService loginService)
+        public LoginController(ILoginService loginService, DatabaseContext context)
         {
             this.loginService = loginService;
-            
+            this.context = context;
         }
 
         [HttpPost]
