@@ -18,6 +18,8 @@ using System.Threading.Tasks;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 using System.IO;
+using AutoMapper;
+
 
 namespace KinderApi
 {
@@ -63,8 +65,10 @@ namespace KinderApi
 
             services.AddControllers();
             services.AddDbContext<DatabaseContext>();
+            services.AddAutoMapper(typeof(Startup));
             services.AddControllersWithViews();
             services.AddScoped<ILoginService, LoginService>();
+            services.AddScoped<IUserService, UserService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
