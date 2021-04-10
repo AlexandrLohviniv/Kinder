@@ -1,6 +1,8 @@
+using System.Linq;
 using System.Threading.Tasks;
 using KinderApi.Models;
 using KinderApi.ServiceProtos;
+using Microsoft.EntityFrameworkCore;
 
 namespace KinderApi.Services
 {
@@ -13,12 +15,11 @@ namespace KinderApi.Services
             this.context = context;
         }
 
-        public async Task<bool> LoginUser(string mail, string password)
+        public async Task<User> LoginUser(string mail, string password)
         {
-            if(mail == "kek@test.com" && password=="1234")
-                return true;
-            
-            return false;
+            User user = await context.Users.FirstOrDefaultAsync(x => x.Email == mail && x.Password == password);
+
+            return user;
         }
 
         public async Task<bool> RegisterUSer(User user)

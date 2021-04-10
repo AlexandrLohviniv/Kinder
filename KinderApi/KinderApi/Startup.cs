@@ -28,7 +28,7 @@ namespace KinderApi
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
-            using(DatabaseContext context = new DatabaseContext())
+            using (DatabaseContext context = new DatabaseContext())
             {
                 if (context.Users.ToList().Count == 0)
                 {
@@ -44,24 +44,6 @@ namespace KinderApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-            .AddJwtBearer(option => 
-            {
-                option.RequireHttpsMetadata = false;
-                option.TokenValidationParameters = new TokenValidationParameters
-                {
-                    ValidateIssuer = true,
-                    ValidIssuer = AuthOptions.ISSUER,
-                    
-                    ValidateAudience = true,
-                    ValidAudience = AuthOptions.AUDIENCE,
-
-                    ValidateLifetime = true,
-                    
-                    IssuerSigningKey = AuthOptions.GetSymmetricSecurityKey(),
-                    ValidateIssuerSigningKey = true
-                };
-            });
 
             services.AddControllers();
             services.AddDbContext<DatabaseContext>();
@@ -69,6 +51,17 @@ namespace KinderApi
             services.AddControllersWithViews();
             services.AddScoped<ILoginService, LoginService>();
             services.AddScoped<IUserService, UserService>();
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                    .AddJwtBearer(options =>
+                    {
+                        options.TokenValidationParameters = new TokenValidationParameters
+                        {
+                            ValidateIssuer = false,
+                            ValidateAudience = false,
+                            IssuerSigningKey = AuthOptions.GetSymmetricSecurityKey(),
+                            ValidateIssuerSigningKey = true
+                        };
+                    });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -79,10 +72,9 @@ namespace KinderApi
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseRouting();
-
-            app.UseAuthorization();
             app.UseAuthentication();
+            app.UseRouting();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

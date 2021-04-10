@@ -13,6 +13,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 [assembly: Dependency(typeof(KinderMobile.Droid.HttpClinetImpl))]
@@ -63,8 +64,13 @@ namespace KinderMobile.Droid
 
             if (response.IsSuccessStatusCode) 
             {
-            //string result = await response.Content.ReadAsStringAsync(); 
-            //TODO: save jwt token
+                var responsePatter = new { token = "" };
+
+                string result = await response.Content.ReadAsStringAsync();
+
+                var apiResponse = JsonConvert.DeserializeAnonymousType(result, responsePatter);
+                
+                await SecureStorage.SetAsync("token", apiResponse.token);
                 return true;
             }
 
@@ -73,6 +79,11 @@ namespace KinderMobile.Droid
 
         public async Task<List<UserDto>> getAllUsers()
         {
+
+            string token = await SecureStorage.GetAsync("token");
+
+            clinet.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+
             HttpResponseMessage response = await clinet.GetAsync("http://10.0.2.2:5000/MatchPage/users");
 
             List<UserDto> output = new List<UserDto>();

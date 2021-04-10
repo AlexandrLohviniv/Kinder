@@ -27,18 +27,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="LikePage.xaml.cs">
-      <DependentUpon>LikePage.xaml</DependentUpon>
-    </Compile>
     <Compile Update="NavPage.xaml.cs">
       <DependentUpon>NavPage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="LikePage.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
     <EmbeddedResource Update="NavMenu\Matches.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>

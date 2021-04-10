@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace KinderApi.Controllers
 {
-
+   
     [ApiController]
     [Route("[controller]")]
     public class MatchPageController:ControllerBase
@@ -25,8 +25,8 @@ namespace KinderApi.Controllers
             this.mapper = mapper;
         }
 
-        [HttpGet]
-        [Route("users")]
+        [Authorize(Roles="SimpleUser,Admin")]
+        [HttpGet("users")]
         public async Task<IActionResult> GetAllUSers()
         {
             List<User> allUsers = await userService.GetAllUsers();

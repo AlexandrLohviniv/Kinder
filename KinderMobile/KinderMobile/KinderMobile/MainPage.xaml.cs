@@ -25,14 +25,14 @@ namespace KinderMobile
 
             http = DependencyService.Get<IHttpClient>();
 
-            //InitWeatherInfo();
+            
 
         }
 
         async void InitWeatherInfo()
         {
             weatherInfo = await http.RetrieveWeatherInfo();
-            //WeatherForecast.ItemsSource = weatherInfo;
+            
         }
 
         private async void ShowPopup(object sender, EventArgs e)
@@ -47,7 +47,7 @@ namespace KinderMobile
             else
             {
                 await Navigation.PushModalAsync(new NavPage());
-                //await DisplayAlert("Well done", "You guessed your password", "OK");
+            
             }
         }
     }
