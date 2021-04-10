@@ -27,6 +27,7 @@ namespace KinderApi.Models
         public ICollection<Message> ReceivedMessages { get; set; }
         public ICollection<Like> SentLikes { get; set; }
         public ICollection<Like> ReceivedLikes { get; set; }
+        public ICollection<Image> Images {get;set;}
 
         public ICollection<Preference> Preferences { get; set; }
         public User()
@@ -36,6 +37,7 @@ namespace KinderApi.Models
             ReceivedLikes = new List<Like>();
             Preferences = new List<Preference>();
             ReceivedMessages = new List<Message>();
+            Images = new List<Image>();
         }
     }
 }
