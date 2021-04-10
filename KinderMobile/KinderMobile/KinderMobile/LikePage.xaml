@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="KinderMobile.LikePage">
+    <ContentPage.Content>
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0" x:Name="UpperGrid" BackgroundColor="Red">
+                <Rectangle BackgroundColor="Yellow" HeightRequest="200"/>
+
+
+            </Grid>
+            <ScrollView VerticalOptions="FillAndExpand" Grid.Row="1" Orientation="Vertical">
+                <StackLayout Orientation="Horizontal">
+                    <Label x:Name="UserNameLabel" Text="Hellow world" FontSize="30" Margin="5"/>
+                    <Label x:Name="AgeLabel" FontSize="30"/>
+                </StackLayout>
+            </ScrollView>
+        </Grid>
+        
+    </ContentPage.Content>
+</ContentPage>
