@@ -1,4 +1,5 @@
-﻿using System;
+﻿using KinderMobile.DTOs;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,5 +10,7 @@ namespace KinderMobile
     {
         Task<List<WeatherDTO>> RetrieveWeatherInfo();
         Task<bool> authUser(string mail, string password);
+
+        Task<List<UserDto>> getAllUsers();
     }
 }

@@ -4,6 +4,7 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using KinderMobile.DTOs;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using System;
@@ -68,6 +69,22 @@ namespace KinderMobile.Droid
             }
 
             return false;
+        }
+
+        public async Task<List<UserDto>> getAllUsers()
+        {
+            HttpResponseMessage response = await clinet.GetAsync("http://10.0.2.2:5000/MatchPage/users");
+
+            List<UserDto> output = new List<UserDto>();
+
+            if (response.IsSuccessStatusCode)
+            {
+                string content = await response.Content.ReadAsStringAsync();
+
+                output = JsonConvert.DeserializeObject<List<UserDto>>(content);
+            }
+
+            return output;
         }
     }
 }
