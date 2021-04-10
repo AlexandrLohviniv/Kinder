@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using System.IdentityModel.Tokens.Jwt;
 using System.Threading.Tasks;
 using KinderApi.DTOs;
@@ -8,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using System.Collections.Generic;
 using KinderApi.Models;
+using Newtonsoft.Json;
 
 namespace KinderApi.Controllers
 {
@@ -23,13 +25,13 @@ namespace KinderApi.Controllers
         {
             this.loginService = loginService;
             this.context = context;
+            
         }
 
         [HttpPost]
         public async Task<IActionResult> LogIn([FromBody]LoginDto loginData)
-        {   
-            
-
+        {
+          
             ClaimsIdentity identity = await GetIdentity(loginData.Mail, loginData.Password);
             if (identity == null)
             {
