@@ -38,5 +38,7 @@ namespace KinderApi.Models
         public virtual DbSet<Preference> Preferences { get; set; }
         public virtual DbSet<Message> Messages { get; set; }
         public virtual DbSet<Like> Likes { get; set; }
+
+        public virtual DbSet<Image> Image { get; set; }
     }
 }

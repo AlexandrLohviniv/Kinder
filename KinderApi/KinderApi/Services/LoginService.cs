@@ -4,15 +4,20 @@ using KinderApi.Models;
 using KinderApi.ServiceProtos;
 using Microsoft.EntityFrameworkCore;
 
+
 namespace KinderApi.Services
 {
-    public class LoginService: ILoginService
+    public class LoginService : ILoginService
     {
+
+
+
         private readonly DatabaseContext context;
 
         public LoginService(DatabaseContext context)
         {
             this.context = context;
+
         }
 
         public async Task<User> LoginUser(string mail, string password)
@@ -22,9 +27,17 @@ namespace KinderApi.Services
             return user;
         }
 
-        public async Task<bool> RegisterUSer(User user)
+        public async Task<User> RegisterUSer(User user)
         {
-            throw new System.NotImplementedException();
+            try
+            {
+                await context.Users.AddAsync(user);
+                await context.SaveChangesAsync();
+            }catch
+            {
+                return null;                
+            }
+            return user;
         }
     }
 }

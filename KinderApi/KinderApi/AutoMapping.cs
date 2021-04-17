@@ -9,6 +9,9 @@ namespace KinderApi
         public AutoMapping()
         {
             CreateMap<User, UserToReturnDto>();
+            CreateMap<RegisterUserDto, User>();
+            CreateMap<ImageDto, Image>();
+            CreateMap<Image, PhotoToReturnDto>();
         }
     }
 }

@@ -6,6 +6,6 @@ namespace KinderApi.ServiceProtos
     public interface ILoginService
     {
          Task<User> LoginUser(string mail, string password);
-         Task<bool> RegisterUSer(User user);
+         Task<User> RegisterUSer(User user);
     }
 }

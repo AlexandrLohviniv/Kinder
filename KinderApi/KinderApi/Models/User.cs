@@ -16,7 +16,7 @@ namespace KinderApi.Models
         public string LastName { get; set; }
         public Sexuality Sex { get; set; }
         public Role Role { get; set; }
-        public DateTime  DateOfBith { get; set; }
+        public DateTime DateOfBith { get; set; }
         public string AboutMe { get; set; }
         public string NickName { get; set; }
         public string Email { get; set; }
@@ -27,7 +27,7 @@ namespace KinderApi.Models
         public ICollection<Message> ReceivedMessages { get; set; }
         public ICollection<Like> SentLikes { get; set; }
         public ICollection<Like> ReceivedLikes { get; set; }
-        public ICollection<Image> Images {get;set;}
+        public ICollection<Image> Images { get; set; }
 
         public ICollection<Preference> Preferences { get; set; }
         public User()
