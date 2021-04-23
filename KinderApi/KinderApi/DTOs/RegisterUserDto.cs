@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using KinderApi.Models;
 
 namespace KinderApi.DTOs
@@ -14,6 +15,6 @@ namespace KinderApi.DTOs
         public string NickName { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
-        
+        public ICollection<Preference> Preferences { get; set; }
     }
 }

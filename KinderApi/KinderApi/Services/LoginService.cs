@@ -9,9 +9,6 @@ namespace KinderApi.Services
 {
     public class LoginService : ILoginService
     {
-
-
-
         private readonly DatabaseContext context;
 
         public LoginService(DatabaseContext context)
@@ -24,6 +21,12 @@ namespace KinderApi.Services
         {
             User user = await context.Users.FirstOrDefaultAsync(x => x.Email == mail && x.Password == password);
 
+            if (user != null)
+            {
+                var BannedUser = await context.BannedUsers.FirstOrDefaultAsync(c => c.UserId == user.Id);
+                if (BannedUser != null)
+                    return null;
+            }
             return user;
         }
 
@@ -33,9 +36,10 @@ namespace KinderApi.Services
             {
                 await context.Users.AddAsync(user);
                 await context.SaveChangesAsync();
-            }catch
+            }
+            catch
             {
-                return null;                
+                return null;
             }
             return user;
         }

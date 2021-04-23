@@ -20,9 +20,17 @@ namespace KinderApi.Models
     public enum Rate
     {
         Positive,
-        Negative,
-        Neutral
+        Neutral,
+        Negative
     }
+
+    public enum ComplaintType
+    {
+        FakeAccount,
+        AbbusingBehaviour,
+        Aggression
+    }
+
     public class DatabaseContext : DbContext
     {
         public DatabaseContext()
@@ -38,7 +46,9 @@ namespace KinderApi.Models
         public virtual DbSet<Preference> Preferences { get; set; }
         public virtual DbSet<Message> Messages { get; set; }
         public virtual DbSet<Like> Likes { get; set; }
-
         public virtual DbSet<Image> Image { get; set; }
+        public virtual DbSet<Complaint> Complaints { get; set; }
+        public virtual DbSet<BannedUsers> BannedUsers { get; set; }
+
     }
 }

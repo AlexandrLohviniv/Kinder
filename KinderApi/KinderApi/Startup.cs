@@ -48,6 +48,8 @@ namespace KinderApi
             services.AddScoped<ILoginService, LoginService>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IPhotoService, PhotoService>();
+            services.AddScoped<ILikeService, LikeService>();
+            services.AddScoped<IMessageService, MessageService>();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                     .AddJwtBearer(options =>
                     {

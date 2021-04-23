@@ -1,8 +1,15 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using AutoMapper;
+using KinderApi.DTOs;
+using KinderApi.helper;
 using KinderApi.Models;
 using KinderApi.ServiceProtos;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 
 namespace KinderApi.Services
@@ -10,10 +17,12 @@ namespace KinderApi.Services
     public class UserService : IUserService
     {
         private readonly DatabaseContext context;
+        private readonly IMapper mapper;
 
-        public UserService(DatabaseContext context)
+        public UserService(DatabaseContext context, IMapper mapper)
         {
             this.context = context;
+            this.mapper = mapper;
         }
 
         public async Task<List<User>> GetAllUsers()
@@ -22,6 +31,73 @@ namespace KinderApi.Services
 
             return allUsers;
         }
+
+        public async Task<List<User>> GetUsersForMatchByDistance(int currentUserId, int? distance)
+        {
+            if (distance == null)
+                distance = 500000;
+
+            List<User> allUsers = await context.Users.ToListAsync();
+
+            List<User> userToReturn = new List<User>();
+
+            User currentUser = await GetUserById(currentUserId);
+
+
+            foreach (User user in allUsers)
+            {
+                if (user.Id == currentUser.Id)
+                    continue;
+
+                UsersCoordinates coords = UsersCoordinates.Parse(currentUser.Coordinate, user.Coordinate);
+                if (coords.Distance < distance &&
+                    Math.Abs(currentUser.DateOfBith.GetYears() - user.DateOfBith.GetYears()) <= 5)
+                    userToReturn.Add(user);
+
+                if (userToReturn.Count >= 10)
+                    break;
+            }
+
+            return userToReturn;
+        }
+
+        
+
+        public async Task<List<User>> GetUsersForMathcByPreference(int currentUserId, PreferenceDto prefernces = null)
+        {
+            List<User> allUsers = await context.Users.Include(u => u.Preferences).ToListAsync();
+
+            List<User> userToReturn = new List<User>();
+
+            User currentUser = await GetUserById(currentUserId);
+
+            PreferenceDto currentUserPrefs = null;
+            if (prefernces == null)
+                currentUserPrefs = mapper.Map<PreferenceDto>(currentUser.Preferences.First());
+            else
+                currentUserPrefs = prefernces;
+
+            int notNullPrefs = currentUserPrefs.CountNotNullField();
+
+            foreach (User user in allUsers)
+            {
+                if (user.Id == currentUser.Id)
+                    continue;
+
+                PreferenceDto userPrefs = mapper.Map<PreferenceDto>(user.Preferences.First());
+                int difference = Math.Abs(userPrefs - currentUserPrefs);
+
+                if (difference <= notNullPrefs &&
+                    Math.Abs(currentUser.DateOfBith.GetYears() - user.DateOfBith.GetYears()) <= 5)
+                    userToReturn.Add(user);
+
+                if (userToReturn.Count >= 10)
+                    break;
+            }
+
+            return userToReturn;
+        }
+
 
         public async Task<Image> GetMainPhotoByUser(int userId)
         {
@@ -33,10 +109,10 @@ namespace KinderApi.Services
 
         public async Task<User> GetUserById(int userId)
         {
-            var query = context.Users.Include(u => u.Images).AsQueryable();
+            var query = context.Users.Include(u => u.Images).Include(u => u.Preferences).AsQueryable();
             var user = await query.FirstOrDefaultAsync(u => u.Id == userId);
 
-           return user;
+            return user;
         }
 
         public async Task<Image> GetUserPhotoByPhotoId(int userId, int photoId)
