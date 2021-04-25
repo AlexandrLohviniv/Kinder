@@ -24,7 +24,6 @@ namespace KinderApi.Controllers
             var messagePattern = new {text = ""};
             var message =  JsonConvert.DeserializeAnonymousType(text.ToString(), messagePattern);
 
-
             await messageService.SendMessage(userId, toId, message.text);
 
             return Ok();

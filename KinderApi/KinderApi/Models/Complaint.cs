@@ -5,7 +5,7 @@ namespace KinderApi.Models
     public class Complaint
     {
         public int Id { get; set; }
-        ComplaintType complaint { get; set; }
+        public ComplaintType complaint { get; set; }
         public int? SenderId { get; set; }
 
         [ForeignKey("SenderId")]

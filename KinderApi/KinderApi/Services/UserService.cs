@@ -25,11 +25,11 @@ namespace KinderApi.Services
             this.mapper = mapper;
         }
 
-        public async Task<List<User>> GetAllUsers()
+        public async Task<PagedList<User>> GetAllUsers(PaginationParams userParams)
         {
-            List<User> allUsers = await context.Users.ToListAsync();
+            var allUsers = context.Users;
 
-            return allUsers;
+            return await PagedList<User>.CreateAsync(allUsers, userParams.PageNumber, userParams.PageSize);
         }
 
         public async Task<List<User>> GetUsersForMatchByDistance(int currentUserId, int? distance)

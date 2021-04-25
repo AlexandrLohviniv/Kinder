@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using KinderApi.DTOs;
+using KinderApi.helper;
 using KinderApi.Models;
 using KinderApi.ServiceProtos;
 using Microsoft.AspNetCore.Authorization;
@@ -31,10 +32,13 @@ namespace KinderApi.Controllers
 
         [Authorize(Roles = "SimpleUser,Admin")]
         [HttpGet("users")]
-        public async Task<IActionResult> GetAllUSers()
+        public async Task<IActionResult> GetAllUSers([FromQuery]PaginationParams userParams)
         {
-            List<User> allUsers = await userService.GetAllUsers();
+            PagedList<User> allUsers = await userService.GetAllUsers(userParams);
             List<UserToReturnDto> returnUsers = mapper.Map<List<UserToReturnDto>>(allUsers);
+
+            Response.AddPagination(allUsers.CurrentPage,allUsers.PageSize, 
+                allUsers.TotalCount, allUsers.TotalPages);
 
             return Ok(returnUsers);
         }

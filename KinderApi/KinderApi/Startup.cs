@@ -50,6 +50,7 @@ namespace KinderApi
             services.AddScoped<IPhotoService, PhotoService>();
             services.AddScoped<ILikeService, LikeService>();
             services.AddScoped<IMessageService, MessageService>();
+            services.AddScoped<IComplaintService, ComplaintService>();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                     .AddJwtBearer(options =>
                     {
@@ -75,6 +76,7 @@ namespace KinderApi
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             app.UseAuthentication();
             app.UseRouting();
             app.UseAuthorization();
