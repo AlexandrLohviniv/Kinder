@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<pages:PopupPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="KinderMobile.PopupView"
+             xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup">
+
+    <StackLayout Margin="12"
+                 Padding="24"
+                 Spacing="24"
+                 BackgroundColor="White"
+                 HorizontalOptions="Center"
+                 VerticalOptions="Center">
+        <StackLayout>
+            <Label Text="Login"/>
+            <Entry FontSize="30"
+                   Text="username@gmail.com"/>
+        </StackLayout>
+        <StackLayout>
+            <Label Text="Password"/>
+            <Entry FontSize="30"
+                   Text="username@gmail.com"/>
+        </StackLayout>
+        <Button BackgroundColor="DodgerBlue"
+                FontSize="30"
+                Text="Login"
+                TextColor="White"
+                Clicked="Button_Clicked">
+        </Button>
+
+    </StackLayout>
+
+</pages:PopupPage>
