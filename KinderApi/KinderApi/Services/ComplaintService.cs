@@ -11,9 +11,9 @@ namespace KinderApi.Services
     public class ComplaintService : IComplaintService
     {
         private readonly DatabaseContext context;
-        private readonly UserService userService;
+        private readonly IUserService userService;
 
-        public ComplaintService(DatabaseContext context, UserService userService)
+        public ComplaintService(DatabaseContext context, IUserService userService)
         {
             this.context = context;
             this.userService = userService;
