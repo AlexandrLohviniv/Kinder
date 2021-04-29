@@ -47,6 +47,9 @@ namespace KinderMobile.Droid
 
         public async Task<bool> authUser(string mail, string password)
         {
+            if (string.IsNullOrEmpty(mail) || string.IsNullOrEmpty(password))
+                return false;
+
             LoginUserDto loginDto = new LoginUserDto()
             {
                 Mail = mail,

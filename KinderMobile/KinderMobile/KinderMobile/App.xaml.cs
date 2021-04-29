@@ -1,4 +1,5 @@
-﻿using System;
+﻿using KinderMobile.Helpers;
+using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -10,6 +11,7 @@ namespace KinderMobile
         {
             InitializeComponent();
             MainPage = new MainPage.MainPage();
+            NavigationDispetcher.Instance.Initialize(MainPage.Navigation);
         }
 
         protected override void OnStart()

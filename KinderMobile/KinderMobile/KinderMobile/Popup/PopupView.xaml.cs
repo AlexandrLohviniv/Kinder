@@ -9,19 +9,15 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace KinderMobile
+namespace KinderMobile.Popup
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class PopupView : PopupPage
     {
-        public PopupView()
+        public PopupView(string message, MessageType messageType)
         {
             InitializeComponent();
-        }
-
-        private void Button_Clicked(object sender, EventArgs e)
-        {
-            PopupNavigation.Instance.PopAsync(true);
+            this.BindingContext = new PopupViewModel(message, messageType);
         }
     }
 }

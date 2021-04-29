@@ -33,7 +33,7 @@
                        Source="facebooklogo.png" />
                 <Label Text="Continue with Facebook" VerticalOptions="CenterAndExpand" FontSize="20" FontAttributes="Bold" TextColor="White"/>
                 <StackLayout.GestureRecognizers>
-                    <TapGestureRecognizer x:Name="FacebookButton" AutomationId="FacebookButton"/>
+                    <TapGestureRecognizer x:Name="FacebookButton" AutomationId="FacebookButton" Command="{Binding FacebookLoginCommand}"/>
                 </StackLayout.GestureRecognizers>
             </StackLayout>
         </Frame>
@@ -45,7 +45,7 @@
                        Source="googlelogo.png" />
                 <Label Text="Continue with Google" VerticalOptions="CenterAndExpand" FontSize="20" FontAttributes="Bold" TextColor="Black"/>
                 <StackLayout.GestureRecognizers>
-                    <TapGestureRecognizer x:Name="GoogleButton" AutomationId="GoogleButton"/>
+                    <TapGestureRecognizer x:Name="GoogleButton" AutomationId="GoogleButton" Command="{Binding GoogleLoginCommand}"/>
                 </StackLayout.GestureRecognizers>
             </StackLayout>
         </Frame>
