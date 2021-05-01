@@ -1,10 +1,11 @@
-import Header from '../header';
+import Header from '../Header';
+import Footer from '../Footer';
 import { Route, Switch } from 'react-router';
 import { BrowserRouter as Router } from 'react-router-dom';
 
-import HomePage from '../../pages/homePage';
-import BanUsers from '../../pages/banPage';
-import MakeAdmin from '../../pages/makeAdminPage';
+import HomePage from '../../pages/HomePage';
+import BanUsers from '../../pages/BanPage';
+import MakeAdmin from '../../pages/MakeAdminPage';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route path='/ban_users' component={BanUsers}/>
           <Route path='/make_admin' component={MakeAdmin}/>
         </Switch>
+        <Footer/>
       </Router>
     </div>
   );

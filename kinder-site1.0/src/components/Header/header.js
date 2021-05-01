@@ -1,6 +1,6 @@
 // import { Button } from 'bootstrap';
 import React, {Component} from 'react';
-import Navibar from '../navibar';
+import Navibar from '../Navibar';
 
 export default class Header extends Component {
 

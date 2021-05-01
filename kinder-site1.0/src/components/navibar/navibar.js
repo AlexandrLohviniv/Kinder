@@ -6,7 +6,7 @@ import '../PageLink/PageLink.css';
 
 export default class Navibar extends Component {
 
-    render(){
+    render() {
         return(
                 <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
                     <Navbar.Brand>KINDER</Navbar.Brand>
