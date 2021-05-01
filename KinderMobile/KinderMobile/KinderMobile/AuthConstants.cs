@@ -28,7 +28,7 @@ namespace KinderMobile
         // Facebook OAuth
         // For Facebook login, configure at https://developers.facebook.com
         public static string FacebookiOSClientId = "<insert IOS client ID here>";
-        public static string FacebookAndroidClientId = "377296112967592";
+        public static string FacebookAndroidClientId = "745566009655975";
 
         // These values do not need changing
         public static string FacebookScope = "email";

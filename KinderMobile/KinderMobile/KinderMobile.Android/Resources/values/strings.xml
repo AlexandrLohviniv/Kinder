@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<resources>
+	<string name="facebook_app_name">KinderApp</string>
+	<string name="facebook_app_id">745566009655975</string>
+	<string name="fb_login_protocol_scheme">fb745566009655975</string>
+</resources>

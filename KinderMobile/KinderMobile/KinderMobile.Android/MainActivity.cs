@@ -4,7 +4,8 @@ using Android.App;
 using Android.Content.PM;
 using Android.Runtime;
 using Android.OS;
-
+using Plugin.FacebookClient;
+using Android.Content;
 
 namespace KinderMobile.Droid
 {
@@ -18,7 +19,7 @@ namespace KinderMobile.Droid
 
 
             base.OnCreate(savedInstanceState);
-
+            FacebookClientManager.Initialize(this);
 
 
             Rg.Plugins.Popup.Popup.Init(this);
@@ -40,6 +41,12 @@ namespace KinderMobile.Droid
             Xamarin.Essentials.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
 
             base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+
+        protected override void OnActivityResult(int requestCode, Result resultCode, Intent intent)
+        {
+            base.OnActivityResult(requestCode, resultCode, intent);
+            FacebookClientManager.OnActivityResult(requestCode, resultCode, intent);
         }
     }
 }

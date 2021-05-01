@@ -2,12 +2,14 @@
 using KinderMobile.Helpers;
 using KinderMobile.Popup;
 using Newtonsoft.Json;
+using Plugin.FacebookClient;
 using Rg.Plugins.Popup.Services;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -31,6 +33,8 @@ namespace KinderMobile.MainPage
 
         Account account;
 
+        IFacebookClient _facebookService = CrossFacebookClient.Current;
+
         [Obsolete]
         AccountStore store;
 
@@ -47,6 +51,8 @@ namespace KinderMobile.MainPage
 
 
             store = AccountStore.Create();
+
+
 
         }
 
@@ -128,7 +134,7 @@ namespace KinderMobile.MainPage
                new Uri(redirectUri),
                new Uri(AuthConstants.GoogleAccessTokenUrl),
                null,
-               isUsingNativeUI:true);
+               isUsingNativeUI: true);
 
             authenticator.Completed += OnAuthCompleted;
             authenticator.Error += OnAuthError;
@@ -138,12 +144,56 @@ namespace KinderMobile.MainPage
             OAuthLoginPresenter presenter = new OAuthLoginPresenter();
             presenter.Login(authenticator);
 
-            
+
         }
 
+        [Obsolete]
         async Task FacebookLogin()
         {
-            await PopupNavigation.Instance.PushAsync(new PopupView("No facebook yet", MessageType.Warning));
+            try
+            {
+
+                if (_facebookService.IsLoggedIn)
+                {
+                    _facebookService.Logout();
+                }
+
+                EventHandler<FBEventArgs<string>> userDataDelegate = null;
+
+                userDataDelegate = async (object sender, FBEventArgs<string> e) =>
+                {
+                    if (e == null) return;
+
+                    switch (e.Status)
+                    {
+                        case FacebookActionStatus.Completed:
+                            var facebookProfile = await Task.Run(() => JsonConvert.DeserializeObject<FacebookUserDto>(e.Data));
+                            var socialLoginData = new NetworkAuthData
+                            {
+                                Id = facebookProfile.Id,
+                                Picture = facebookProfile.Picture.Data.Url,
+                                Name = $"{facebookProfile.First_Name} {facebookProfile.Last_Name}",
+                            };
+                            await PopupNavigation.Instance.PushAsync(new PopupView("Well done", MessageType.Notification));
+                            break;
+                        case FacebookActionStatus.Canceled:
+                            break;
+                    }
+
+                    _facebookService.OnUserData -= userDataDelegate;
+                };
+
+                _facebookService.OnUserData += userDataDelegate;
+
+                string[] fbRequestFields = { "email", "first_name", "gender", "last_name" };
+                string[] fbPermisions = { "email" };
+                await _facebookService.RequestUserDataAsync(fbRequestFields, fbPermisions);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.ToString());
+            }
+
         }
 
 
@@ -161,38 +211,33 @@ namespace KinderMobile.MainPage
 
             if (e.IsAuthenticated)
             {
-                if (authenticator.AuthorizeUrl.Host == "www.facebook.com")
+
+                GoogleUserDto user = null;
+
+
+                // If the user is authenticated, request their basic user data from Google
+                // UserInfoUrl = https://www.googleapis.com/oauth2/v2/userinfo
+                var request = new OAuth2Request("GET", new Uri(AuthConstants.GoogleUserInfoUrl), null, e.Account);
+                var response = await request.GetResponseAsync();
+                if (response != null)
                 {
-                    await PopupNavigation.Instance.PushAsync(new PopupView("No facebook yet", MessageType.Warning));
+                    // Deserialize the data and store it in the account store
+                    // The users email address will be used to identify data in SimpleDB
+                    string userJson = await response.GetResponseTextAsync();
+                    user = JsonConvert.DeserializeObject<GoogleUserDto>(userJson);
                 }
-                else
+
+                if (account != null)
                 {
-                    GoogleUserDto user = null;
-            
-
-                    // If the user is authenticated, request their basic user data from Google
-                    // UserInfoUrl = https://www.googleapis.com/oauth2/v2/userinfo
-                    var request = new OAuth2Request("GET", new Uri(AuthConstants.GoogleUserInfoUrl), null, e.Account);
-                    var response = await request.GetResponseAsync();
-                    if (response != null)
-                    {
-                        // Deserialize the data and store it in the account store
-                        // The users email address will be used to identify data in SimpleDB
-                        string userJson = await response.GetResponseTextAsync();
-                        user = JsonConvert.DeserializeObject<GoogleUserDto>(userJson);
-                    }
-
-                    if (account != null)
-                    {
-                        store.Delete(account, AuthConstants.AppName);
-                    }
-
-                    await store.SaveAsync(account = e.Account, AuthConstants.AppName);
-
+                    store.Delete(account, AuthConstants.AppName);
                 }
+
+                await store.SaveAsync(account = e.Account, AuthConstants.AppName);
+
+                await PopupNavigation.Instance.PushAsync(new PopupView("Well done", MessageType.Notification));
             }
 
-            await PopupNavigation.Instance.PushAsync(new PopupView("Well done", MessageType.Notification));
+
         }
 
         [Obsolete]
