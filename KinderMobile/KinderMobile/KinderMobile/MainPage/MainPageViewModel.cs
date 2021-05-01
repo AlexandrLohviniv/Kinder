@@ -171,12 +171,20 @@ namespace KinderMobile.MainPage
                             var socialLoginData = new NetworkAuthData
                             {
                                 Id = facebookProfile.Id,
+                                Email = facebookProfile.Email,
                                 Picture = facebookProfile.Picture.Data.Url,
-                                Name = $"{facebookProfile.First_Name} {facebookProfile.Last_Name}",
+                                Name = $"{facebookProfile.FirstName} {facebookProfile.LastName}",
                             };
                             await PopupNavigation.Instance.PushAsync(new PopupView("Well done", MessageType.Notification));
                             break;
                         case FacebookActionStatus.Canceled:
+                            await PopupNavigation.Instance.PushAsync(new PopupView("Canceled", MessageType.Warning));
+                            break;
+                        case FacebookActionStatus.Error:
+                            await PopupNavigation.Instance.PushAsync(new PopupView("Error", MessageType.Error));
+                            break;
+                        case FacebookActionStatus.Unauthorized:
+                            await PopupNavigation.Instance.PushAsync(new PopupView("Incorrect input data", MessageType.Error));
                             break;
                     }
 
@@ -185,12 +193,13 @@ namespace KinderMobile.MainPage
 
                 _facebookService.OnUserData += userDataDelegate;
 
-                string[] fbRequestFields = { "email", "first_name", "gender", "last_name" };
+                string[] fbRequestFields = { "email", "first_name", "picture", "gender", "last_name" };
                 string[] fbPermisions = { "email" };
                 await _facebookService.RequestUserDataAsync(fbRequestFields, fbPermisions);
             }
             catch (Exception ex)
             {
+                await PopupNavigation.Instance.PushAsync(new PopupView("Something went wrong. Try again", MessageType.Error));
                 Debug.WriteLine(ex.ToString());
             }
 
