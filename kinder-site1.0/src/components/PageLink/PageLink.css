@@ -1,3 +1,8 @@
 .nav_link{
     color:azure;
 }
+
+.nav_link:hover {
+    color: azure;
+    text-decoration: none;
+}

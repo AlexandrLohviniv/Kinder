@@ -10,11 +10,11 @@ export default class Navibar extends Component {
         return(
                 <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
                     <Container>
-                        <Navbar.Brand>KINDER</Navbar.Brand>
+                        <Navbar.Brand><PageLink link="/" title="KINDER"/></Navbar.Brand>
                         <Navbar.Toggle aria-controls="responsive-navbar-nav"/>
                         <Navbar.Collapse id="responsive-navbar-nav">
                             <Nav className="mr-auto">
-                                <Nav.Link><PageLink link="/" title="Home"/></Nav.Link>
+                                {/* <Nav.Link><PageLink link="/" title="Home"/></Nav.Link> */}
                                 <Nav.Link><PageLink link='/ban_users' title="Ban"></PageLink></Nav.Link>
                                 <Nav.Link><PageLink link='/make_admin' title="Make Admin"></PageLink></Nav.Link>
                             </Nav>

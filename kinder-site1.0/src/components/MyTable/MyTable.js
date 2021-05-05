@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {Table, Container} from 'react-bootstrap';
 
-
 import '../PageLink/PageLink.css';
 
 export default class Navibar extends Component {
