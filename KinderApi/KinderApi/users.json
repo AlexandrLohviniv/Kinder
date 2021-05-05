@@ -1,0 +1,482 @@
+[
+  {
+    "FirstName": "Diane",
+    "LastName": "Workman",
+    "Sex": "Female",
+    "Role": "SimpleUser",
+    "DateOfBith": "1960-03-28",
+    "AboutMe": "Do ullamco voluptate labore est est amet minim ex dolore non laborum magna anim. Occaecat et occaecat amet magna do aute incididunt. Non ea culpa ea tempor Lorem non. Veniam exercitation esse non culpa sunt Lorem ipsum sint occaecat velit commodo elit dolor est. Aute et mollit irure fugiat sunt dolore.",
+    "NickName": "Baird",
+    "Email": "billieobrien@endicil.com",
+    "LastSeen": "1970-04-17",
+    "Password": 12345,
+    "Coordinate": "19.2555,10.31297",
+    "Preferences": [
+      {
+        "SmokeRate": "Negative",
+        "BabyRate": "Negative",
+        "HeightRate": "Neutral",
+        "PetsRate": "Neutral",
+        "RelationshipRate": "Negative",
+        "Sex": "NotDefined",
+        "DrinkingRate": "Negative"
+      }
+    ]
+  },
+  {
+    "FirstName": "Loretta",
+    "LastName": "Benson",
+    "Sex": "NotDefined",
+    "Role": "SimpleUser",
+    "DateOfBith": "1975-07-20",
+    "AboutMe": "Aliqua dolor consectetur reprehenderit ullamco nulla id id velit voluptate incididunt. Excepteur veniam aliquip laborum do sunt veniam do aute adipisicing magna officia aute. Mollit amet deserunt id exercitation amet voluptate magna Lorem incididunt. Esse dolore adipisicing ex velit. Culpa duis ut eiusmod anim mollit proident duis enim consectetur nisi consequat.",
+    "NickName": "Kimberley",
+    "Email": "paulinevaldez@dogspa.com",
+    "LastSeen": "1987-12-16",
+    "Password": 12345,
+    "Coordinate": "15.7469,12.4742",
+    "Preferences": [
+      {
+        "SmokeRate": "Negative",
+        "BabyRate": "Positive",
+        "HeightRate": "Positive",
+        "PetsRate": "Positive",
+        "RelationshipRate": "Positive",
+        "Sex": "NotDefined",
+        "DrinkingRate": "Neutral"
+      }
+    ]
+  },
+  {
+    "FirstName": "Josie",
+    "LastName": "Roman",
+    "Sex": "Female",
+    "Role": "SimpleUser",
+    "DateOfBith": "1988-01-23",
+    "AboutMe": "Aute pariatur cupidatat sunt sit proident laborum officia dolor excepteur anim do culpa in veniam. Sint ad voluptate consectetur sunt anim amet in laboris aliqua deserunt. Nisi do deserunt incididunt veniam velit velit occaecat deserunt. Esse officia nisi duis ex laboris quis excepteur sit duis. Irure duis eiusmod consectetur excepteur pariatur excepteur.",
+    "NickName": "Shannon",
+    "Email": "brandigallegos@unq.com",
+    "LastSeen": "1954-04-09",
+    "Password": 12345,
+    "Coordinate": "14.0083,11.14294",
+    "Preferences": [
+      {
+        "SmokeRate": "Negative",
+        "BabyRate": "Neutral",
+        "HeightRate": "Negative",
+        "PetsRate": "Negative",
+        "RelationshipRate": "Positive",
+        "Sex": "NotDefined",
+        "DrinkingRate": "Neutral"
+      }
+    ]
+  },
+  {
+    "FirstName": "Mcintosh",
+    "LastName": "Schwartz",
+    "Sex": "Female",
+    "Role": "SimpleUser",
+    "DateOfBith": "1973-12-23",
+    "AboutMe": "Tempor nisi dolor ut adipisicing culpa sint. In deserunt nisi reprehenderit sint consequat ipsum est dolor. Velit aliquip esse dolore occaecat dolore esse dolore pariatur proident laboris qui irure pariatur. Tempor enim quis in non ut incididunt consectetur commodo. Deserunt id sint commodo pariatur.",
+    "NickName": "Marylou",
+    "Email": "elisahardin@tribalog.com",
+    "LastSeen": "1950-08-08",
+    "Password": 12345,
+    "Coordinate": "17.3349,19.83927",
+    "Preferences": [
+      {
+        "SmokeRate": "Positive",
+        "BabyRate": "Positive",
+        "HeightRate": "Neutral",
+        "PetsRate": "Negative",
+        "RelationshipRate": "Negative",
+        "Sex": "Female",
+        "DrinkingRate": "Positive"
+      }
+    ]
+  },
+  {
+    "FirstName": "Dejesus",
+    "LastName": "Brewer",
+    "Sex": "Male",
+    "Role": "SimpleUser",
+    "DateOfBith": "1978-06-24",
+    "AboutMe": "Voluptate cupidatat nostrud cupidatat sint anim duis enim minim nostrud fugiat id minim. Eiusmod magna cupidatat cillum quis pariatur ullamco eiusmod anim in fugiat voluptate reprehenderit eiusmod. Et elit consectetur aliquip id deserunt nostrud. Irure deserunt sit eu consequat qui labore sunt tempor minim. Aute labore magna culpa commodo nostrud dolor voluptate consectetur qui culpa minim.",
+    "NickName": "Daniels",
+    "Email": "katherinecunningham@enersol.com",
+    "LastSeen": "1959-06-15",
+    "Password": 12345,
+    "Coordinate": "16.8900,14.47039",
+    "Preferences": [
+      {
+        "SmokeRate": "Negative",
+        "BabyRate": "Negative",
+        "HeightRate": "Neutral",
+        "PetsRate": "Negative",
+        "RelationshipRate": "Neutral",
+        "Sex": "Male",
+        "DrinkingRate": "Negative"
+      }
+    ]
+  },
+  {
+    "FirstName": "Jeanie",
+    "LastName": "Willis",
+    "Sex": "NotDefined",
+    "Role": "SimpleUser",
+    "DateOfBith": "1990-12-16",
+    "AboutMe": "Laborum ipsum dolor adipisicing nulla nostrud duis culpa. Ad eu dolor pariatur labore. Do exercitation consectetur dolore anim officia. Mollit ex deserunt adipisicing nulla ipsum qui sit. Velit voluptate elit incididunt commodo Lorem amet.",
+    "NickName": "Guadalupe",
+    "Email": "janeoneill@surelogic.com",
+    "LastSeen": "1950-11-03",
+    "Password": 12345,
+    "Coordinate": "10.4821,11.80901",
+    "Preferences": [
+      {
+        "SmokeRate": "Positive",
+        "BabyRate": "Neutral",
+        "HeightRate": "Negative",
+        "PetsRate": "Negative",
+        "RelationshipRate": "Positive",
+        "Sex": "NotDefined",
+        "DrinkingRate": "Neutral"
+      }
+    ]
+  },
+  {
+    "FirstName": "Lorna",
+    "LastName": "Dennis",
+    "Sex": "Female",
+    "Role": "SimpleUser",
+    "DateOfBith": "1952-11-24",
+    "AboutMe": "Anim sunt consectetur excepteur et fugiat veniam cupidatat fugiat elit pariatur laborum magna. Dolor dolor elit nostrud in non incididunt reprehenderit adipisicing occaecat laborum ut ut non. Velit ad et qui reprehenderit quis ex aute sint ut. Lorem sit cupidatat aliqua sint eu incididunt duis nisi consectetur eu ea commodo voluptate. Exercitation nulla consectetur cillum laborum do magna ad est qui irure.",
+    "NickName": "Lilian",
+    "Email": "bernicecarver@liquicom.com",
+    "LastSeen": "1977-08-22",
+    "Password": 12345,
+    "Coordinate": "11.9076,15.45796",
+    "Preferences": [
+      {
+        "SmokeRate": "Negative",
+        "BabyRate": "Negative",
+        "HeightRate": "Negative",
+        "PetsRate": "Neutral",
+        "RelationshipRate": "Positive",
+        "Sex": "Male",
+        "DrinkingRate": "Positive"
+      }
+    ]
+  },
+  {
+    "FirstName": "Pollard",
+    "LastName": "Mckenzie",
+    "Sex": "NotDefined",
+    "Role": "SimpleUser",
+    "DateOfBith": "1970-09-29",
+    "AboutMe": "Ut in velit minim culpa pariatur commodo esse eu nostrud non. Sunt reprehenderit nisi est tempor est ad sunt ullamco. Proident exercitation aute duis dolor adipisicing. Pariatur elit occaecat officia minim. Ullamco incididunt excepteur duis cupidatat irure eiusmod ea id officia.",
+    "NickName": "Ann",
+    "Email": "virgiegriffith@kage.com",
+    "LastSeen": "1960-12-07",
+    "Password": 12345,
+    "Coordinate": "18.1111,11.96149",
+    "Preferences": [
+      {
+        "SmokeRate": "Neutral",
+        "BabyRate": "Negative",
+        "HeightRate": "Negative",
+        "PetsRate": "Neutral",
+        "RelationshipRate": "Positive",
+        "Sex": "Male",
+        "DrinkingRate": "Neutral"
+      }
+    ]
+  },
+  {
+    "FirstName": "Espinoza",
+    "LastName": "Bradford",
+    "Sex": "Female",
+    "Role": "SimpleUser",
+    "DateOfBith": "1992-08-23",
+    "AboutMe": "Lorem eiusmod occaecat cupidatat consectetur elit nulla sit anim. Deserunt ea qui aute voluptate officia esse exercitation. Qui exercitation elit fugiat commodo ut qui anim velit ullamco. Aute cupidatat irure qui sit culpa. Fugiat eiusmod esse irure proident elit elit labore nulla proident Lorem adipisicing amet adipisicing magna.",
+    "NickName": "Gillespie",
+    "Email": "delacruzoconnor@exospace.com",
+    "LastSeen": "1966-05-16",
+    "Password": 12345,
+    "Coordinate": "15.6918,11.55876",
+    "Preferences": [
+      {
+        "SmokeRate": "Neutral",
+        "BabyRate": "Negative",
+        "HeightRate": "Negative",
+        "PetsRate": "Positive",
+        "RelationshipRate": "Negative",
+        "Sex": "Male",
+        "DrinkingRate": "Positive"
+      }
+    ]
+  },
+  {
+    "FirstName": "Hebert",
+    "LastName": "Poole",
+    "Sex": "Female",
+    "Role": "SimpleUser",
+    "DateOfBith": "1959-04-11",
+    "AboutMe": "Occaecat adipisicing commodo non nisi nisi irure. Proident est commodo laborum consequat velit reprehenderit. Est dolore aliqua in deserunt nostrud aute ullamco consequat dolore dolore. Irure sint ex enim culpa consectetur ut nulla ullamco fugiat id est sunt. Id aute amet ea nisi ex adipisicing deserunt ea commodo.",
+    "NickName": "Salas",
+    "Email": "salazarbriggs@reversus.com",
+    "LastSeen": "1979-05-31",
+    "Password": 12345,
+    "Coordinate": "10.2094,10.8395",
+    "Preferences": [
+      {
+        "SmokeRate": "Negative",
+        "BabyRate": "Negative",
+        "HeightRate": "Positive",
+        "PetsRate": "Negative",
+        "RelationshipRate": "Negative",
+        "Sex": "Female",
+        "DrinkingRate": "Positive"
+      }
+    ]
+  },
+  {
+    "FirstName": "Byers",
+    "LastName": "Owen",
+    "Sex": "Female",
+    "Role": "SimpleUser",
+    "DateOfBith": "1963-02-22",
+    "AboutMe": "Ad enim enim dolore elit commodo magna veniam exercitation ut ipsum officia magna mollit. Anim quis laborum cillum excepteur do incididunt adipisicing eiusmod esse id dolore. Voluptate ut dolor incididunt deserunt cupidatat aute. Irure aliquip incididunt excepteur consectetur dolore adipisicing ullamco sit aliquip tempor. Consectetur aute duis esse est ullamco tempor nostrud reprehenderit.",
+    "NickName": "Elise",
+    "Email": "jaclynzimmerman@enomen.com",
+    "LastSeen": "1984-12-14",
+    "Password": 12345,
+    "Coordinate": "19.6295,10.54868",
+    "Preferences": [
+      {
+        "SmokeRate": "Negative",
+        "BabyRate": "Neutral",
+        "HeightRate": "Negative",
+        "PetsRate": "Negative",
+        "RelationshipRate": "Neutral",
+        "Sex": "NotDefined",
+        "DrinkingRate": "Positive"
+      }
+    ]
+  },
+  {
+    "FirstName": "Kirkland",
+    "LastName": "Santos",
+    "Sex": "Female",
+    "Role": "SimpleUser",
+    "DateOfBith": "1996-12-16",
+    "AboutMe": "Ad consequat id ad anim qui et pariatur id duis do. Pariatur consequat labore ad duis dolore sit enim irure est nulla cillum nostrud. Quis pariatur anim aliqua nulla nisi voluptate. Est anim velit dolore eiusmod enim pariatur in est est consectetur ullamco laboris. Culpa enim magna elit nostrud Lorem officia ea ea enim.",
+    "NickName": "Deann",
+    "Email": "parrishduncan@prosely.com",
+    "LastSeen": "1971-02-09",
+    "Password": 12345,
+    "Coordinate": "12.1829,17.5353",
+    "Preferences": [
+      {
+        "SmokeRate": "Negative",
+        "BabyRate": "Neutral",
+        "HeightRate": "Positive",
+        "PetsRate": "Negative",
+        "RelationshipRate": "Negative",
+        "Sex": "NotDefined",
+        "DrinkingRate": "Positive"
+      }
+    ]
+  },
+  {
+    "FirstName": "Carmen",
+    "LastName": "Craig",
+    "Sex": "NotDefined",
+    "Role": "SimpleUser",
+    "DateOfBith": "1969-06-27",
+    "AboutMe": "Eiusmod aliquip culpa excepteur ullamco exercitation adipisicing culpa deserunt. Fugiat ut ad fugiat velit cillum non amet elit minim labore anim ad. Cillum Lorem eiusmod consectetur ea ad ut pariatur. Proident occaecat id aliquip adipisicing dolore culpa ut consequat commodo est mollit labore aliquip. Aliqua laboris labore laboris exercitation.",
+    "NickName": "Kris",
+    "Email": "wilderprice@strezzo.com",
+    "LastSeen": "1987-03-20",
+    "Password": 12345,
+    "Coordinate": "16.8652,12.61251",
+    "Preferences": [
+      {
+        "SmokeRate": "Neutral",
+        "BabyRate": "Positive",
+        "HeightRate": "Negative",
+        "PetsRate": "Negative",
+        "RelationshipRate": "Positive",
+        "Sex": "Male",
+        "DrinkingRate": "Negative"
+      }
+    ]
+  },
+  {
+    "FirstName": "Cobb",
+    "LastName": "Reese",
+    "Sex": "NotDefined",
+    "Role": "SimpleUser",
+    "DateOfBith": "1972-01-10",
+    "AboutMe": "Commodo occaecat et dolore eiusmod culpa reprehenderit velit mollit consequat culpa. Cillum sit voluptate enim quis. Voluptate pariatur consectetur reprehenderit et enim non labore id culpa in proident adipisicing minim. Enim elit reprehenderit magna et proident in tempor aliquip incididunt amet eu velit nisi dolore. Ex proident nisi voluptate nulla sint tempor nostrud laborum aute incididunt cupidatat minim non.",
+    "NickName": "Regina",
+    "Email": "brandyjordan@centrexin.com",
+    "LastSeen": "1999-03-13",
+    "Password": 12345,
+    "Coordinate": "15.4444,11.58214",
+    "Preferences": [
+      {
+        "SmokeRate": "Neutral",
+        "BabyRate": "Neutral",
+        "HeightRate": "Negative",
+        "PetsRate": "Positive",
+        "RelationshipRate": "Neutral",
+        "Sex": "Male",
+        "DrinkingRate": "Positive"
+      }
+    ]
+  },
+  {
+    "FirstName": "Huber",
+    "LastName": "Farley",
+    "Sex": "Female",
+    "Role": "SimpleUser",
+    "DateOfBith": "1952-04-02",
+    "AboutMe": "Laboris Lorem consectetur reprehenderit id dolore quis ex est deserunt. Consequat incididunt fugiat irure nostrud aliqua exercitation nostrud ea laborum labore aute excepteur fugiat. Ullamco laborum pariatur veniam sint. Sit aliqua est exercitation ipsum ea esse est. Do magna do sint enim reprehenderit Lorem labore tempor commodo nostrud.",
+    "NickName": "Terra",
+    "Email": "carlsonmcpherson@accruex.com",
+    "LastSeen": "1963-09-02",
+    "Password": 12345,
+    "Coordinate": "10.3222,17.69938",
+    "Preferences": [
+      {
+        "SmokeRate": "Neutral",
+        "BabyRate": "Positive",
+        "HeightRate": "Negative",
+        "PetsRate": "Negative",
+        "RelationshipRate": "Neutral",
+        "Sex": "NotDefined",
+        "DrinkingRate": "Positive"
+      }
+    ]
+  },
+  {
+    "FirstName": "Decker",
+    "LastName": "Powers",
+    "Sex": "Male",
+    "Role": "SimpleUser",
+    "DateOfBith": "1965-04-16",
+    "AboutMe": "Mollit occaecat eiusmod ex consequat id anim. Laborum nostrud et non in sint proident non ex eiusmod exercitation Lorem culpa duis ut. Ut incididunt esse sunt fugiat in commodo. Sit ullamco incididunt quis enim nisi eu sint qui elit incididunt in sunt. Ea pariatur in in veniam in deserunt labore qui aliquip sunt laborum duis sit.",
+    "NickName": "Hancock",
+    "Email": "antoniaestes@tropolis.com",
+    "LastSeen": "1999-01-01",
+    "Password": 12345,
+    "Coordinate": "16.4270,15.60726",
+    "Preferences": [
+      {
+        "SmokeRate": "Positive",
+        "BabyRate": "Neutral",
+        "HeightRate": "Positive",
+        "PetsRate": "Negative",
+        "RelationshipRate": "Negative",
+        "Sex": "Female",
+        "DrinkingRate": "Positive"
+      }
+    ]
+  },
+  {
+    "FirstName": "Love",
+    "LastName": "Montoya",
+    "Sex": "NotDefined",
+    "Role": "SimpleUser",
+    "DateOfBith": "1973-01-04",
+    "AboutMe": "Deserunt sit eiusmod quis eu occaecat Lorem aliquip exercitation nulla sit ex. Consequat aute reprehenderit culpa minim consectetur cupidatat est quis. Culpa dolor fugiat non do duis cillum commodo deserunt ut duis Lorem. Minim do sint duis in laborum velit reprehenderit. Voluptate minim non minim et esse non esse ullamco labore dolore et velit magna occaecat.",
+    "NickName": "Audra",
+    "Email": "ingriddyer@micronaut.com",
+    "LastSeen": "1953-09-06",
+    "Password": 12345,
+    "Coordinate": "10.6892,15.77641",
+    "Preferences": [
+      {
+        "SmokeRate": "Positive",
+        "BabyRate": "Positive",
+        "HeightRate": "Negative",
+        "PetsRate": "Positive",
+        "RelationshipRate": "Negative",
+        "Sex": "Female",
+        "DrinkingRate": "Positive"
+      }
+    ]
+  },
+  {
+    "FirstName": "Brenda",
+    "LastName": "Bowman",
+    "Sex": "NotDefined",
+    "Role": "SimpleUser",
+    "DateOfBith": "1969-11-21",
+    "AboutMe": "Eiusmod amet voluptate nostrud ullamco mollit adipisicing sit occaecat veniam aliquip cupidatat labore. Occaecat eiusmod amet in sunt exercitation sint deserunt ipsum enim officia ad duis quis tempor. Consequat occaecat fugiat ex nulla velit sit. Voluptate sint nisi non tempor ex excepteur voluptate sint ut. Magna nostrud enim laboris eu cillum tempor ullamco eiusmod nulla veniam.",
+    "NickName": "Gould",
+    "Email": "sharlenedonovan@xiix.com",
+    "LastSeen": "1994-12-01",
+    "Password": 12345,
+    "Coordinate": "12.4777,10.30985",
+    "Preferences": [
+      {
+        "SmokeRate": "Positive",
+        "BabyRate": "Positive",
+        "HeightRate": "Neutral",
+        "PetsRate": "Negative",
+        "RelationshipRate": "Negative",
+        "Sex": "Male",
+        "DrinkingRate": "Neutral"
+      }
+    ]
+  },
+  {
+    "FirstName": "Joyce",
+    "LastName": "Eaton",
+    "Sex": "Male",
+    "Role": "SimpleUser",
+    "DateOfBith": "1996-12-13",
+    "AboutMe": "Nulla sit irure ipsum qui. Sunt nulla reprehenderit aliquip eu cillum non esse aliqua veniam. Esse aute aliquip dolor fugiat aliqua exercitation. Nisi incididunt minim anim aute laborum aliquip consequat culpa. Cupidatat exercitation ut minim minim est minim cupidatat officia exercitation quis.",
+    "NickName": "Alfreda",
+    "Email": "erickaspencer@equitax.com",
+    "LastSeen": "1993-03-22",
+    "Password": 12345,
+    "Coordinate": "16.5910,12.57889",
+    "Preferences": [
+      {
+        "SmokeRate": "Positive",
+        "BabyRate": "Negative",
+        "HeightRate": "Negative",
+        "PetsRate": "Negative",
+        "RelationshipRate": "Negative",
+        "Sex": "Male",
+        "DrinkingRate": "Negative"
+      }
+    ]
+  },
+  {
+    "FirstName": "Mindy",
+    "LastName": "Love",
+    "Sex": "Male",
+    "Role": "SimpleUser",
+    "DateOfBith": "1956-11-10",
+    "AboutMe": "Proident magna do laborum anim incididunt irure. Non velit aute ex labore proident id aliqua et. Consectetur magna eu dolore occaecat velit eu labore. Cillum officia laborum ipsum proident consectetur incididunt sit cupidatat id. Enim officia ullamco excepteur ea.",
+    "NickName": "Wyatt",
+    "Email": "caseymiddleton@xinware.com",
+    "LastSeen": "1973-02-04",
+    "Password": 12345,
+    "Coordinate": "10.8337,11.34945",
+    "Preferences": [
+      {
+        "SmokeRate": "Negative",
+        "BabyRate": "Neutral",
+        "HeightRate": "Positive",
+        "PetsRate": "Positive",
+        "RelationshipRate": "Positive",
+        "Sex": "Male",
+        "DrinkingRate": "Positive"
+      }
+    ]
+  }
+]

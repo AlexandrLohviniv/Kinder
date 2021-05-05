@@ -9,8 +9,7 @@ namespace KinderMobile
         public App()
         {
             InitializeComponent();
-
-            MainPage = new MainPage();
+            MainPage = new MainPage.MainPage();
         }
 
         protected override void OnStart()
