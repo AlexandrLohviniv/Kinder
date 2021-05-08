@@ -58,7 +58,7 @@ namespace KinderMobile.Popup
                     BackGroundColor = Color.Green;
                     break;
                 case MessageType.Warning:
-                    BackGroundColor = Color.Yellow;
+                    BackGroundColor = Color.Orange;
                     break;
                 default:
                     BackGroundColor = Color.Transparent;

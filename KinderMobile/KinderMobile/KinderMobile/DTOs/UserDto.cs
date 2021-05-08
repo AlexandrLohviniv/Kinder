@@ -4,24 +4,6 @@ using System.Text;
 
 namespace KinderMobile.DTOs
 {
-    public enum Role
-    {
-        SimpleUser,
-        Admin
-    }
-    public enum Sexuality
-    {
-        Male,
-        Female,
-        NotDefined
-    }
-    public enum Rate
-    {
-        Positive,
-        Negative,
-        Neutral
-    }
-
     public class UserDto
     {
         public string FirstName { get; set; }
@@ -33,5 +15,6 @@ namespace KinderMobile.DTOs
         public string NickName { get; set; }
         public string Email { get; set; }
         public DateTime LastSeen { get; set; }
+        public string mainPhotoUrl { get; set; }
     }
 }

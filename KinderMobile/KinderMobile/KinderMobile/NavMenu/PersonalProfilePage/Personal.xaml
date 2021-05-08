@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="KinderMobile.NavMenu.Personal"
+             xmlns:touch="clr-namespace:TouchEffect;assembly=TouchEffect">
+    <ContentView.Content>
+        <StackLayout>
+            <Frame CornerRadius="100"
+                    HeightRequest="200"
+                    WidthRequest="200"
+                    HorizontalOptions="Center"
+                    IsClippedToBounds="True"
+                    Padding="0"
+                    Margin="0,20,0,20">
+                <Image Source="me1.jpg"/>
+            </Frame>
+
+            <Frame Margin="20,5" 
+                   BorderColor="LightGray"
+                   touch:TouchEff.RegularBackgroundColor="White"
+                   touch:TouchEff.PressedBackgroundColor="LightGreen"
+                   touch:TouchEff.PressedAnimationDuration="500"
+                   touch:TouchEff.RegularAnimationDuration="500">
+                <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                    <Label VerticalTextAlignment="Center">Go to personal settings</Label>
+                    <Label x:Name="AccountSettings"
+                           FontFamily="MyIcon"
+                           FontSize="30"
+                           VerticalTextAlignment="Center"/>
+                </StackLayout>
+            </Frame>
+
+            <Frame Margin="20,5" 
+                   BorderColor="LightGray"
+                   touch:TouchEff.RegularBackgroundColor="White"
+                   touch:TouchEff.PressedBackgroundColor="LightGreen"
+                   touch:TouchEff.PressedAnimationDuration="500"
+                   touch:TouchEff.RegularAnimationDuration="500"
+                   touch:TouchEff.Command="{Binding BuyVipAccount}">
+                <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                    <Label VerticalTextAlignment="Center">Buy premium</Label>
+                    <Label x:Name="PremiumBuyBtn"
+                           FontFamily="MyIcon"
+                           FontSize="30"
+                           VerticalTextAlignment="Center"/>
+                </StackLayout>
+            </Frame>
+
+            <Frame Margin="20,5" 
+                   BorderColor="LightGray"
+                   touch:TouchEff.RegularBackgroundColor="White"
+                   touch:TouchEff.PressedBackgroundColor="LightGreen"
+                   touch:TouchEff.PressedAnimationDuration="500"
+                   touch:TouchEff.RegularAnimationDuration="500"
+                   touch:TouchEff.Command="{Binding BuySuperlikes}">
+                <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                    <Label VerticalTextAlignment="Center">Buy superlikes</Label>
+                    <Label x:Name="LikeBuyBtn"
+                           FontFamily="MyIcon"
+                           FontSize="30"
+                           VerticalTextAlignment="Center"/>
+                </StackLayout>
+            </Frame>
+
+            
+        </StackLayout>
+    </ContentView.Content>
+</ContentView>

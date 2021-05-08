@@ -63,7 +63,9 @@ namespace KinderMobile.Droid
 
             HttpContent content = new StringContent(json, Encoding.UTF8, "application/json");
 
-            HttpResponseMessage response = await clinet.PostAsync("http://10.0.2.2:5000/Login", content);
+            
+            HttpResponseMessage response = await clinet.PostAsync("http://192.168.1.104:5000/Login", content);
+
 
             if (response.IsSuccessStatusCode) 
             {

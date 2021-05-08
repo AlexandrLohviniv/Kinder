@@ -8,7 +8,7 @@
 
     <ContentPage.Content>
         <Grid>
-            <xct:TabView TabStripPlacement="Bottom" IsSwipeEnabled="False">
+            <xct:TabView TabStripPlacement="Bottom" IsSwipeEnabled="True">
 
                 <xct:TabView.TabStripBackgroundView>
                     <BoxView BackgroundColor="LightGreen" WidthRequest="25" CornerRadius="20, 20, 0, 0"/>

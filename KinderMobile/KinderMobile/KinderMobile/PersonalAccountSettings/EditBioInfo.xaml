@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="KinderMobile.PersonalAccountSettings.EditBioInfo"
+              xmlns:ctrls="clr-namespace:KinderMobile;assembly=KinderMobile"
+             xmlns:touch="clr-namespace:TouchEffect;assembly=TouchEffect">
+    <ContentPage.Content>
+        <StackLayout>
+            <ctrls:PlaceholderEditor VerticalOptions="Fill" 
+                                     Placeholder="Add your Bio" 
+                                     HeightRequest="300" 
+                                     Margin="10,5"/>
+            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" VerticalOptions="StartAndExpand">
+                <Frame Margin="10,5" 
+                       Padding="10,5" 
+                       HorizontalOptions="StartAndExpand"
+                       touch:TouchEff.Command="{Binding CancelCommand}">
+                    <Label Text="Cancel" FontSize="20"/>
+                </Frame>
+                <Frame Margin="10,5" 
+                       Padding="10,5" 
+                       HorizontalOptions="EndAndExpand"
+                       touch:TouchEff.Command="{Binding ApplyCommand}">
+                    <Label Text="Apply" FontSize="20"/>
+                </Frame>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
