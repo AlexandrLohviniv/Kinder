@@ -100,7 +100,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CustomUrlSchemeInterceptorActivity.cs" />
-    <Compile Include="HttpClinetImpl.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="PlaceholderEditorRenderer.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
@@ -153,6 +152,9 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\borderEditText.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\defaultUser.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>

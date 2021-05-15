@@ -10,6 +10,7 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using Rg.Plugins.Popup.Services;
 using KinderMobile.DTOs;
+using AdvancedRadioButton = Plugin.InputKit.Shared.Controls.RadioButton;
 
 namespace KinderMobile.PopupChoice
 {
@@ -17,84 +18,91 @@ namespace KinderMobile.PopupChoice
     public partial class PopupChoiceView : PopupPage
     {
 
-        int m_result = -1;
-        public int Result { get { return m_result; } set { m_result = value; } }
+        public dynamic Result { get; set; }
 
         public EventHandler selected;
 
         public PopupChoiceView()
         {
             InitializeComponent();
-            this.BindingContext = new PopupChoiceViewModel(this, OptionList, InputFields);
+            this.BindingContext = new PopupChoiceViewModel(this);
         }
 
 
-        public static PopupChoiceView CreateChoiceView<T>(T m_struct, InputType inputType = InputType.Default)
+        public static PopupChoiceView CreateChoiceView<T>(T alteringOption, InputType inputType = InputType.Default)
         {
             PopupChoiceView popupChoiceView = new PopupChoiceView();
 
-            if (m_struct.GetType().IsEnum)
+
+            Button OKButton = new Button()
+            {
+                Text = "Ok"
+            };
+
+            if (alteringOption.GetType().IsEnum)
             {
                 int selectedChoice = 0;
 
                 var underlyingType = typeof(T).GetEnumUnderlyingType();
                 if (underlyingType == typeof(int))
                 {
-                    dynamic value = m_struct;
+                    dynamic value = alteringOption;
                     selectedChoice = (int)value;
                 }
 
-
-                int i = 0;
                 foreach (string options in Enum.GetNames(typeof(T)))
                 {
-                    Plugin.InputKit.Shared.Controls.RadioButton btn = new Plugin.InputKit.Shared.Controls.RadioButton();
+                    AdvancedRadioButton btn = new AdvancedRadioButton();
                     btn.Text = options;
-                    if (i == selectedChoice)
-                        btn.IsChecked = true;
                     btn.CircleColor = Color.Green;
 
                     popupChoiceView.OptionList.Children.Add(btn);
-                    i++;
                 }
 
+                (popupChoiceView.BindingContext as PopupChoiceViewModel).selectedRadioButton = selectedChoice;
+                popupChoiceView.OptionList.SetBinding(RadioButtonGroupView.SelectedIndexProperty, "selectedRadioButton");
+                popupChoiceView.OptionList.SetBinding(RadioButtonGroupView.SelectedItemChangedCommandProperty, "MakeChoiceCommand");
 
             }
-            else if(m_struct.GetType() == typeof(int))
+            else if (alteringOption.GetType() == typeof(int))
             {
-                dynamic value = m_struct;
+                dynamic value = alteringOption;
                 int height = (int)value;
 
                 Plugin.InputKit.Shared.Controls.AdvancedEntry entry = new Plugin.InputKit.Shared.Controls.AdvancedEntry();
                 entry.IsRequired = true;
                 entry.Title = "Enter your height";
                 entry.TextColor = Color.Black;
-                entry.Text = height.ToString();
+
+                (popupChoiceView.BindingContext as PopupChoiceViewModel).InputedText = height.ToString();
+
+                entry.SetBinding(AdvancedEntry.TextProperty, new Binding("InputedText"));
+
                 entry.Placeholder = "height...";
+
                 entry.Annotation = Plugin.InputKit.Shared.AnnotationType.DigitsOnly;
                 entry.MaxLength = 3;
                 entry.MinLength = 2;
                 entry.ValidationMessage = "Enter valid height";
                 entry.AnnotationColor = Color.Accent;
                 entry.Keyboard = Keyboard.Numeric;
-                entry.CompletedCommand = (popupChoiceView.BindingContext as PopupChoiceViewModel).ReadValueCommand;
+                entry.CompletedCommand = (popupChoiceView.BindingContext as PopupChoiceViewModel).ReadStringCommand;
                 popupChoiceView.InputFields.Children.Add(entry);
-                popupChoiceView.Layout.Children.Add(new Button() 
-                {
-                    Text = "Ok",
-                    Command = (popupChoiceView.BindingContext as PopupChoiceViewModel).ReadValueCommand
-                });
+
+                OKButton.Command = (popupChoiceView.BindingContext as PopupChoiceViewModel).ReadStringCommand;
+
+                popupChoiceView.Layout.Children.Add(OKButton);
             }
-            else if (m_struct.GetType() == typeof(DateTime))
+            else if (alteringOption.GetType() == typeof(DateTime))
             {
-                dynamic value = m_struct;
+                dynamic value = alteringOption;
 
                 DateTime zeroTime = new DateTime(1, 1, 1);
 
                 TimeSpan span = (DateTime.Now - (DateTime)value);
 
                 int years = (zeroTime + span).Year - 1;
-
+                (popupChoiceView.BindingContext as PopupChoiceViewModel).Years = years;
 
                 Plugin.InputKit.Shared.Controls.AdvancedSlider slider = new Plugin.InputKit.Shared.Controls.AdvancedSlider();
                 slider.MaxValue = 100d;
@@ -104,23 +112,32 @@ namespace KinderMobile.PopupChoice
                 slider.ValueSuffix = " years";
                 slider.TextColor = Color.Black;
                 slider.DisplayMinMaxValue = true;
+
+                slider.SetBinding(AdvancedSlider.ValueProperty, "Years");
+
                 slider.Value = years;
                 popupChoiceView.Layout.Children.Add(slider);
-                popupChoiceView.Layout.Children.Add(new Button()
-                {
-                    Text = "Ok"
-                });
+                OKButton.Command = (popupChoiceView.BindingContext as PopupChoiceViewModel).ReadYearCommand; 
+
+                popupChoiceView.Layout.Children.Add(OKButton);
             }
-            else if (m_struct.GetType() == typeof(string))
+            else if (alteringOption.GetType() == typeof(string))
             {
-                dynamic value = m_struct;
-                string height = (string)value;
+                dynamic value = alteringOption;
+                string Value = (string)value;
+
+
+               
 
                 Plugin.InputKit.Shared.Controls.AdvancedEntry entry = new Plugin.InputKit.Shared.Controls.AdvancedEntry();
                 entry.IsRequired = true;
                 entry.Title = "Enter value";
                 entry.TextColor = Color.Black;
-                entry.Text = height.ToString();
+
+                (popupChoiceView.BindingContext as PopupChoiceViewModel).InputedText = Value;
+
+                entry.SetBinding(AdvancedEntry.TextProperty, new Binding("InputedText"));
+
                 entry.Placeholder = "value...";
                 entry.Annotation = Plugin.InputKit.Shared.AnnotationType.LettersOnly;
                 entry.MaxLength = 30;
@@ -128,11 +145,16 @@ namespace KinderMobile.PopupChoice
                 entry.ValidationMessage = "Enter valid value";
                 entry.AnnotationColor = Color.Accent;
                 entry.Keyboard = Keyboard.Text;
-                popupChoiceView.InputFields.Children.Add(entry);
-                popupChoiceView.Layout.Children.Add(new Button()
+                
+                entry.TextChanged += (object sender, TextChangedEventArgs e) =>
                 {
-                    Text = "Ok"
-                });
+                    OKButton.IsEnabled = entry.IsValidated;
+                };
+
+                OKButton.Command = (popupChoiceView.BindingContext as PopupChoiceViewModel).ReadStringCommand;
+
+                popupChoiceView.InputFields.Children.Add(entry);
+                popupChoiceView.Layout.Children.Add(OKButton);
             }
             return popupChoiceView;
 

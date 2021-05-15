@@ -13,10 +13,12 @@ namespace KinderMobile.PersonalAccountSettings
     public partial class EditBioInfo : ContentPage
     {
 
-        public EditBioInfo()
+        public EventHandler InfoUpdated;
+
+        public EditBioInfo(string currentInfo)
         {
             InitializeComponent();
-            this.BindingContext = new EditBioInfoViewModel();
+            this.BindingContext = new EditBioInfoViewModel(currentInfo, this);
         }
     }
 }

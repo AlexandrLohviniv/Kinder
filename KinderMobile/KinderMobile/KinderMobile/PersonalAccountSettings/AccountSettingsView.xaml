@@ -22,14 +22,15 @@
                                 Margin="1,5,0,5"
                                 x:Name="image"
                                 RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=X, Factor=0.1}">
-                            <Image Source="me1.jpg"
+                            <Image Source="{Binding User.mainPhotoUrl}"
                                    WidthRequest="200"
                                    HeightRequest="200"/>
                         </Frame>
-                        <Frame BackgroundColor="LightGreen" WidthRequest="50" HeightRequest="50"
+                        <Frame  BackgroundColor="LightGreen" WidthRequest="50" HeightRequest="50"
                                 IsClippedToBounds="True" CornerRadius="50" Margin="0" 
                                 RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToView, ElementName=image, Property=X, Factor=18}"
-                                RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, ElementName=image, Property=Y, Factor=12}">
+                                RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, ElementName=image, Property=Y, Factor=12}"
+                                touch:TouchEff.Command="{Binding UploadImageComand}">
                             <Label x:Name="AddPhotoLogo" FontFamily="MyIcon" FontSize="40" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" Padding="0" Text="+"/>
                         </Frame>
 
@@ -52,7 +53,7 @@
                                 IsClippedToBounds="True"
                                 Padding="0"
                                 Margin="0,2,0,0">
-                                <Image Source="{Binding Url}"
+                                <Image Source="{Binding ImgPath}"
                                        WidthRequest="150"
                                        HeightRequest="150"/>
                             </Frame>
@@ -68,13 +69,13 @@
 
                 </cards:CoverFlowView>
 
-                <Frame Margin="10,0" Padding="5">
+                <Frame Margin="10,0" Padding="5" touch:TouchEff.Command="{Binding SetMainPhotoCommand}">
                     <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Margin="0">
                         <Label FontSize="20" VerticalTextAlignment="Center">Set Main</Label>
                         <Label x:Name="MainBtn" VerticalTextAlignment="Center" FontFamily="MyIcon" FontSize="20"></Label>
                     </StackLayout>
                 </Frame>
-                <Frame Margin="10,0" Padding="5">
+                <Frame Margin="10,0" Padding="5" touch:TouchEff.Command="{Binding DeleteCurrentPhotoCommand}">
                     <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Margin="0">
                         <Label FontSize="20" VerticalTextAlignment="Center">Delete</Label>
                         <Label x:Name="DeleteBtn" FontSize="20" VerticalTextAlignment="Center" FontFamily="MyIcon"></Label>
@@ -82,7 +83,7 @@
                 </Frame>
 
                 <Label Margin="10,10,10,0" FontSize="25">Your info:</Label>
-                <Label Margin="10,0" BackgroundColor="Gray" FontSize="20" Text="{Binding BioInfo}"/>
+                <Label Margin="10,0" FontSize="20" FontFamily="Open Sans" Text="{Binding User.AboutMe}"/>
                 <Frame HorizontalOptions="End" Margin="10,0" Padding="15,5" touch:TouchEff.Command="{Binding EditBioInfoCommand}">
                     <Label Text="Edit" FontSize="20"/>
                 </Frame>
@@ -137,7 +138,7 @@
                                     <Frame Margin="10,5" Padding="10,10" touch:TouchEff.Command="{Binding MakeChoiceCommandPersonal}" touch:TouchEff.CommandParameter="DateOfBith">
                                         <FlexLayout Direction="Row" AlignItems="Center" JustifyContent="SpaceBetween">
                                             <Label FontSize="20" FlexLayout.Basis="120">Date of birth</Label>
-                                            <Label FontSize="20" Text="{Binding User.DateOfBith, Mode=TwoWay, StringFormat='{0:MMMM dd, yyyy}'}"/>
+                                            <Label FontSize="20" Text="{Binding User.DateOfBith, Mode=TwoWay, StringFormat='{0:yyyy}'}"/>
                                             <Label FontSize="20" Margin="0,0,10,0">></Label>
                                         </FlexLayout>
                                     </Frame>
@@ -203,7 +204,7 @@
                 </tabview:TabViewControl>
 
                 <Frame Margin="10,0, 10, 10" Padding="2" CornerRadius="30" BackgroundColor="Green" HasShadow="False">
-                    <Frame Padding="10" IsClippedToBounds="True" CornerRadius="30" HasShadow="False" Margin="0">
+                    <Frame Padding="10" IsClippedToBounds="True" CornerRadius="30" HasShadow="False" Margin="0" touch:TouchEff.Command="{Binding UpdateUserInfoCommand}">
                         <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Margin="0" Padding="1" >
                             <Label FontSize="20" VerticalTextAlignment="Center">Save</Label>
                             <Label x:Name="SaveBtn" VerticalTextAlignment="Center" FontFamily="MyIcon" FontSize="20"></Label>

@@ -49,8 +49,10 @@ namespace KinderApi.Controllers
                 return BadRequest();
 
             if (!user.Images.Any(i => i.IsMain))
+            {
                 uploadedImage.IsMain = true;
-
+            }
+            
             Image image = mapper.Map<Image>(uploadedImage);
             image.User = user;
             try
@@ -65,6 +67,7 @@ namespace KinderApi.Controllers
                 return BadRequest(e.Message);
             }
         }
+
 
         [Authorize]
         [HttpDelete("DeletePhoto/{photoId}")]
@@ -148,6 +151,20 @@ namespace KinderApi.Controllers
             List<PhotoToReturnDto> photos = mapper.Map<List<PhotoToReturnDto>>(user.Images);
 
             return Ok(photos);
+        }
+
+        [Authorize]
+        [HttpGet("getMainPhoto")]
+        public async Task<IActionResult> GetMainPhoto(int userId)
+        {
+            var image = await userService.GetMainPhotoByUser(userId);
+
+            if (image == null)
+                return BadRequest("Something went wrong. Try again");
+
+            PhotoToReturnDto imageToReturn = mapper.Map<PhotoToReturnDto>(image);
+
+            return Ok(imageToReturn);
         }
     }
 }

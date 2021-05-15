@@ -8,13 +8,15 @@ namespace KinderMobile
 {
     public partial class App : Application
     {
+        [Obsolete]
         public App()
         {
             InitializeComponent();
-            //MainPage = new MainPage.MainPage();
+
+            MainPage = new MainPage.MainPage();
             // MainPage = new NavPage();
 
-            MainPage = new AccountSettingsView();
+            //MainPage = new AccountSettingsView();
             //MainPage = new EditBioInfo();
             NavigationDispetcher.Instance.Initialize(MainPage.Navigation);
         }

@@ -1,5 +1,6 @@
 ﻿using KinderMobile.DTOs;
 using KinderMobile.Helpers;
+using KinderMobile.Popup;
 using KinderMobile.PopupChoice;
 using PanCardView.Extensions;
 using Rg.Plugins.Popup.Services;
@@ -8,10 +9,12 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Net.Http;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace KinderMobile.PersonalAccountSettings
@@ -37,36 +40,25 @@ namespace KinderMobile.PersonalAccountSettings
         private int _currentIndex;
 
 
-        public ObservableCollection<UrlData> Photos { get; set; } = new ObservableCollection<UrlData>();
+        public ObservableCollection<PhotoDto> Photos { get; set; }
 
         public ICommand PanPositionChangedCommand { get; }
 
         public ICommand RemoveCurrentItemCommand { get; }
         public ICommand EditBioInfoCommand { get; }
-        
+
         public ICommand MakeChoiceCommandPreference { get; set; }
         public ICommand MakeChoiceCommandPersonal { get; set; }
 
 
-        private PropertyInfo selectedPropertyInfo;
+        public ICommand UploadImageComand { get; set; }
+        public ICommand SetMainPhotoCommand { get; set; }
+        public ICommand DeleteCurrentPhotoCommand { get; set; }
+        public ICommand UpdateUserInfoCommand { get; set; }
 
-        string m_BioInfo;
-        public string BioInfo
-        {
-            get
-            {
-                if (string.IsNullOrEmpty(m_BioInfo))
-                {
-                    m_BioInfo = "Please, enter something about you";
-                }
-                return m_BioInfo;
-            }
-            set
-            {
-                m_BioInfo = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CurrentIndex)));
-            }
-        }
+
+
+        private PropertyInfo selectedPropertyInfo;
 
         public int CurrentIndex
         {
@@ -84,35 +76,26 @@ namespace KinderMobile.PersonalAccountSettings
 
         public AccountSettingsViewModel()
         {
-            Photos.Add(new UrlData("me1.jpg"));
-            Photos.Add(new UrlData("me2.jpg"));
-            Photos.Add(new UrlData("me3.jpg"));
 
-            User = new UserDto()
-            {
-                AboutMe = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut " +
-                "labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-                DateOfBith = new DateTime(2002, 7, 31),
-                FirstName = "Alex",
-                LastSeen = new DateTime(2021, 6, 14),
-                Email = "ato31ato@gmail.com",
-                LastName = "Vladimirovich",
-                mainPhotoUrl = "https://lh3.googleusercontent.com/ogw/ADGmqu8UW-4D9eyYKqKftvx7No75dCHBilOgadmE28VFKw=s32-c-mo",
-                NickName = "Flexim",
-                Role = Role.SimpleUser,
-                Sex = Sexuality.Male
-            };
+            Photos = new ObservableCollection<PhotoDto>(CurrentUser.Instance.PhotoDtos);
 
-            userPreferences = new UserPreferenceDto()
-            {
-                BabyRate = Rate.Negative,
-                DrinkingRate = Rate.Negative,
-                HeightRate = 120,
-                PetsRate = Rate.Negative,
-                RelationshipRate = Rate.Positive,
-                Sex = Sexuality.Male,
-                SmokeRate = Rate.Neutral
-            };
+            User = CurrentUser.Instance.UserDto;
+            User.mainPhotoUrl = User.mainPhotoUrl ?? "defaultUser.jpg";
+
+            userPreferences = CurrentUser.Instance.UserPreferenceDto;
+
+            CurrentUser.Instance.UpdateInfoEvent += (object sender, EventArgs e) =>
+             {
+                 Photos = new ObservableCollection<PhotoDto>(CurrentUser.Instance.PhotoDtos);
+                 User = CurrentUser.Instance.UserDto;
+                 User.mainPhotoUrl = User.mainPhotoUrl ?? "defaultUser.jpg";
+                 userPreferences = CurrentUser.Instance.UserPreferenceDto;
+
+
+                 OnPropertyChanged("Photos");
+                 OnPropertyChanged("User");
+                 OnPropertyChanged("userPreferences");
+             };
 
             PanPositionChangedCommand = new Command(v =>
             {
@@ -141,17 +124,29 @@ namespace KinderMobile.PersonalAccountSettings
             EditBioInfoCommand = new Command(async () => await EditBioInfo());
             MakeChoiceCommandPreference = new Command<string>(async (propName) => await MakeChoice(propName, userPreferences));
             MakeChoiceCommandPersonal = new Command<string>(async (propName) => await MakeChoice(propName, User));
+            UploadImageComand = new Command(async () => await UploadImage());
+            SetMainPhotoCommand = new Command(async () => await SetMainPhoto());
+            DeleteCurrentPhotoCommand = new Command(async () => await DeleteCurrentPhoto());
+            UpdateUserInfoCommand = new Command(async () => await UpdateUserInfo());
         }
 
         async Task EditBioInfo()
         {
-            await NavigationDispetcher.Instance.Navigation.PushModalAsync(new EditBioInfo());
+            EditBioInfo editBio = new EditBioInfo(User.AboutMe);
+
+            editBio.InfoUpdated += (object sender, EventArgs e) =>
+            {
+                User.AboutMe = (sender as EditBioInfoViewModel).Content;
+                OnPropertyChanged("User");
+            };
+
+            await NavigationDispetcher.Instance.Navigation.PushModalAsync(editBio);
         }
 
         async Task MakeChoice<T>(string propName, T model)
         {
             Type _type = model.GetType();
-            
+
             selectedPropertyInfo = _type.GetProperty(propName);
 
             Type propInfoType = selectedPropertyInfo.PropertyType;
@@ -160,6 +155,16 @@ namespace KinderMobile.PersonalAccountSettings
             {
                 PopupChoiceView resultedView = sender as PopupChoiceView;
                 object newValue = resultedView.Result;
+
+                if (selectedPropertyInfo.PropertyType == typeof(int))
+                {
+                    newValue = Convert.ToInt32(newValue);
+                }
+                else if (selectedPropertyInfo.PropertyType == typeof(DateTime))
+                {
+                    newValue = DateTime.Now.AddYears(-Convert.ToInt32(newValue));
+                }
+
                 selectedPropertyInfo.SetValue(model, newValue);
 
                 OnPropertyChanged("userPreferences");
@@ -170,17 +175,8 @@ namespace KinderMobile.PersonalAccountSettings
             {
                 object value = selectedPropertyInfo.GetValue(model);
                 PopupChoiceView choiceView = null;
-                if (propInfoType == typeof(Rate))
-                {
-                    Rate rate = (Rate)value;
-                    choiceView = PopupChoiceView.CreateChoiceView(rate);
-                    choiceView.selected += choiceWrite;
 
-                    await PopupNavigation.Instance.PushAsync(choiceView);
-
-
-                }
-                else if (propInfoType == typeof(Sexuality))
+                if (propInfoType == typeof(Sexuality))
                 {
                     Sexuality sexuality = (Sexuality)value;
                     choiceView = PopupChoiceView.CreateChoiceView(sexuality);
@@ -188,7 +184,16 @@ namespace KinderMobile.PersonalAccountSettings
 
                     await PopupNavigation.Instance.PushAsync(choiceView);
                 }
-                else if (propInfoType == typeof(int)) 
+                else if (propInfoType == typeof(Rate))
+                {
+                    Rate rate = (Rate)value;
+                    choiceView = PopupChoiceView.CreateChoiceView(rate);
+                    choiceView.selected += choiceWrite;
+
+                    await PopupNavigation.Instance.PushAsync(choiceView);
+
+                }
+                else if (propInfoType == typeof(int))
                 {
                     int age = (int)value;
                     choiceView = PopupChoiceView.CreateChoiceView(age);
@@ -218,6 +223,64 @@ namespace KinderMobile.PersonalAccountSettings
             catch (Exception e)
             {
                 System.Console.WriteLine(e.InnerException);
+            }
+        }
+
+
+        async Task UploadImage()
+        {
+            var file = await MediaPicker.PickPhotoAsync();
+
+            if (file == null)
+                return;
+
+            await HttpClientImpl.Instance.UploadPhoto(file, User.Id);
+            CurrentUser.Instance.UpdateInfo(HttpClientImpl.Instance.UserId);
+        }
+
+        async Task SetMainPhoto()
+        {
+            bool success = await HttpClientImpl.Instance.ChangeMainPhoto(HttpClientImpl.Instance.UserId, Photos[CurrentIndex].id);
+            if (success)
+            {
+                await PopupNavigation.Instance.PushAsync(new PopupView("Main photo is changed", MessageType.Notification));
+                CurrentUser.Instance.UpdateInfo(HttpClientImpl.Instance.UserId);
+            }
+            else
+            {
+                await PopupNavigation.Instance.PushAsync(new PopupView("Something went wrong. Try again", MessageType.Error));
+            }
+        }
+
+
+        async Task DeleteCurrentPhoto()
+        {
+            bool success = await HttpClientImpl.Instance.DeleteCurrentPhoto(HttpClientImpl.Instance.UserId, Photos[CurrentIndex].id);
+            if (success)
+            {
+                await PopupNavigation.Instance.PushAsync(new PopupView("Photo is deleted", MessageType.Notification));
+                CurrentUser.Instance.UpdateInfo(HttpClientImpl.Instance.UserId);
+            }
+            else
+            {
+                await PopupNavigation.Instance.PushAsync(new PopupView("Something went wrong. Try again", MessageType.Error));
+            }
+        }
+
+        async Task UpdateUserInfo()
+        {
+            bool success = await HttpClientImpl.Instance.UpdateUserInfo(
+                HttpClientImpl.Instance.UserId,
+                User,
+                userPreferences);
+            if (success)
+            {
+                await PopupNavigation.Instance.PushAsync(new PopupView("Photo is deleted", MessageType.Notification));
+                CurrentUser.Instance.UpdateInfo(HttpClientImpl.Instance.UserId);
+            }
+            else
+            {
+                await PopupNavigation.Instance.PushAsync(new PopupView("Something went wrong. Try again", MessageType.Error));
             }
         }
 

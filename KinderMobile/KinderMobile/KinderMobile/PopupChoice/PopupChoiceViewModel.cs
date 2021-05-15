@@ -13,36 +13,29 @@ namespace KinderMobile.PopupChoice
     class PopupChoiceViewModel:INotifyPropertyChanged
     {
         private readonly PopupChoiceView popupChoice;
-        private readonly RadioButtonGroupView choiceList;
-        private readonly FormView formView;
+
+        public int selectedRadioButton { get; set; }
+        public string InputedText { get; set; }
+        public int Years { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
         
         public ICommand MakeChoiceCommand { get; }
-        public ICommand ReadValueCommand { get; }
-        
-        public PopupChoiceViewModel(PopupChoiceView popupChoice, RadioButtonGroupView choiceList, FormView formView)
+        public ICommand ReadStringCommand { get; }
+        public ICommand ReadYearCommand { get; }
+
+        public PopupChoiceViewModel(PopupChoiceView popupChoice)
         {
-            MakeChoiceCommand = new Command(async () => await MakeChoice());
-            ReadValueCommand = new Command(async () => await ReadValue());
+            MakeChoiceCommand = new Command(async () => await MakeChoice(selectedRadioButton));
+            ReadStringCommand = new Command(async () => await MakeChoice(InputedText));
+            ReadYearCommand = new Command(async () => await MakeChoice(Years));
 
             this.popupChoice = popupChoice;
-            this.choiceList = choiceList;
-            this.formView = formView;
         }
 
-        async Task MakeChoice()
+        async Task MakeChoice(dynamic value)
         {
-            popupChoice.Result = (int)choiceList.SelectedIndex;
-
-            popupChoice.selected.Invoke(popupChoice, null);
-
-            await PopupNavigation.Instance.PopAsync(true);
-        }
-
-        async Task ReadValue()
-        {
-            popupChoice.Result = Convert.ToInt32((formView.Children[0] as AdvancedEntry).Text);
+            popupChoice.Result = value;
 
             popupChoice.selected.Invoke(popupChoice, null);
 

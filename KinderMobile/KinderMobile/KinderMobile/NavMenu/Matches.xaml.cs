@@ -14,12 +14,10 @@ namespace KinderMobile.NavMenu
     public partial class Matches : ContentView
     {
 
-        IHttpClient http;
         List<UserDto> users;
         public Matches()
         {
             InitializeComponent();
-            http = DependencyService.Get<IHttpClient>();
             DisplayUserInfo();
             InitializeTaps(PhotoGrid);
         }
@@ -33,7 +31,7 @@ namespace KinderMobile.NavMenu
         }
         private async void DisplayUserInfo()
         {
-            users = await http.getAllUsers();
+            users = await HttpClientImpl.Instance.getAllUsers();
             UserDto user = users.FirstOrDefault();
             AgeLabel.Text = (DateTime.Now - user.DateOfBith).ToString();
             UserNameLabel.Text = user.FirstName + " " + user.LastName;

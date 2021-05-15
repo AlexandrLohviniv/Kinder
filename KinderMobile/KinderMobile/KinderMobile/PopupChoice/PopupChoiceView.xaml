@@ -14,8 +14,7 @@
                IsClippedToBounds="True"
                CornerRadius="20">
             <StackLayout x:Name="Layout">
-                <input:RadioButtonGroupView SelectedItemChangedCommand="{Binding MakeChoiceCommand}" 
-                                        HorizontalOptions="Center"
+                <input:RadioButtonGroupView HorizontalOptions="Center"
                                         x:Name="OptionList">
                 </input:RadioButtonGroupView>
                 <input:FormView IsValidated="True"

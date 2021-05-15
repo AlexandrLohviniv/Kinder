@@ -28,7 +28,7 @@ namespace KinderMobile.MainPage
         public ICommand FacebookLoginCommand { get; set; }
 
 
-        IHttpClient http;
+        //IHttpClient http;
 
 
         Account account;
@@ -47,7 +47,7 @@ namespace KinderMobile.MainPage
             FacebookLoginCommand = new Command(async () => await FacebookLogin());
 
 
-            http = DependencyService.Get<IHttpClient>();
+            //http = DependencyService.Get<IHttpClient>();
 
 
             store = AccountStore.Create();
@@ -93,7 +93,7 @@ namespace KinderMobile.MainPage
             string mail = Mail;
             string pass = Password;
 
-            bool result = await http.authUser(mail, pass);
+            bool result = await HttpClientImpl.Instance.authUser(mail, pass);
 
             if (!result)
             {
@@ -101,6 +101,8 @@ namespace KinderMobile.MainPage
             }
             else
             {
+                CurrentUser.InstantiateUser(HttpClientImpl.Instance.UserId);
+
                 await NavigationDispetcher.Instance.Navigation.PushModalAsync(new NavPage());
             }
 
