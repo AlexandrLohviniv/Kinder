@@ -27,6 +27,15 @@ namespace KinderMobile
 
         HttpClient client;
 
+        public string m_lastError;
+        public string LastError
+        {
+            get
+            {
+                return m_lastError;
+            }
+        }
+
         private string m_token;
         public string Token
         {
@@ -58,9 +67,9 @@ namespace KinderMobile
         {
             get
             {
-                if (m_userId == 0) 
+                if (m_userId == 0)
                 {
-                    if (Token != null) 
+                    if (Token != null)
                     {
                         var handler = new JwtSecurityTokenHandler();
                         var tokenS = handler.ReadToken(Token) as JwtSecurityToken;
@@ -139,7 +148,7 @@ namespace KinderMobile
 
         }
 
-        public async Task<UserDto> GetUserInfo(int userId) 
+        public async Task<UserDto> GetUserInfo(int userId)
         {
             string userInfoUrl = $"http://{serverAddr}/User/{userId}/Info";
             string userMainPhotoUrl = $"http://{serverAddr}/Photo/{userId}/getMainPhoto";
@@ -178,7 +187,7 @@ namespace KinderMobile
         {
             string url = $"http://{serverAddr}/Photo/{userId}/setMain/{photoId}";
 
-            HttpResponseMessage response = await client.PostAsync(url,null);
+            HttpResponseMessage response = await client.PostAsync(url, null);
 
             return response.IsSuccessStatusCode;
         }
@@ -209,8 +218,8 @@ namespace KinderMobile
 
             string url = $"http://{serverAddr}/User/{userId}/UpdateInfo";
 
-           
-            HttpResponseMessage response = await sendingContent.SendModel(client,url);
+
+            HttpResponseMessage response = await sendingContent.SendModel(client, url);
 
             return response.IsSuccessStatusCode;
         }

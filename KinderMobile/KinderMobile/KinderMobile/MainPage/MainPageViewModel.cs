@@ -52,8 +52,6 @@ namespace KinderMobile.MainPage
 
             store = AccountStore.Create();
 
-
-
         }
 
         public string Mail
@@ -107,6 +105,7 @@ namespace KinderMobile.MainPage
             }
 
         }
+
 
         [Obsolete]
         async Task GoogleLogin()

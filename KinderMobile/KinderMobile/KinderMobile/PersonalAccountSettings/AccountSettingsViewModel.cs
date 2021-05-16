@@ -56,7 +56,7 @@ namespace KinderMobile.PersonalAccountSettings
         public ICommand DeleteCurrentPhotoCommand { get; set; }
         public ICommand UpdateUserInfoCommand { get; set; }
 
-
+        public ICommand BackButtonCommand { get; set; }
 
         private PropertyInfo selectedPropertyInfo;
 
@@ -128,6 +128,9 @@ namespace KinderMobile.PersonalAccountSettings
             SetMainPhotoCommand = new Command(async () => await SetMainPhoto());
             DeleteCurrentPhotoCommand = new Command(async () => await DeleteCurrentPhoto());
             UpdateUserInfoCommand = new Command(async () => await UpdateUserInfo());
+            BackButtonCommand = new Command(async () => await BackButton());
+
+            
         }
 
         async Task EditBioInfo()
@@ -275,13 +278,18 @@ namespace KinderMobile.PersonalAccountSettings
                 userPreferences);
             if (success)
             {
-                await PopupNavigation.Instance.PushAsync(new PopupView("Photo is deleted", MessageType.Notification));
+                await PopupNavigation.Instance.PushAsync(new PopupView("Data is updated", MessageType.Notification));
                 CurrentUser.Instance.UpdateInfo(HttpClientImpl.Instance.UserId);
             }
             else
             {
                 await PopupNavigation.Instance.PushAsync(new PopupView("Something went wrong. Try again", MessageType.Error));
             }
+        }
+
+        async Task BackButton() 
+        {
+            await NavigationDispetcher.Instance.Navigation.PopModalAsync();
         }
 
         protected void OnPropertyChanged(string propName)

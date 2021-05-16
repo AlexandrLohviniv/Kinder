@@ -21,5 +21,7 @@ namespace KinderMobile.MainPage
             InitializeComponent();
             this.BindingContext = new MainPageViewModel();
         }
+
+        
     }
 }

@@ -13,6 +13,9 @@ namespace KinderMobile
         {
             get
             {
+                if (_instance == null)
+                    InstantiateUser(HttpClientImpl.Instance.UserId);
+
                 return _instance;
             }
         }

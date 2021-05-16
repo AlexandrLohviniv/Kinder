@@ -8,40 +8,69 @@
              xmlns:res="clr-namespace:PanCardView.Resources;assembly=PanCardView"
              xmlns:touch="clr-namespace:TouchEffect;assembly=TouchEffect"
              xmlns:tabview="clr-namespace:Xam.Plugin.TabView;assembly=Xam.Plugin.TabView">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="AnimatedFrame" TargetType="Frame">
+                <Setter Property="touch:TouchEff.PressedAnimationDuration" Value="300"/>
+                <Setter Property="touch:TouchEff.RegularAnimationDuration" Value="300"/>
+                <Setter Property="CornerRadius" Value="20"/>
+                <Setter Property="HasShadow" Value="False"/>
+            </Style>
+            <Style x:Key="AnimatedChoice" TargetType="Frame">
+                <Setter Property="touch:TouchEff.PressedAnimationDuration" Value="300"/>
+                <Setter Property="touch:TouchEff.RegularAnimationDuration" Value="300"/>
+                <Setter Property="touch:TouchEff.RegularBackgroundColor" Value="White"/>
+                <Setter Property="touch:TouchEff.PressedBackgroundColor" Value="LightGreen"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
     <ContentPage.Content>
         <ScrollView>
             <StackLayout BackgroundColor="Azure">
-                <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" VerticalOptions="StartAndExpand" Margin="1,10,1,0" Spacing="0">
-                    <StackLayout Margin="0,0,0,0">
-                        <Button Text="Back" CornerRadius="40" WidthRequest="80" HeightRequest="80"/>
-                    </StackLayout>
-                    <RelativeLayout HorizontalOptions="StartAndExpand">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="210"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="80"/>
+                        <ColumnDefinition Width="200*"/>
+                        <ColumnDefinition Width="80"/>
+                    </Grid.ColumnDefinitions>
+                    <Button Text="Back" CornerRadius="40" WidthRequest="80" HeightRequest="80" Grid.Column="0" VerticalOptions="Start" Margin="4,4,-4,0"
+                            Command="{Binding BackButtonCommand}"/>
+                    <RelativeLayout HorizontalOptions="Center" Grid.Column="1">
                         <Frame CornerRadius="100"
                                 IsClippedToBounds="True"
                                 Padding="0"
                                 Margin="1,5,0,5"
-                                x:Name="image"
-                                RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=X, Factor=0.1}">
+                                x:Name="image">
                             <Image Source="{Binding User.mainPhotoUrl}"
                                    WidthRequest="200"
                                    HeightRequest="200"/>
                         </Frame>
-                        <Frame  BackgroundColor="LightGreen" WidthRequest="50" HeightRequest="50"
+                        <Frame  WidthRequest="50" HeightRequest="50"
                                 IsClippedToBounds="True" CornerRadius="50" Margin="0" 
-                                RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToView, ElementName=image, Property=X, Factor=18}"
+                                RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToView, ElementName=image, Property=X, Factor=150}"
                                 RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, ElementName=image, Property=Y, Factor=12}"
-                                touch:TouchEff.Command="{Binding UploadImageComand}">
+                                touch:TouchEff.Command="{Binding UploadImageComand}"
+                                Style="{StaticResource AnimatedChoice}"
+                                touch:TouchEff.RegularBackgroundColor="Green">
                             <Label x:Name="AddPhotoLogo" FontFamily="MyIcon" FontSize="40" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" Padding="0" Text="+"/>
                         </Frame>
-
                     </RelativeLayout>
-                </StackLayout>
+                </Grid>
+
+
+
                 <cards:CoverFlowView 
                 PositionShiftValue="180"
                 IsCyclical="false"
                 SelectedIndex="{Binding CurrentIndex}"
                 ItemsSource="{Binding Photos}"
-                    Margin="5,0,5,0">
+               Margin="5,0,5,0"
+                    x:Name="PhotoView">
 
                     <x:Arguments>
                         <proc:CoverFlowProcessor ScaleFactor="0.75" OpacityFactor="0.25" />
@@ -69,22 +98,41 @@
 
                 </cards:CoverFlowView>
 
-                <Frame Margin="10,0" Padding="5" touch:TouchEff.Command="{Binding SetMainPhotoCommand}">
-                    <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Margin="0">
-                        <Label FontSize="20" VerticalTextAlignment="Center">Set Main</Label>
-                        <Label x:Name="MainBtn" VerticalTextAlignment="Center" FontFamily="MyIcon" FontSize="20"></Label>
-                    </StackLayout>
+                <Frame Margin="10,0" Padding="2" CornerRadius="22" BackgroundColor="DarkOrange" HasShadow="False">
+                    <Frame Padding="10" 
+                           touch:TouchEff.Command="{Binding SetMainPhotoCommand}"
+                           touch:TouchEff.PressedBackgroundColor="LightYellow"
+                           touch:TouchEff.RegularBackgroundColor="White"
+                            Style="{StaticResource AnimatedFrame}"
+                           x:Name="setMainButton">
+                        <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Margin="0">
+                            <Label FontSize="20" VerticalTextAlignment="Center">Set Main</Label>
+                            <Label x:Name="MainBtn" VerticalTextAlignment="Center" FontFamily="MyIcon" FontSize="20" TextColor="Green"></Label>
+                        </StackLayout>
+                    </Frame>
                 </Frame>
-                <Frame Margin="10,0" Padding="5" touch:TouchEff.Command="{Binding DeleteCurrentPhotoCommand}">
-                    <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Margin="0">
-                        <Label FontSize="20" VerticalTextAlignment="Center">Delete</Label>
-                        <Label x:Name="DeleteBtn" FontSize="20" VerticalTextAlignment="Center" FontFamily="MyIcon"></Label>
-                    </StackLayout>
+                <Frame Margin="10,0" Padding="2" CornerRadius="22" BackgroundColor="Red" HasShadow="False">
+                    <Frame Padding="10" 
+                           touch:TouchEff.Command="{Binding DeleteCurrentPhotoCommand}"
+                           touch:TouchEff.PressedBackgroundColor="LightPink"
+                           touch:TouchEff.RegularBackgroundColor="White"
+                           Style="{StaticResource AnimatedFrame}"
+                           x:Name="deleteButton">
+                        <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Margin="0">
+                            <Label FontSize="20" VerticalTextAlignment="Center">Delete</Label>
+                            <Label x:Name="DeleteBtn" FontSize="20" VerticalTextAlignment="Center" FontFamily="MyIcon" TextColor="Red"></Label>
+                        </StackLayout>
+                    </Frame>
                 </Frame>
 
                 <Label Margin="10,10,10,0" FontSize="25">Your info:</Label>
                 <Label Margin="10,0" FontSize="20" FontFamily="Open Sans" Text="{Binding User.AboutMe}"/>
-                <Frame HorizontalOptions="End" Margin="10,0" Padding="15,5" touch:TouchEff.Command="{Binding EditBioInfoCommand}">
+                <Frame HorizontalOptions="End" Margin="10,0" Padding="15,5"
+                       touch:TouchEff.Command="{Binding EditBioInfoCommand}"
+                       touch:TouchEff.PressedBackgroundColor="LightCoral"
+                           touch:TouchEff.RegularBackgroundColor="White"
+                           Style="{StaticResource AnimatedFrame}"
+                       BorderColor="Coral" CornerRadius="10">
                     <Label Text="Edit" FontSize="20"/>
                 </Frame>
 
@@ -107,39 +155,39 @@
                         <tabview:TabItem HeaderText="My settings">
                             <ScrollView>
                                 <StackLayout>
-                                    <Frame Margin="10,5" Padding="10,10" touch:TouchEff.Command="{Binding MakeChoiceCommandPersonal}" touch:TouchEff.CommandParameter="FirstName">
+                                    <Frame Margin="10,5" Padding="10,10" touch:TouchEff.Command="{Binding MakeChoiceCommandPersonal}" touch:TouchEff.CommandParameter="FirstName" Style="{StaticResource AnimatedChoice}">
                                         <FlexLayout Direction="Row" AlignItems="Center" JustifyContent="SpaceBetween">
                                             <Label FontSize="20" FlexLayout.Basis="120">First name</Label>
                                             <Label FontSize="20" Text="{Binding User.FirstName, Mode=TwoWay}"/>
-                                            <Label FontSize="20" Margin="0,0,10,0">></Label>
+                                            <Label FontSize="20" Margin="0,0,10,0" FontFamily="MyIcon">&#x000f0734;</Label>
                                         </FlexLayout>
                                     </Frame>
-                                    <Frame Margin="10,5" Padding="10,10" touch:TouchEff.Command="{Binding MakeChoiceCommandPersonal}" touch:TouchEff.CommandParameter="LastName">
+                                    <Frame Margin="10,5" Padding="10,10" touch:TouchEff.Command="{Binding MakeChoiceCommandPersonal}" touch:TouchEff.CommandParameter="LastName" Style="{StaticResource AnimatedChoice}">
                                         <FlexLayout Direction="Row" AlignItems="Center" JustifyContent="SpaceBetween">
                                             <Label FontSize="20" FlexLayout.Basis="120">Last name</Label>
                                             <Label FontSize="20" Text="{Binding User.LastName, Mode=TwoWay}"/>
-                                            <Label FontSize="20" Margin="0,0,10,0">></Label>
+                                            <Label FontSize="20" Margin="0,0,10,0" FontFamily="MyIcon">&#x000f0734;</Label>
                                         </FlexLayout>
                                     </Frame>
-                                    <Frame Margin="10,5" Padding="10,10" touch:TouchEff.Command="{Binding MakeChoiceCommandPersonal}" touch:TouchEff.CommandParameter="NickName">
+                                    <Frame Margin="10,5" Padding="10,10" touch:TouchEff.Command="{Binding MakeChoiceCommandPersonal}" touch:TouchEff.CommandParameter="NickName" Style="{StaticResource AnimatedChoice}">
                                         <FlexLayout Direction="Row" AlignItems="Center" JustifyContent="SpaceBetween">
                                             <Label FontSize="20" FlexLayout.Basis="120">Nickname</Label>
                                             <Label FontSize="20" Text="{Binding User.NickName, Mode=TwoWay}"/>
-                                            <Label FontSize="20" Margin="0,0,10,0">></Label>
+                                            <Label FontSize="20" Margin="0,0,10,0" FontFamily="MyIcon">&#x000f0734;</Label>
                                         </FlexLayout>
                                     </Frame>
-                                    <Frame Margin="10,5" Padding="10,10" touch:TouchEff.Command="{Binding MakeChoiceCommandPersonal}" touch:TouchEff.CommandParameter="Sex">
+                                    <Frame Margin="10,5" Padding="10,10" touch:TouchEff.Command="{Binding MakeChoiceCommandPersonal}" touch:TouchEff.CommandParameter="Sex" Style="{StaticResource AnimatedChoice}">
                                         <FlexLayout Direction="Row" AlignItems="Center" JustifyContent="SpaceBetween">
                                             <Label FontSize="20" FlexLayout.Basis="120">Sex</Label>
                                             <Label FontSize="20" Text="{Binding User.Sex, Mode=TwoWay}"/>
-                                            <Label FontSize="20" Margin="0,0,10,0">></Label>
+                                            <Label FontSize="20" Margin="0,0,10,0" FontFamily="MyIcon">&#x000f0734;</Label>
                                         </FlexLayout>
                                     </Frame>
-                                    <Frame Margin="10,5" Padding="10,10" touch:TouchEff.Command="{Binding MakeChoiceCommandPersonal}" touch:TouchEff.CommandParameter="DateOfBith">
+                                    <Frame Margin="10,5" Padding="10,10" touch:TouchEff.Command="{Binding MakeChoiceCommandPersonal}" touch:TouchEff.CommandParameter="DateOfBith" Style="{StaticResource AnimatedChoice}">
                                         <FlexLayout Direction="Row" AlignItems="Center" JustifyContent="SpaceBetween">
                                             <Label FontSize="20" FlexLayout.Basis="120">Date of birth</Label>
                                             <Label FontSize="20" Text="{Binding User.DateOfBith, Mode=TwoWay, StringFormat='{0:yyyy}'}"/>
-                                            <Label FontSize="20" Margin="0,0,10,0">></Label>
+                                            <Label FontSize="20" Margin="0,0,10,0" FontFamily="MyIcon">&#x000f0734;</Label>
                                         </FlexLayout>
                                     </Frame>
                                 </StackLayout>
@@ -148,53 +196,53 @@
                         <tabview:TabItem HeaderText="Preferences">
                             <ScrollView>
                                 <StackLayout>
-                                    <Frame Margin="10,5" Padding="10,10" touch:TouchEff.Command="{Binding MakeChoiceCommandPreference}" touch:TouchEff.CommandParameter="SmokeRate">
+                                    <Frame Margin="10,5" Padding="10,10" touch:TouchEff.Command="{Binding MakeChoiceCommandPreference}" touch:TouchEff.CommandParameter="SmokeRate" Style="{StaticResource AnimatedChoice}">
                                         <FlexLayout Direction="Row" AlignItems="Center" JustifyContent="SpaceBetween">
                                             <Label FontSize="20" FlexLayout.Basis="120">Smoke Rate</Label>
                                             <Label FontSize="20" Text="{Binding userPreferences.SmokeRate, Mode=TwoWay}"/>
-                                            <Label FontSize="20" Margin="0,0,10,0">></Label>
+                                            <Label FontSize="20" Margin="0,0,10,0" FontFamily="MyIcon">&#x000f0734;</Label>
                                         </FlexLayout>
                                     </Frame>
-                                    <Frame Margin="10,5" Padding="10,10" touch:TouchEff.Command="{Binding MakeChoiceCommandPreference}" touch:TouchEff.CommandParameter="BabyRate">
+                                    <Frame Margin="10,5" Padding="10,10" touch:TouchEff.Command="{Binding MakeChoiceCommandPreference}" touch:TouchEff.CommandParameter="BabyRate" Style="{StaticResource AnimatedChoice}">
                                         <FlexLayout Direction="Row" AlignItems="Center" JustifyContent="SpaceBetween">
                                             <Label FontSize="20" FlexLayout.Basis="120">Baby Rate</Label>
                                             <Label FontSize="20" Text="{Binding userPreferences.BabyRate, Mode=TwoWay}"/>
-                                            <Label FontSize="20" Margin="0,0,10,0">></Label>
+                                            <Label FontSize="20" Margin="0,0,10,0" FontFamily="MyIcon">&#x000f0734;</Label>
                                         </FlexLayout>
                                     </Frame>
-                                    <Frame Margin="10,5" Padding="10,10" touch:TouchEff.Command="{Binding MakeChoiceCommandPreference}" touch:TouchEff.CommandParameter="HeightRate">
+                                    <Frame Margin="10,5" Padding="10,10" touch:TouchEff.Command="{Binding MakeChoiceCommandPreference}" touch:TouchEff.CommandParameter="HeightRate" Style="{StaticResource AnimatedChoice}">
                                         <FlexLayout Direction="Row" AlignItems="Center" JustifyContent="SpaceBetween">
                                             <Label FontSize="20" FlexLayout.Basis="120">Height Rate</Label>
                                             <Label FontSize="20" Text="{Binding userPreferences.HeightRate, Mode=TwoWay}"/>
-                                            <Label FontSize="20" Margin="0,0,10,0">></Label>
+                                            <Label FontSize="20" Margin="0,0,10,0" FontFamily="MyIcon">&#x000f0734;</Label>
                                         </FlexLayout>
                                     </Frame>
-                                    <Frame Margin="10,5" Padding="10,10" touch:TouchEff.Command="{Binding MakeChoiceCommandPreference}" touch:TouchEff.CommandParameter="PetsRate">
+                                    <Frame Margin="10,5" Padding="10,10" touch:TouchEff.Command="{Binding MakeChoiceCommandPreference}" touch:TouchEff.CommandParameter="PetsRate" Style="{StaticResource AnimatedChoice}">
                                         <FlexLayout Direction="Row" AlignItems="Center" JustifyContent="SpaceBetween">
                                             <Label FontSize="20" FlexLayout.Basis="120">Pet</Label>
                                             <Label FontSize="20" Text="{Binding userPreferences.PetsRate, Mode=TwoWay}"/>
-                                            <Label FontSize="20" Margin="0,0,10,0">></Label>
+                                            <Label FontSize="20" Margin="0,0,10,0" FontFamily="MyIcon">&#x000f0734;</Label>
                                         </FlexLayout>
                                     </Frame>
-                                    <Frame Margin="10,5" Padding="10,10" touch:TouchEff.Command="{Binding MakeChoiceCommandPreference}" touch:TouchEff.CommandParameter="RelationshipRate">
+                                    <Frame Margin="10,5" Padding="10,10" touch:TouchEff.Command="{Binding MakeChoiceCommandPreference}" touch:TouchEff.CommandParameter="RelationshipRate" Style="{StaticResource AnimatedChoice}">
                                         <FlexLayout Direction="Row" AlignItems="Center" JustifyContent="SpaceBetween">
                                             <Label FontSize="20" FlexLayout.Basis="120">Relationship</Label>
                                             <Label FontSize="20" Text="{Binding userPreferences.RelationshipRate, Mode=TwoWay}"/>
-                                            <Label FontSize="20" Margin="0,0,10,0">></Label>
+                                            <Label FontSize="20" Margin="0,0,10,0" FontFamily="MyIcon">&#x000f0734;</Label>
                                         </FlexLayout>
                                     </Frame>
-                                    <Frame Margin="10,5" Padding="10,10" touch:TouchEff.Command="{Binding MakeChoiceCommandPreference}" touch:TouchEff.CommandParameter="Sex">
+                                    <Frame Margin="10,5" Padding="10,10" touch:TouchEff.Command="{Binding MakeChoiceCommandPreference}" touch:TouchEff.CommandParameter="Sex" Style="{StaticResource AnimatedChoice}">
                                         <FlexLayout Direction="Row" AlignItems="Center" JustifyContent="SpaceBetween">
                                             <Label FontSize="20" FlexLayout.Basis="120">Sex</Label>
                                             <Label FontSize="20" Text="{Binding userPreferences.Sex, Mode=TwoWay}"/>
-                                            <Label FontSize="20" Margin="0,0,10,0">></Label>
+                                            <Label FontSize="20" Margin="0,0,10,0" FontFamily="MyIcon">&#x000f0734;</Label>
                                         </FlexLayout>
                                     </Frame>
-                                    <Frame Margin="10,5" Padding="10,10" touch:TouchEff.Command="{Binding MakeChoiceCommandPreference}"  touch:TouchEff.CommandParameter="DrinkingRate">
+                                    <Frame Margin="10,5" Padding="10,10" touch:TouchEff.Command="{Binding MakeChoiceCommandPreference}"  touch:TouchEff.CommandParameter="DrinkingRate" Style="{StaticResource AnimatedChoice}">
                                         <FlexLayout Direction="Row" AlignItems="Center" JustifyContent="SpaceBetween">
                                             <Label FontSize="20" FlexLayout.Basis="120">Drinkin rate</Label>
                                             <Label FontSize="20" Text="{Binding userPreferences.DrinkingRate, Mode=TwoWay}"/>
-                                            <Label FontSize="20" Margin="0,0,10,0">></Label>
+                                            <Label FontSize="20" Margin="0,0,10,0" FontFamily="MyIcon">&#x000f0734;</Label>
                                         </FlexLayout>
                                     </Frame>
                                 </StackLayout>

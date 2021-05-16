@@ -1,6 +1,7 @@
 ﻿using KinderMobile.Helpers;
 using KinderMobile.PersonalAccountSettings;
 using System;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -13,12 +14,17 @@ namespace KinderMobile
         {
             InitializeComponent();
 
-            MainPage = new MainPage.MainPage();
+            if (!string.IsNullOrEmpty(HttpClientImpl.Instance.Token))
+                MainPage = new NavPage();
+            else
+                MainPage = new MainPage.MainPage();
+
+            NavigationDispetcher.Instance.Initialize(MainPage.Navigation);
+
             // MainPage = new NavPage();
 
             //MainPage = new AccountSettingsView();
             //MainPage = new EditBioInfo();
-            NavigationDispetcher.Instance.Initialize(MainPage.Navigation);
         }
 
         protected override void OnStart()
