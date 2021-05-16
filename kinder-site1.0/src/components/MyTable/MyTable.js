@@ -1,46 +1,59 @@
 import React, {Component} from 'react';
 import {Table, Container} from 'react-bootstrap';
+import { connect } from 'react-redux';
+import WithKinderService from '../hoc';
+import MyTableItem from '../MyTableItem';
+import {usersLoaded} from '../../actions';
 
 import '../PageLink/PageLink.css';
 
-export default class Navibar extends Component {
+class MyTable extends Component {
+
+    componentDidMount() {
+        const {KinderService} = this.props;
+        KinderService.getAllUsers()
+        .then(res => this.props.usersLoaded(res));
+    }
 
     render() {
+        const {userList}=this.props;
+
         return(
             <>
             <Container>
                     <Table striped bordered hover>
                         <thead>
                             <tr>
-                                <th>#</th>
+                                <th>id</th>
                                 <th>First Name</th>
                                 <th>Last Name</th>
-                                <th>Username</th>
+                                <th>Nickname</th>
+                                <th>Email</th>
+                                <th>Role</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>Jacob</td>
-                                <td>Thornton</td>
-                                <td>@fat</td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td colSpan="2">Larry the Bird</td>
-                                <td>@twitter</td>
-                            </tr>
+                            {
+                                userList.map(user => {
+                                    return <MyTableItem key={user.id} user={user}/>
+                                })
+                            }
                         </tbody>
                     </Table>
                 </Container>
             </>
         )
     }
+};
 
+const mapStateToProps = state => {
+    return {
+        userList: state.users
+    }
 }
+
+const mapDispatchToProps = {
+    usersLoaded
+};
+
+export default WithKinderService()(connect(mapStateToProps, mapDispatchToProps)(MyTable));

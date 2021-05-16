@@ -1,4 +1,5 @@
 const initialState = {
+    users: []
     // menu: [],
     // loading: true,
     // error: false,
@@ -9,6 +10,10 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
+        case 'USERS_LOADED':
+            return{
+                users: action.payload
+            }
         // case 'MENU_LOADED':
         //     return {
         //         ...state,

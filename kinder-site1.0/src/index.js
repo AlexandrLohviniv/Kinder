@@ -5,17 +5,26 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import {Provider} from 'react-redux';
 import {BrowserRouter as Router} from 'react-router-dom';
 
+import ErrorBoundry from './components/ErrorBoundry';
+import KinderService from './services/kinder-service';
+import KinderServiceContext from './components/KinderServiceContext';
+import store from './store';
+
 import App from './components/App/App';
 import reportWebVitals from './reportWebVitals';
 
-import store from './store';
+const kinderService = new KinderService();
 
 ReactDOM.render(
   <Provider store={store}>
-      <Router>
-          <App/>
-      </Router>
-    </Provider>,
+    <ErrorBoundry>
+      <KinderServiceContext.Provider value={kinderService}>
+        <Router>
+            <App/>
+        </Router>
+      </KinderServiceContext.Provider>
+    </ErrorBoundry>
+  </Provider>,
   document.getElementById('root')
 );
 

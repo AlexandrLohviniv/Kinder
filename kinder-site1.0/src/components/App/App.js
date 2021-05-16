@@ -7,7 +7,9 @@ import HomePage from '../../pages/HomePage';
 import BanUsers from '../../pages/BanPage';
 import MakeAdmin from '../../pages/MakeAdminPage';
 
-function App() {
+// import WithKinderService from '../hoc';
+
+const App = () => {
   return (
     <div className="App">
       <Router>
@@ -23,4 +25,5 @@ function App() {
   );
 }
 
+// export default WithKinderService()(App);
 export default App;
