@@ -1,7 +1,6 @@
 const initialState = {
-    users: []
-    // menu: [],
-    // loading: true,
+    users: [],
+    loading: true
     // error: false,
     // items: [],
     // totalPrice: 0
@@ -12,7 +11,9 @@ const reducer = (state = initialState, action) => {
     switch (action.type) {
         case 'USERS_LOADED':
             return{
-                users: action.payload
+                ...state,
+                users: action.payload,
+                loading: false
             }
         // case 'MENU_LOADED':
         //     return {
@@ -21,13 +22,13 @@ const reducer = (state = initialState, action) => {
         //         loading: false,
         //         error: false
         //     };
-        // case 'MENU_REQUESTED':
-        //     return {
-        //         ...state,
-        //         menu: state.menu,
-        //         loading: true,
-        //         error: false
-        //     };
+        case 'USERS_REQUESTED':
+            return {
+                ...state,
+                users: state.users,
+                loading: true,
+                // error: false
+            };
         // case 'MENU_ERROR':
         //     return {
         //         ...state,

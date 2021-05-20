@@ -1,11 +1,14 @@
 import React, {Component} from 'react';
+import MyTable from '../../components/MyTable';
+import SearchPanel from '../../components/SearchPanel';
 
 import './MakeAdminPage.css';
 export default class MakeAdmin extends Component {
     render() {
         return (
             <div className="mainContent">
-                <h1>MAKE ADMIN PAGE!</h1>
+                <SearchPanel/>
+                <MyTable/>
             </div>
         )
     }

@@ -1,4 +1,5 @@
 import React from 'react';
+import DropdownRightButton from '../Dropdown-right-button';
 
 
 const MyTableItem = ({user}) => {
@@ -10,7 +11,9 @@ const MyTableItem = ({user}) => {
                 <td>{lastName}</td>
                 <td>{nickName}</td>
                 <td>{email}</td>
-                <td>{role}</td>
+                <td>
+                    <DropdownRightButton title={role} direction='right'/>
+                </td>
             </tr>
     )
 }

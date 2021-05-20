@@ -5,6 +5,13 @@ const usersLoaded = (listNewUsers) => {
     };
 };
 
+const usersRequested = () => {
+    return {
+        type: 'USERS_REQUESTED',
+    };
+};
+
 export {
-    usersLoaded
+    usersLoaded,
+    usersRequested
 };

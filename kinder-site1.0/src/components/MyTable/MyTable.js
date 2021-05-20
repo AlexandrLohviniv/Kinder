@@ -3,20 +3,34 @@ import {Table, Container} from 'react-bootstrap';
 import { connect } from 'react-redux';
 import WithKinderService from '../hoc';
 import MyTableItem from '../MyTableItem';
-import {usersLoaded} from '../../actions';
+import {usersLoaded, usersRequested} from '../../actions';
+import {Spinner} from 'react-bootstrap';
 
 import '../PageLink/PageLink.css';
 
 class MyTable extends Component {
 
     componentDidMount() {
+        this.props.usersRequested();
+
         const {KinderService} = this.props;
         KinderService.getAllUsers()
         .then(res => this.props.usersLoaded(res));
     }
 
     render() {
-        const {userList}=this.props;
+        const {userList, loading}=this.props;
+
+
+        if(loading) {
+            return (
+                <>
+                    <Container>
+                        <Spinner animation="border" variant="info" />
+                    </Container>
+                </>
+            );
+        }
 
         return(
             <>
@@ -48,12 +62,14 @@ class MyTable extends Component {
 
 const mapStateToProps = state => {
     return {
-        userList: state.users
+        userList: state.users,
+        loading: state.loading
     }
 }
 
 const mapDispatchToProps = {
-    usersLoaded
+    usersLoaded,
+    usersRequested
 };
 
 export default WithKinderService()(connect(mapStateToProps, mapDispatchToProps)(MyTable));
