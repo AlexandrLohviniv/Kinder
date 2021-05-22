@@ -1,4 +1,5 @@
 ﻿using KinderMobile.DTOs;
+using KinderMobile.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -13,9 +14,6 @@ namespace KinderMobile
         {
             get
             {
-                if (_instance == null)
-                    InstantiateUser(HttpClientImpl.Instance.UserId);
-
                 return _instance;
             }
         }
@@ -28,20 +26,28 @@ namespace KinderMobile
 
         public static void InstantiateUser(int userId)
         {
-
-            UserDto UserDto = null;
-            UserPreferenceDto UserPreferenceDto = null;
-            List<PhotoDto> PhotoDtos = null;
-
-
-            Task.Run(async () => { UserDto = await HttpClientImpl.Instance.GetUserInfo(userId); }).Wait();
-
-            Task.Run(async () => { UserPreferenceDto = await HttpClientImpl.Instance.GetUserPreference(userId); }).Wait();
-
-            Task.Run(async () => { PhotoDtos = await HttpClientImpl.Instance.GetUserPhotos(userId); }).Wait();
+            try
+            {
+                UserDto UserDto = null;
+                UserPreferenceDto UserPreferenceDto = null;
+                List<PhotoDto> PhotoDtos = null;
 
 
-            _instance = new CurrentUser(UserDto, UserPreferenceDto, PhotoDtos);
+                Task.Run(async () => { UserDto = await HttpClientImpl.Instance.GetUserInfo(userId); }).Wait();
+
+                Task.Run(async () => { UserPreferenceDto = await HttpClientImpl.Instance.GetUserPreference(userId); }).Wait();
+
+                Task.Run(async () => { PhotoDtos = await HttpClientImpl.Instance.GetUserPhotos(userId); }).Wait();
+
+
+                _instance = new CurrentUser(UserDto, UserPreferenceDto, PhotoDtos);
+
+
+
+                ChatService.InitializaClient(HttpClientImpl.Instance.Token);
+                Task.Run(() => ChatService.Instance.Connect()).Wait();
+            }
+            catch { }
         }
 
         public CurrentUser(UserDto UserDto, UserPreferenceDto UserPreferenceDto, List<PhotoDto> PhotoDtos)
@@ -60,6 +66,19 @@ namespace KinderMobile
             Task.Run(async () => { PhotoDtos = await HttpClientImpl.Instance.GetUserPhotos(userId); }).Wait();
 
             UpdateInfoEvent(this, null);
+        }
+
+
+        public static void Logout() 
+        {
+            if (_instance != null) 
+            {
+                HttpClientImpl.Instance.ResetUser();
+                Task.Run(() => ChatService.Instance.Disconnect()).Wait();
+
+
+                Task.Run(() => NavigationDispetcher.Instance.Navigation.PopModalAsync(true));
+            }
         }
 
     }

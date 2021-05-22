@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="KinderMobile.NavMenu.PrivateMessagePage.PrivateMessageView"
+              xmlns:input="clr-namespace:Plugin.InputKit.Shared.Controls;assembly=Plugin.InputKit"
+             xmlns:touch="clr-namespace:TouchEffect;assembly=TouchEffect">
+    <ContentPage.Content>
+        <Grid RowDefinitions="Auto,*,Auto">
+            <Frame Padding="0">
+                <Grid ColumnDefinitions="Auto,Auto,Auto,Auto">
+                    <Label FontFamily="MyIcon" FontSize="30" Grid.Column="0" Padding="10,0,10,0" HorizontalOptions="Center" VerticalOptions="Center"
+                           touch:TouchEff.Command="{Binding BackToUserListCommand}">&#x000f004d;</Label>
+                    <Frame  Grid.Column="1" Padding="0" WidthRequest="30" HeightRequest="30" Margin="10" CornerRadius="15">
+                        <Image Source="{Binding OtherUser.mainPhotoUrl}"/>
+                    </Frame>
+                    <Label Text="{Binding OtherUser.FirstName}" Grid.Column="2" Margin="20,0,0,0" VerticalOptions="Center"/>
+                    <Label Text="{Binding OtherUser.LastName}" Grid.Column="3" VerticalOptions="Center"/>
+                </Grid>
+            </Frame>
+            <ListView ItemsSource="{Binding MessagesList}"
+                          SeparatorVisibility="None"
+                          HasUnevenRows="True"
+                           Grid.Row="1"
+                          
+                      x:Name="MessageList">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid RowDefinitions="auto, auto" Margin="10,5, 10,0">
+                                <Grid ColumnDefinitions="40, *" IsVisible="{Binding IsOwnerMessage}">
+                                    <Frame CornerRadius="30"
+                                               Grid.Column="1"
+                                               HorizontalOptions="End"
+                                               HasShadow="True"
+                                               Margin="0"
+                                               BackgroundColor= "LightGreen"
+                                               Padding="5"
+                                               MinimumWidthRequest="20">
+                                        <Label Text="{Binding Message}"
+                                                   Margin="10"
+                                                   TextColor="White"
+                                                   LineBreakMode="WordWrap"/>
+                                    </Frame>
+                                </Grid>
+                                <Grid ColumnDefinitions="*, 40"
+                                          Grid.Row="1"
+                                          IsVisible="{Binding IsNotOwnerMessage}">
+                                    <Frame CornerRadius="30"
+                                               HasShadow="True"
+                                               Margin="0"
+                                               HorizontalOptions="Start"
+                                               BackgroundColor="Green"
+                                               Padding="5">
+                                        <Label Text="{Binding Message}"
+                                                   Margin="10"
+                                                   TextColor="White"
+                                                   LineBreakMode="WordWrap"/>
+                                    </Frame>
+                                </Grid>
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <StackLayout Grid.Row="2"
+                             Margin="20,0,20,10"
+                             VerticalOptions="End"
+                             Orientation="Horizontal">
+                <input:AdvancedEntry Text="{Binding MyMessage}" TextColor="Black" Placeholder="Enter your Message" WidthRequest="300"/>
+                <Button Text="Send" Command="{Binding sendMsgCommand}" CornerRadius="20"/>
+
+            </StackLayout>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,8 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace KinderApi.Models
 {
@@ -42,6 +42,17 @@ namespace KinderApi.Models
         {
             contextOptions.UseSqlServer("Server = (localdb)\\mssqllocaldb; Database = KinderDatabase; Trusted_Connection = True;");
         }
+
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Like>()
+                        .HasIndex(p => new { p.SenderId, p.ReceiverId })
+                        .IsUnique(true);
+
+            base.OnModelCreating(modelBuilder);
+        }
+
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<Preference> Preferences { get; set; }
         public virtual DbSet<Message> Messages { get; set; }

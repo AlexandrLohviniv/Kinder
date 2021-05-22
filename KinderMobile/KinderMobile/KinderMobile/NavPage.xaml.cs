@@ -17,5 +17,10 @@ namespace KinderMobile
             MessageSection.Text = "\U000f0369";
             PersonalSection.Text = "\U000f0009";
         }
+
+        protected override bool OnBackButtonPressed()
+        {
+            return true;
+        }
     }
 }

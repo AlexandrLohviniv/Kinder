@@ -10,8 +10,8 @@
         <Grid>
             <xct:TabView TabStripPlacement="Bottom" IsSwipeEnabled="True">
 
-                <xct:TabView.TabStripBackgroundView>
-                    <BoxView BackgroundColor="LightGreen" WidthRequest="25" CornerRadius="20, 20, 0, 0"/>
+                <xct:TabView.TabStripBackgroundView >
+                    <BoxView BackgroundColor="LightGreen" CornerRadius="20, 20, 0, 0"/>
                 </xct:TabView.TabStripBackgroundView>
 
                 <xct:TabViewItem 

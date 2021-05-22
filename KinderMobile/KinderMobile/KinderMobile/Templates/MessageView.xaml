@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="KinderMobile.Templates.MessageViewControl">
+    <Grid x:Name="Card">
+        <Frame x:Name="CardFrame">
+            <Label x:Name="Content" HorizontalTextAlignment="Center"/>
+        </Frame>
+        <Label x:Name="SenderContent" VerticalTextAlignment="End"/>
+    </Grid>
+</ContentView>

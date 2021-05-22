@@ -15,7 +15,7 @@ using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 using System.IO;
 using AutoMapper;
-
+using KinderApi.Hubs;
 
 namespace KinderApi
 {
@@ -42,6 +42,7 @@ namespace KinderApi
         {
 
             services.AddControllers();
+            services.AddSignalR();
             services.AddDbContext<DatabaseContext>();
             services.AddAutoMapper(typeof(Startup));
             services.AddControllersWithViews();
@@ -84,6 +85,7 @@ namespace KinderApi
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapHub<ChatHub>("ChatHub");
             });
         }
     }

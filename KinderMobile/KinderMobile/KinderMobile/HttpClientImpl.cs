@@ -94,6 +94,13 @@ namespace KinderMobile
 
         }
 
+
+        public void ResetUser() 
+        {
+            SecureStorage.Remove("token");
+            m_userId = 0;
+        }
+
         public async Task<bool> authUser(string mail, string password)
         {
             if (string.IsNullOrEmpty(mail) || string.IsNullOrEmpty(password))
@@ -118,6 +125,8 @@ namespace KinderMobile
 
                 Token = apiResponse.token;
 
+                client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", Token);
+                
                 return true;
             }
 
@@ -157,7 +166,8 @@ namespace KinderMobile
 
             PhotoDto mainPhoto = await client.GetData<PhotoDto>(userMainPhotoUrl);
 
-            userInfo.mainPhotoUrl = mainPhoto.ImgPath;
+            if(mainPhoto != null)
+                userInfo.mainPhotoUrl = mainPhoto.ImgPath;
 
             return userInfo;
         }
@@ -222,6 +232,17 @@ namespace KinderMobile
             HttpResponseMessage response = await sendingContent.SendModel(client, url);
 
             return response.IsSuccessStatusCode;
+        }
+
+        public async Task<List<ContactInfoDto>> GetUsersToMessage(int userId) 
+        {
+            string url = $"http://{serverAddr}/Like/{userId}/pairs";
+
+            List<ContactInfoDto> result = await client.GetData<List<ContactInfoDto>>(url);
+
+            result = result ?? new List<ContactInfoDto>();
+
+            return result;
         }
 
     }

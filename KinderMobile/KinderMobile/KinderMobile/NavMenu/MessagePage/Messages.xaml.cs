@@ -1,4 +1,5 @@
-﻿using System;
+﻿using KinderMobile.NavMenu.MessagePage;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,6 +16,8 @@ namespace KinderMobile.NavMenu
         public Messages()
         {
             InitializeComponent();
+            this.BindingContext = new ContactToMessageViewModel();
+
         }
     }
 }

@@ -101,7 +101,9 @@ namespace KinderMobile.MainPage
             {
                 CurrentUser.InstantiateUser(HttpClientImpl.Instance.UserId);
 
-                await NavigationDispetcher.Instance.Navigation.PushModalAsync(new NavPage());
+                NavPage navPage = new NavPage();
+
+                await NavigationDispetcher.Instance.Navigation.PushModalAsync(navPage);
             }
 
         }

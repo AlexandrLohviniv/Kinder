@@ -11,11 +11,14 @@ namespace KinderApi.Models
     public class Like
     {
         [Key]
+        [Column(Order = 10)]
         public int Id { get; set; }
+
         public int? SenderId { get; set; }
         [ForeignKey("SenderId")]
         [InverseProperty("SentLikes")]
         public User Sender { get; set; }
+
         public int? ReceiverId { get; set; }
         [ForeignKey("ReceiverId")]
         [InverseProperty("ReceivedLikes")]

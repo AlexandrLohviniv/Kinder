@@ -1,4 +1,7 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using AutoMapper;
+using KinderApi.DTOs;
 using KinderApi.Models;
 using KinderApi.ServiceProtos;
 using Microsoft.AspNetCore.Mvc;
@@ -10,10 +13,12 @@ namespace KinderApi.Controllers
     public class LikeController : ControllerBase
     {
         private readonly ILikeService likeService;
+        private readonly IMapper mapper;
 
-        public LikeController(ILikeService likeService)
+        public LikeController(ILikeService likeService, IMapper mapper)
         {
             this.likeService = likeService;
+            this.mapper = mapper;
         }
 
         [HttpPost("like/{receiverId}")]
@@ -28,6 +33,15 @@ namespace KinderApi.Controllers
         {
             await likeService.GetbackLike(userId, receiverId);
             return Ok();
+        }
+
+        [HttpGet("pairs")]
+        public async Task<IActionResult> GetUserPairs(int userId)
+        {
+            var users = await likeService.PairsForUser(userId);
+            var usersToReturn = mapper.Map<List<UserToReturnDto>>(users);
+
+            return Ok(usersToReturn);
         }
     }
 }

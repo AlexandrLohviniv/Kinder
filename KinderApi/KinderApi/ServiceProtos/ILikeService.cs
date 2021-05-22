@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using KinderApi.Models;
 
 namespace KinderApi.ServiceProtos
 {
@@ -6,5 +8,6 @@ namespace KinderApi.ServiceProtos
     {
          Task SendLike(int fromId, int toId);
          Task GetbackLike(int fromId, int toId);
+         Task<List<User>> PairsForUser(int userId);
     }
 }

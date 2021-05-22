@@ -2,6 +2,7 @@
 using KinderMobile.Helpers;
 using KinderMobile.PersonalAccountSettings;
 using KinderMobile.Popup;
+using KinderMobile.PopupYesNo;
 using Rg.Plugins.Popup.Services;
 using System;
 using System.Collections.Generic;
@@ -25,6 +26,7 @@ namespace KinderMobile.NavMenu.PersonalProfilePage
         public ICommand BuySuperlikes { get; set; }
         public ICommand BuyVipAccount { get; set; }
         public ICommand GoToPersonalPage { get; set; }
+        public ICommand LogoutCommand { get; set; }
 
         public string MainPhotoUrl { get; set; }
 
@@ -33,6 +35,8 @@ namespace KinderMobile.NavMenu.PersonalProfilePage
             BuySuperlikes = new Command(async () => await GetSuperLikes());
             BuyVipAccount = new Command(async () => await GetVIPAccount());
             GoToPersonalPage = new Command(async () => await GoToPersonalPageCommand());
+            
+            LogoutCommand = new Command(async () => await Logout());
 
             MainPhotoUrl = CurrentUser.Instance.UserDto.mainPhotoUrl ?? "defaultUser.jpg";
         }
@@ -52,6 +56,19 @@ namespace KinderMobile.NavMenu.PersonalProfilePage
         {
             await NavigationDispetcher.Instance.Navigation.PushModalAsync(new AccountSettingsView());
         }
+
+
+        async Task Logout() 
+        {
+            await PopupNavigation.Instance.PushAsync(new PopupYesNoView(Agree,()=> { }, "Are you sure you wnat to logout?"),true);
+        }
+
+        void Agree() 
+        {
+            CurrentUser.Logout();
+        }
+
+
 
         protected void OnPropertyChanged(string propName)
         {
