@@ -37,7 +37,7 @@ namespace KinderApi.Services
 
             var result = new List<User>();
 
-            await context.Likes.Include(l => l.Sender).ForEachAsync(l => 
+            await context.Likes.Include(l => l.Sender).Include(p=>p.Sender.Images).ForEachAsync(l => 
             {
                 if(LikedUserByMe.Any(u => u.SenderId == l.ReceiverId && l.SenderId == u.ReceiverId)){
                     result.Add(l.Sender);

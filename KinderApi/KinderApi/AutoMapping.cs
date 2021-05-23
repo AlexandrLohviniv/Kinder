@@ -16,6 +16,7 @@ namespace KinderApi
             CreateMap<ImageDto, Image>();
             CreateMap<Image, PhotoToReturnDto>();
             CreateMap<Preference, PreferenceDto>().ReverseMap();
+            CreateMap<Message, MessageDto>();
         }
     }
 }

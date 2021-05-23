@@ -21,7 +21,7 @@ namespace KinderMobile
                 CurrentUser.InstantiateUser(HttpClientImpl.Instance.UserId);
                 if (CurrentUser.Instance != null)
                 {
-                    Task.Run(()=> NavigationDispetcher.Instance.Navigation.PushModalAsync(new NavPage()));
+                    Task.Run(()=> NavigationDispetcher.Instance.Navigation.PushModalAsync(new NavPage())).Wait();
                 }
 
             }

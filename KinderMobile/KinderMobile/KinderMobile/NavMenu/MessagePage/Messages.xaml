@@ -18,7 +18,7 @@
                                 <Grid BackgroundColor="Azure">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="Auto"/>
-                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
                                         <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
                                     <Frame CornerRadius="50" IsClippedToBounds="True" BackgroundColor="AliceBlue" Padding="0" Grid.Column="0" Margin="10">

@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using AutoMapper;
+using KinderApi.DTOs;
 using KinderApi.Models;
 using KinderApi.ServiceProtos;
 using Microsoft.AspNetCore.Mvc;
@@ -12,10 +14,12 @@ namespace KinderApi.Controllers
     public class MessageController : ControllerBase
     {
         private readonly IMessageService messageService;
+        private readonly IMapper mapper;
 
-        public MessageController(IMessageService messageService)
+        public MessageController(IMessageService messageService, IMapper mapper)
         {
             this.messageService = messageService;
+            this.mapper = mapper;
         }
 
         [HttpPost("sendMessage/{toId}")]
@@ -33,10 +37,13 @@ namespace KinderApi.Controllers
         public async Task<IActionResult> GetMessageThread(int userId, int toId)
         {
             List<Message> messages = await messageService.GetMesageThread(userId, toId);
+
             if (messages == null)
                 return BadRequest();
 
-            return Ok(messages);
+            List<MessageDto> messagesToReturn = mapper.Map<List<MessageDto>>(messages);
+
+            return Ok(messagesToReturn);
         }
     }
 }

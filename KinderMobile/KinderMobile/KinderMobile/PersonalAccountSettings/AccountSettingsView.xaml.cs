@@ -15,11 +15,11 @@ namespace KinderMobile.PersonalAccountSettings
     {
         
 
-        public AccountSettingsView()
+        public AccountSettingsView(EventHandler updateMainPhoto)
         {
             InitializeComponent();
 
-            this.BindingContext = new AccountSettingsViewModel();
+            this.BindingContext = new AccountSettingsViewModel(updateMainPhoto);
 
             MainBtn.Text = "\t" + FontIconClass.CheckUnderlineCircle;
             DeleteBtn.Text = "\t" + FontIconClass.Delete;

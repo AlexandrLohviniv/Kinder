@@ -74,7 +74,10 @@ namespace KinderMobile.PersonalAccountSettings
 
         public bool IsUserInteractionRunning { get; set; }
 
-        public AccountSettingsViewModel()
+
+
+
+        public AccountSettingsViewModel(EventHandler updateMainPhoto)
         {
 
             Photos = new ObservableCollection<PhotoDto>(CurrentUser.Instance.PhotoDtos);
@@ -124,13 +127,19 @@ namespace KinderMobile.PersonalAccountSettings
             EditBioInfoCommand = new Command(async () => await EditBioInfo());
             MakeChoiceCommandPreference = new Command<string>(async (propName) => await MakeChoice(propName, userPreferences));
             MakeChoiceCommandPersonal = new Command<string>(async (propName) => await MakeChoice(propName, User));
-            UploadImageComand = new Command(async () => await UploadImage());
-            SetMainPhotoCommand = new Command(async () => await SetMainPhoto());
+            UploadImageComand = new Command(async () => 
+            {
+                await UploadImage();
+                updateMainPhoto.Invoke(null, null);
+            });
+            SetMainPhotoCommand = new Command(async () => { 
+                await SetMainPhoto();
+                updateMainPhoto.Invoke(null, null);
+            });
             DeleteCurrentPhotoCommand = new Command(async () => await DeleteCurrentPhoto());
             UpdateUserInfoCommand = new Command(async () => await UpdateUserInfo());
             BackButtonCommand = new Command(async () => await BackButton());
 
-            
         }
 
         async Task EditBioInfo()
@@ -243,6 +252,12 @@ namespace KinderMobile.PersonalAccountSettings
 
         async Task SetMainPhoto()
         {
+            if (Photos.Count == 0)
+            {
+                await PopupNavigation.Instance.PushAsync(new PopupView("There is nothing to set main", MessageType.Error));
+                return;
+            }
+
             bool success = await HttpClientImpl.Instance.ChangeMainPhoto(HttpClientImpl.Instance.UserId, Photos[CurrentIndex].id);
             if (success)
             {
@@ -258,6 +273,12 @@ namespace KinderMobile.PersonalAccountSettings
 
         async Task DeleteCurrentPhoto()
         {
+            if (Photos.Count == 0)
+            {
+                await PopupNavigation.Instance.PushAsync(new PopupView("There is nothing to delete", MessageType.Error));
+                return;
+            }
+
             bool success = await HttpClientImpl.Instance.DeleteCurrentPhoto(HttpClientImpl.Instance.UserId, Photos[CurrentIndex].id);
             if (success)
             {

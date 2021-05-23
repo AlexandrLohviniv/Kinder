@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using KinderApi.Models;
@@ -8,5 +9,7 @@ namespace KinderApi.ServiceProtos
     {
          Task SendMessage(int fromId, int toId, string message);
          Task<List<Message>> GetMesageThread(int fromId, int toId);
+
+         Task DeleteMessage(Guid messageId);
     }
 }

@@ -20,11 +20,28 @@ namespace KinderMobile.NavMenu.PrivateMessagePage
 
             (this.BindingContext as MessagePageViewModel).ScrollToEnd += ScrollToEndHandler;
 
+            if ((this.BindingContext as MessagePageViewModel).MessagesList.Count() > 0) 
+            {
+                ScrollToEndHandler((this.BindingContext as MessagePageViewModel).MessagesList.LastOrDefault(), null);
+            }
+
+
         }
 
         void ScrollToEndHandler(object obj, EventArgs args) 
         {
-            Device.BeginInvokeOnMainThread(() => { MessageList.ScrollTo(obj, ScrollToPosition.End, true); });
+            Device.BeginInvokeOnMainThread(() => { MessageList.ScrollTo(obj, ScrollToPosition.End, false); });
+        }
+
+        private void MessageList_ItemAppearing(object sender, ItemVisibilityEventArgs e)
+        {
+            if (e.Item == (this.BindingContext as MessagePageViewModel).MessagesList.Last())
+            {
+                (this.BindingContext as MessagePageViewModel).StickToBottom(true);
+            }
+            else
+                (this.BindingContext as MessagePageViewModel).StickToBottom(false);
+
         }
     }
 }

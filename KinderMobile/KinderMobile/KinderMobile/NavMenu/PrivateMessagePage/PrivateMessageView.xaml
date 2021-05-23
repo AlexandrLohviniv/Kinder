@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="KinderMobile.NavMenu.PrivateMessagePage.PrivateMessageView"
               xmlns:input="clr-namespace:Plugin.InputKit.Shared.Controls;assembly=Plugin.InputKit"
-             xmlns:touch="clr-namespace:TouchEffect;assembly=TouchEffect">
+             xmlns:touch="clr-namespace:TouchEffect;assembly=TouchEffect"
+             x:Name="MessagePage">
     <ContentPage.Content>
         <Grid RowDefinitions="Auto,*,Auto">
             <Frame Padding="0">
@@ -21,11 +22,15 @@
                           SeparatorVisibility="None"
                           HasUnevenRows="True"
                            Grid.Row="1"
-                          
+                          ItemAppearing="MessageList_ItemAppearing"
+                      SelectionMode="None"
                       x:Name="MessageList">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
+                            <ViewCell.ContextActions>
+                                <MenuItem Text="Delete" Command="{Binding BindingContext.deleteMessageCommand, Source={x:Reference MessagePage}}" CommandParameter="{Binding MessageId}"/>
+                            </ViewCell.ContextActions>
                             <Grid RowDefinitions="auto, auto" Margin="10,5, 10,0">
                                 <Grid ColumnDefinitions="40, *" IsVisible="{Binding IsOwnerMessage}">
                                     <Frame CornerRadius="30"

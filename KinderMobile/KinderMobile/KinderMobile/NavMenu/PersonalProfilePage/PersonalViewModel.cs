@@ -28,7 +28,22 @@ namespace KinderMobile.NavMenu.PersonalProfilePage
         public ICommand GoToPersonalPage { get; set; }
         public ICommand LogoutCommand { get; set; }
 
-        public string MainPhotoUrl { get; set; }
+
+        private string m_mainPhotoUrl = null;
+        public string MainPhotoUrl 
+        {
+            get 
+            {
+                if(string.IsNullOrEmpty(m_mainPhotoUrl))
+                    m_mainPhotoUrl = CurrentUser.Instance.UserDto.mainPhotoUrl ?? "defaultUser.jpg";
+                return m_mainPhotoUrl;
+            }
+            set 
+            {
+                m_mainPhotoUrl = value;
+                OnPropertyChanged("MainPhotoUrl");
+            }
+        }
 
         public PersonalViewModel()
         {
@@ -37,8 +52,6 @@ namespace KinderMobile.NavMenu.PersonalProfilePage
             GoToPersonalPage = new Command(async () => await GoToPersonalPageCommand());
             
             LogoutCommand = new Command(async () => await Logout());
-
-            MainPhotoUrl = CurrentUser.Instance.UserDto.mainPhotoUrl ?? "defaultUser.jpg";
         }
 
 
@@ -54,7 +67,10 @@ namespace KinderMobile.NavMenu.PersonalProfilePage
 
         async Task GoToPersonalPageCommand() 
         {
-            await NavigationDispetcher.Instance.Navigation.PushModalAsync(new AccountSettingsView());
+            await NavigationDispetcher.Instance.Navigation.PushModalAsync(new AccountSettingsView((object sender, EventArgs e) => 
+            {
+                MainPhotoUrl = CurrentUser.Instance.UserDto.mainPhotoUrl ?? "defaultUser.jpg";
+            }));
         }
 
 

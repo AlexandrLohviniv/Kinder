@@ -58,6 +58,27 @@ namespace KinderMobile
             }
         }
 
+
+        public async Task DeleteMessage(int userId, int fromId, Guid messageId) 
+        {
+            try
+            {
+                await hubConnection.SendAsync("DeleteMessage", userId, fromId, messageId);
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
+
+        public void DeleteMessageResponse (Action<int, Guid> DeleteOtherUserMessage, Action<Guid> DeleteOwnUserMessage)
+        {
+            hubConnection.On("DeleteMessage", DeleteOtherUserMessage);
+            hubConnection.On("DeleteOwnMessage", DeleteOwnUserMessage);
+        }
+
+
         public void RecievePrivateMessage(Action<int, string> GetMessageAndUser, Action<string> GetMyMessage)
         {
             hubConnection.On("RecievePrivateMessage", GetMessageAndUser);

@@ -5,6 +5,7 @@ using Newtonsoft.Json;
 using Rg.Plugins.Popup.Services;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Net.Http;
@@ -245,5 +246,27 @@ namespace KinderMobile
             return result;
         }
 
+
+        public async Task<ObservableCollection<MessageModel>> GetMessageThread(int userId, int toId) 
+        {
+            string url = $"http://{serverAddr}/Message/{userId}/messageThread/{toId}";
+
+            List<MessageDto> messages = await client.GetData<List<MessageDto>>(url);
+
+            ObservableCollection<MessageModel> messagesToReturn = new ObservableCollection<MessageModel>();
+
+            messages.ForEach(m =>
+            {
+                messagesToReturn.Add(new MessageModel() 
+                {
+                    MessageId = m.MessageId,
+                    Message = m.Text,
+                    IsOwnerMessage = m.SenderId == userId,
+                    IsNotOwnerMessage = m.SenderId == toId
+                }); 
+            });
+
+            return messagesToReturn;
+        }
     }
 }

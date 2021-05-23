@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using KinderApi.Models;
 using KinderApi.ServiceProtos;
+using Microsoft.EntityFrameworkCore;
 
 namespace KinderApi.Services
 {
@@ -16,6 +17,16 @@ namespace KinderApi.Services
         {
             this.context = context;
             this.userService = userService;
+        }
+
+        public async Task DeleteMessage(Guid messageId)
+        {
+            var message = await context.Messages.FirstOrDefaultAsync(m => m.MessageId == messageId);
+
+            if(message!=null)
+                context.Messages.Remove(message);
+
+            await context.SaveChangesAsync();
         }
 
         public async Task<List<Message>> GetMesageThread(int fromId, int toId)

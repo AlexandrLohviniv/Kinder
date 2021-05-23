@@ -1,6 +1,7 @@
 ﻿using KinderMobile.DTOs;
 using KinderMobile.Helpers;
 using KinderMobile.Popup;
+using KinderMobile.PopupYesNo;
 using KinderMobile.Templates;
 using Rg.Plugins.Popup.Services;
 using System;
@@ -15,19 +16,11 @@ using Xamarin.Forms;
 
 namespace KinderMobile.NavMenu.PrivateMessagePage
 {
-
-    internal class MessageModel
-    {
-        public string Message { get; set; }
-        public bool IsOwnerMessage { get; set; }
-        public bool IsNotOwnerMessage { get; set; }
-    }
-
     class MessagePageViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
-        private IEnumerable<MessageModel> messageList;
-        public IEnumerable<MessageModel> MessagesList
+        private ObservableCollection<MessageModel> messageList;
+        public ObservableCollection<MessageModel> MessagesList
         {
             get => messageList;
             set
@@ -42,6 +35,9 @@ namespace KinderMobile.NavMenu.PrivateMessagePage
 
         public ICommand BackToUserListCommand { get; set; }
         public ICommand sendMsgCommand { get; set; }
+        public ICommand deleteMessageCommand { get; set; }
+
+
 
         private string m_myMessage;
 
@@ -70,16 +66,36 @@ namespace KinderMobile.NavMenu.PrivateMessagePage
             }
         }
 
+        private bool isBottomReached = true;
+        public void StickToBottom(bool isBottom)
+        {
+            isBottomReached = isBottom;
+        }
+
         public MessagePageViewModel(ContactInfoDto otherUser)
         {
+
+
             sendMsgCommand = new Command(async () => await sendMsg(otherUser.Id));
             BackToUserListCommand = new Command(async () => await backToUserList());
+            deleteMessageCommand = new Command<Guid>(async (param) => await deleteMessage(param));
+
 
             ChatService.Instance.RecievePrivateMessage(getMessage, getOwnMessage);
+            ChatService.Instance.DeleteMessageResponse(DeleteOtherMessage, DeleteOwnMessage);
 
-            messageList = new List<MessageModel>();
+
+            Task.Run(async () => { messageList = await HttpClientImpl.Instance.GetMessageThread(HttpClientImpl.Instance.UserId, otherUser.Id); }).Wait();
+
+
             this.OtherUser = otherUser;
+
+
+
         }
+
+
+       
 
         public async Task sendMsg(int toId)
         {
@@ -114,8 +130,11 @@ namespace KinderMobile.NavMenu.PrivateMessagePage
         {
             if (OtherUser.Id == fromId)
             {
+                bool local_bottomReached = isBottomReached;
+
                 AddMessage(message, false);
-                ScrollToEnd(MessagesList.LastOrDefault(), null);
+                if (local_bottomReached)
+                    ScrollToEnd(MessagesList.LastOrDefault(), null);
             }
             else
             {
@@ -128,11 +147,42 @@ namespace KinderMobile.NavMenu.PrivateMessagePage
         {
             var tempList = MessagesList.ToList();
             tempList.Add(new MessageModel { IsOwnerMessage = isOwner, Message = message, IsNotOwnerMessage = !isOwner });
-            MessagesList = new List<MessageModel>(tempList);
-
-
-
+            MessagesList = new ObservableCollection<MessageModel>(tempList);
         }
+
+        private async Task deleteMessage(Guid messageId)
+        {
+            await PopupNavigation.Instance.PushAsync(new PopupYesNoView(() => 
+            {
+                DeletMessage(messageId);
+            },
+            () => { }, "Are you sure you want to delete?"));
+        }
+
+
+        public void DeleteOtherMessage(int fromId, Guid messageId)
+        {
+            if (OtherUser.Id == fromId)
+            {
+                MessageModel model = MessagesList.FirstOrDefault(m => m.MessageId == messageId);
+
+                MessagesList.Remove(model);
+            }
+        }
+
+        public void DeleteOwnMessage(Guid messageId)
+        {
+            MessageModel model = MessagesList.FirstOrDefault(m => m.MessageId == messageId);
+
+            MessagesList.Remove(model);
+        }
+
+
+        public void DeletMessage(Guid messageId) 
+        {
+            Task.Run(async ()=> await ChatService.Instance.DeleteMessage(OtherUser.Id,HttpClientImpl.Instance.UserId, messageId));
+        }
+
 
         protected void OnPropertyChanged(string propName)
         {
