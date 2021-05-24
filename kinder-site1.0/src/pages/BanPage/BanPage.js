@@ -10,7 +10,7 @@ export default class BanUsers extends Component {
             <div className="mainContent">
                 <Badge variant="secondary">BAN USERS</Badge>
                 <SearchPanel/>
-                <MyTable/>
+                <MyTable isBannedPage="true"/>
             </div>
         )
     }

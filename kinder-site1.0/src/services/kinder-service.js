@@ -1,10 +1,20 @@
 export default class KinderService {
-        _apiBase = 'http://localhost:3000';
+        _apiBase = 'http://localhost:5000';
 
 
-    async getResourse(url) {
+    async getResourse(url, method) {
 
-        const res = await fetch(`${this._apiBase}${url}`);
+        const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IjEiLCJyb2xlIjoiU2ltcGxlVXNlciIsIm5iZiI6MTYyMTg0NjE0MiwiZXhwIjoxNjIxOTMyNTQyLCJpYXQiOjE2MjE4NDYxNDJ9.RMCCwEeD4_UHty9YK53LFU_AC5ScDd5JkqQPltaLlLs";
+        const myHeaders = new Headers();
+        myHeaders.append("Authorization", `Bearer ${token}`);
+
+        const requestOptions = {
+        method: method,
+        headers: myHeaders,
+        redirect: 'follow'
+};
+
+        const res = await fetch(`${this._apiBase}${url}`, requestOptions);
         if(!res.ok) {
             console.log(`ERROR at ${this._apiBase}${url}. RESPONSE STATUS: ${res.status}`);
         }
@@ -14,6 +24,34 @@ export default class KinderService {
 
 
     async getAllUsers(){
-        return await this.getResourse(`/users/`);
+        const res = await this.getResourse(`/MatchPage/users/`, 'GET');
+        res.map(user => this._transformUser(user));
+        return res;
+    }
+
+    renameRole(user) {
+        switch(user.role) {
+            case 0:
+                return 'SimpleUser';
+            case 1:
+                return 'Admin';
+            default:
+                return user.role;
+        }
+    }
+
+    async _transformUser(user) {
+        
+        switch(user.role) {
+            case 0:
+                user.role = 'SIMPLE';
+                break;
+            case 1:
+                user.role = 'ADMIN';
+                break;
+            default:
+                break;
+        }
+        return user;
     }
 }

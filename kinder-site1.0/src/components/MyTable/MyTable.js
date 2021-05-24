@@ -7,10 +7,14 @@ import {usersLoaded, usersRequested} from '../../actions';
 import {Spinner} from 'react-bootstrap';
 
 import '../PageLink/PageLink.css';
+import { Button, Pagination } from 'react-bootstrap';
 
 class MyTable extends Component {
 
+    
+
     componentDidMount() {
+            
         this.props.usersRequested();
 
         const {KinderService} = this.props;
@@ -19,7 +23,7 @@ class MyTable extends Component {
     }
 
     render() {
-        const {userList, loading}=this.props;
+        const {userList, loading, isBannedPage}=this.props;
 
 
         if(loading) {
@@ -49,12 +53,26 @@ class MyTable extends Component {
                         <tbody>
                             {
                                 userList.map(user => {
-                                    return <MyTableItem key={user.id} user={user}/>
+                                    return <MyTableItem key={user.id} user={user} isBannedPage={isBannedPage}/>
                                 })
                             }
                         </tbody>
                     </Table>
+                    <Button variant="primary" size="lg">
+                        Принять изменения
+                    </Button>
+                    <br></br><br></br>
+                    <Pagination>
+                        <Pagination.First />
+                        <Pagination.Prev />   
+                        <Pagination.Item key={1} active={true}>
+                            {1}
+                        </Pagination.Item>
+                        <Pagination.Next />
+                        <Pagination.Last />
+                    </Pagination>
                 </Container>
+                <br></br>
             </>
         )
     }
