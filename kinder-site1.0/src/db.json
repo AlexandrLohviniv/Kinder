@@ -1,0 +1,84 @@
+{
+  "users": [
+    {
+      "id": 0,
+      "firstName": "Harding",
+      "lastName": "Quinn",
+      "role": "superLikeUser",
+      "nickName": "zelenskiy",
+      "email": "harding.quinn@venoflex.co.uk"
+    },
+    {
+      "id": 1,
+      "firstName": "Benson",
+      "lastName": "Garner",
+      "role": "admin",
+      "nickName": "zelenskiy",
+      "email": "benson.garner@dognost.name"
+    },
+    {
+      "id": 2,
+      "firstName": "Kim",
+      "lastName": "Potts",
+      "role": "superLikeUser",
+      "nickName": "zelenskiy",
+      "email": "kim.potts@undertap.biz"
+    },
+    {
+      "id": 3,
+      "firstName": "Snow",
+      "lastName": "Rasmussen",
+      "role": "admin",
+      "nickName": "zelenskiy",
+      "email": "snow.rasmussen@flexigen.io"
+    },
+    {
+      "id": 4,
+      "firstName": "Nona",
+      "lastName": "Sparks",
+      "role": "admin",
+      "nickName": "zelenskiy",
+      "email": "nona.sparks@orboid.biz"
+    },
+    {
+      "id": 5,
+      "firstName": "Jensen",
+      "lastName": "Jefferson",
+      "role": "superLikeUser",
+      "nickName": "zelenskiy",
+      "email": "jensen.jefferson@koffee.com"
+    },
+    {
+      "id": 6,
+      "firstName": "Sophie",
+      "lastName": "Bradshaw",
+      "role": "premiumSuperLikeUser",
+      "nickName": "zelenskiy",
+      "email": "sophie.bradshaw@cedward.tv"
+    },
+    {
+      "id": 7,
+      "firstName": "Pennington",
+      "lastName": "Bowers",
+      "role": "superLikeUser",
+      "nickName": "zelenskiy",
+      "email": "pennington.bowers@opportech.ca"
+    },
+    {
+      "id": 8,
+      "firstName": "Riddle",
+      "lastName": "Parrish",
+      "role": "admin",
+      "nickName": "zelenskiy",
+      "email": "riddle.parrish@geekola.net"
+    },
+    {
+      "id": 9,
+      "firstName": "Schneider",
+      "lastName": "Hudson",
+      "role": "simpleUser",
+      "nickName": "zelenskiy",
+      "email": "schneider.hudson@infotrips.us"
+    }
+  ]
+}

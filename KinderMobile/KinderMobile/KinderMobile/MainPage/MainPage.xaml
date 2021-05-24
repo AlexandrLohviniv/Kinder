@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="KinderMobile.MainPage.MainPage">
+    <StackLayout>
+        <Label Margin="0,40,0,20"
+               Text="Kinder"
+               FontFamily="Lobster" 
+               FontSize="40" 
+               HorizontalTextAlignment="Center" 
+               WidthRequest="100"
+               TextColor="Green"/>
+
+        <Entry Placeholder="Enter your mail..."
+               ClearButtonVisibility="WhileEditing"
+               Margin="10, 0, 10, 0"
+               Text="{Binding Mail, Mode=TwoWay}"/>
+        <Entry Placeholder="Enter your pass..."
+               IsPassword="True"
+               ClearButtonVisibility="WhileEditing"
+               Margin="10, 0, 10, 0"
+               Text="{Binding Password, Mode=TwoWay}"/>
+
+
+        <Button Text="Login"
+                HorizontalOptions="FillAndExpand"
+                Margin="10,20,10,0"
+                Command="{Binding UsualLoginCommand}"/>
+
+        <Frame CornerRadius="3" BackgroundColor="#4167b2" HeightRequest="60" Margin="15, 20" Padding="0" HasShadow="false" HorizontalOptions="FillAndExpand">
+            <StackLayout Orientation="Horizontal" Padding="5">
+                <Image HeightRequest="80" Aspect="AspectFill" 
+                       Source="facebooklogo.png" />
+                <Label Text="Continue with Facebook" VerticalOptions="CenterAndExpand" FontSize="20" FontAttributes="Bold" TextColor="White"/>
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer x:Name="FacebookButton" AutomationId="FacebookButton" Command="{Binding FacebookLoginCommand}"/>
+                </StackLayout.GestureRecognizers>
+            </StackLayout>
+        </Frame>
+
+        <Frame CornerRadius="3" BackgroundColor="White" HeightRequest="60" Margin="15, 0" Padding="0" HasShadow="false" 
+               HorizontalOptions="FillAndExpand" BorderColor="Red">
+            <StackLayout Orientation="Horizontal" Padding="5">
+                <Image HeightRequest="80" Aspect="AspectFill" 
+                       Source="googlelogo.png" />
+                <Label Text="Continue with Google" VerticalOptions="CenterAndExpand" FontSize="20" FontAttributes="Bold" TextColor="Black"/>
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer x:Name="GoogleButton" AutomationId="GoogleButton" Command="{Binding GoogleLoginCommand}"/>
+                </StackLayout.GestureRecognizers>
+            </StackLayout>
+        </Frame>
+
+    </StackLayout>
+</ContentPage>

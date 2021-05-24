@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<pages:PopupPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="KinderMobile.Popup.PopupView"
+             xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup">
+
+    <StackLayout Margin="12"
+                 Padding="24, 24, 24, 0"
+                 Spacing="24"
+                 BackgroundColor="{Binding BackGroundColor}"
+                 HorizontalOptions="Center"
+                 VerticalOptions="Center"
+                 WidthRequest="300">
+
+        <Label Text="{Binding Message}"
+               FontSize="20"
+               TextColor="White"
+               HorizontalOptions="Center"
+               VerticalOptions="Center"/>
+
+        <Button BackgroundColor="{Binding BackGroundColor}"
+                FontSize="30"
+                Text="OK"
+                TextColor="White"
+                Command="{Binding CloseCommand}">
+        </Button>
+
+    </StackLayout>
+
+</pages:PopupPage>

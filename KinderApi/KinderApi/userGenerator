@@ -1,0 +1,25 @@
+[
+  '{{repeat(20)}}',
+  {
+    FirstName:"{{firstName()}}",
+    LastName:"{{surname()}}",
+    Sex:"{{random('Male', 'Female', 'NotDefined')}}",
+    Role:"SimpleUser",
+    DateOfBith: '{{date(new Date(1950,0,1), new Date(1999, 11, 31), "YYYY-MM-dd")}}',
+    AboutMe:"{{lorem('5')}}",
+    NickName:"{{firstName()}}",
+    Email:"{{email('true')}}",
+    LastSeen:'{{date(new Date(1950,0,1), new Date(1999, 11, 31), "YYYY-MM-dd")}}',
+    Password:"12345",
+    Coordinate:"{{floating(10, 20, 4,'0,0.0000')}},{{floating(10, 20, 5)}}",
+    Preferences:[{
+      SmokeRate:"{{random('Positive', 'Neutral', 'Negative')}}",
+      BabyRate:"{{random('Positive', 'Neutral', 'Negative')}}",
+      HeightRate:"{{random('Positive', 'Neutral', 'Negative')}}",
+      PetsRate:"{{random('Positive', 'Neutral', 'Negative')}}",
+      RelationshipRate:"{{random('Positive', 'Neutral', 'Negative')}}",
+      Sex:"{{random('Male', 'Female', 'NotDefined')}}",
+      DrinkingRate:"{{random('Positive', 'Neutral', 'Negative')}}"
+    }]
+  }
+]

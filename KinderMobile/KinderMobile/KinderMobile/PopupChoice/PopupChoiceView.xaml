@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:PopupPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="KinderMobile.PopupChoice.PopupChoiceView"
+             xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+            xmlns:input="clr-namespace:Plugin.InputKit.Shared.Controls;assembly=Plugin.InputKit">
+    <ContentPage.Content>
+        <Frame Margin="12"
+               Padding="24, 24, 24, 24"
+               BackgroundColor="White"
+               HorizontalOptions="Center"
+               VerticalOptions="Center"
+               WidthRequest="300"
+               IsClippedToBounds="True"
+               CornerRadius="20">
+            <StackLayout x:Name="Layout">
+                <input:RadioButtonGroupView HorizontalOptions="Center"
+                                        x:Name="OptionList">
+                </input:RadioButtonGroupView>
+                <input:FormView IsValidated="True"
+                                x:Name="InputFields">
+                </input:FormView>
+            </StackLayout>
+        </Frame>
+    </ContentPage.Content>
+</pages:PopupPage>
