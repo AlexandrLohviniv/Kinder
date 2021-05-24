@@ -40,7 +40,8 @@ namespace KinderApi.Models
         }
         protected override void OnConfiguring(DbContextOptionsBuilder contextOptions)
         {
-            contextOptions.UseSqlServer("Server = (localdb)\\mssqllocaldb; Database = KinderDatabase; Trusted_Connection = True;");
+             contextOptions.UseSqlServer("Server = ILIYA-PC\\SQLEXPRESS; Database = KinderDatabase; Trusted_Connection = True;");
+            //contextOptions.UseSqlServer("Server = (localdb)\\mssqllocaldb; Database = KinderDatabase; Trusted_Connection = True;");
         }
 
 
