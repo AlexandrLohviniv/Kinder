@@ -29,16 +29,6 @@ export default class KinderService {
         return res;
     }
 
-    renameRole(user) {
-        switch(user.role) {
-            case 0:
-                return 'SimpleUser';
-            case 1:
-                return 'Admin';
-            default:
-                return user.role;
-        }
-    }
 
     async _transformUser(user) {
         
