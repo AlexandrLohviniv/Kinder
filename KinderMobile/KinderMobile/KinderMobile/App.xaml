@@ -3,6 +3,11 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="KinderMobile.App">
     <Application.Resources>
-
+        <ResourceDictionary>
+            <Style TargetType="Label" x:Key="DescriptionLabel">
+                <Setter Property="FontSize" Value="35"/>
+                <Setter Property="TextColor" Value="DarkGray"/>
+            </Style>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>

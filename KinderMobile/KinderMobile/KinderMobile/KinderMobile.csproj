@@ -12,10 +12,12 @@
 
   <ItemGroup>
     <None Remove="AppFonts\materialicons.ttf" />
+    <None Remove="Images\HeartPng.png" />
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Include="AppFonts\materialicons.ttf" />
+    <EmbeddedResource Include="Images\HeartPng.png" />
   </ItemGroup>
 
   <ItemGroup>
