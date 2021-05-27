@@ -47,7 +47,10 @@ namespace KinderApi
             services.AddAutoMapper(typeof(Startup));
             services.AddControllersWithViews();
             services.AddScoped<ILoginService, LoginService>();
+            services.AddScoped<IAdminService, AdminService>();
+            
             services.AddScoped<IUserService, UserService>();
+
             services.AddScoped<IPhotoService, PhotoService>();
             services.AddScoped<ILikeService, LikeService>();
             services.AddScoped<IMessageService, MessageService>();
