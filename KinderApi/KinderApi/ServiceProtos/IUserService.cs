@@ -14,5 +14,6 @@ namespace KinderApi.ServiceProtos
         Task<Image> GetUserPhotoByPhotoId(int userId, int photoId);
         Task<List<User>> GetUsersForMatchByDistance(int currentUserId, int? distance);
         Task<List<User>> GetUsersForMathcByPreference(int currentUserId, PreferenceDto prefernces = null);
+        Task<List<User>> SortUsersByData(UserToFindDto sortUserData);
     }
 }
