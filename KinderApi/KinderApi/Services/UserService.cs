@@ -61,7 +61,7 @@ namespace KinderApi.Services
             return userToReturn;
         }
 
-        
+
 
         public async Task<List<User>> GetUsersForMathcByPreference(int currentUserId, PreferenceDto prefernces = null)
         {
@@ -121,6 +121,47 @@ namespace KinderApi.Services
             var photo = await photoQuery.FirstOrDefaultAsync(p => p.id == photoId && p.Userid == userId);
 
             return photo;
+        }
+
+        public async Task<List<User>> SortUsersByData(UserToFindDto sortUserData)
+        {
+            List<User> uesrToReturn = new List<User>();
+
+            List<PropertyInfo> sortedParams = sortUserData.GetType().GetProperties().ToList();
+
+            foreach (var prop in sortedParams)
+            {
+                string propName = prop.Name;
+
+                if(prop.GetValue(sortUserData) == null)
+                    continue;
+
+                string propVal = prop.GetValue(sortUserData).ToString().ToLower();
+
+                if (uesrToReturn.Count() == 0)
+                {
+                    await context.Users.ForEachAsync(u => 
+                    {
+                        if(u.GetType().GetProperty(propName).GetValue(u).ToString().ToLower().Contains(propVal)){
+                            uesrToReturn.Add(u);
+                        }
+                    });
+                }
+                else
+                {
+                    List<User> tempUsers = new List<User>();
+                    uesrToReturn.ForEach(u => 
+                    {
+                        if(u.GetType().GetProperty(propName).GetValue(u).ToString().ToLower().Contains(propVal)){
+                            tempUsers.Add(u);
+                        }
+                    });
+
+                    uesrToReturn = tempUsers;
+                }
+            }
+
+            return uesrToReturn;
         }
     }
 }

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -11,13 +12,13 @@ namespace KinderApi.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class UserController:ControllerBase
+    public class UserController : ControllerBase
     {
         private readonly DatabaseContext context;
         private readonly IMapper mapper;
         private readonly IUserService userService;
 
-        public UserController(  DatabaseContext context, 
+        public UserController(DatabaseContext context,
                                 IMapper mapper,
                                 IUserService userService)
         {
@@ -65,6 +66,18 @@ namespace KinderApi.Controllers
             await context.SaveChangesAsync();
 
             return Ok();
+        }
+
+        [HttpGet("Find")]
+        public async Task<IActionResult> FindUsers([FromBody] UserToFindDto newUser)
+        {
+            List<User> users = await userService.SortUsersByData(newUser);
+
+            if(users == null)
+                return BadRequest("No users found");
+
+            List<UserToReturnDto> usersToReturn = mapper.Map<List<UserToReturnDto>>(users);
+            return Ok(usersToReturn);
         }
     }
 }

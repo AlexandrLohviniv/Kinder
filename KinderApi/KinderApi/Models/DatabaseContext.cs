@@ -61,6 +61,5 @@ namespace KinderApi.Models
         public virtual DbSet<Image> Image { get; set; }
         public virtual DbSet<Complaint> Complaints { get; set; }
         public virtual DbSet<BannedUsers> BannedUsers { get; set; }
-
     }
 }
