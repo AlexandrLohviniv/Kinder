@@ -14,29 +14,18 @@ namespace KinderMobile
         public App()
         {
             InitializeComponent();
-            // MainPage = new MainPage.MainPage();
+            MainPage = new MainPage.MainPage();
 
-            //NavigationDispetcher.Instance.Initialize(MainPage.Navigation);
-            //if (!string.IsNullOrEmpty(HttpClientImpl.Instance.Token))
-            //{
-            //    CurrentUser.InstantiateUser(HttpClientImpl.Instance.UserId);
-            //    if (CurrentUser.Instance != null)
-            //    {
-            //        Task.Run(()=> NavigationDispetcher.Instance.Navigation.PushModalAsync(new NavPage())).Wait();
-            //    }
+            NavigationDispetcher.Instance.Initialize(MainPage.Navigation);
+            if (!string.IsNullOrEmpty(HttpClientImpl.Instance.Token))
+            {
+                CurrentUser.InstantiateUser(HttpClientImpl.Instance.UserId);
+                if (CurrentUser.Instance != null)
+                {
+                    Task.Run(() => NavigationDispetcher.Instance.Navigation.PushModalAsync(new NavPage())).Wait();
+                }
 
-            //}
-
-            MainPage = new BasicInputInfoPageView();
-
-            // MainPage = new PreferencesPageView();
-
-
-
-            // MainPage = new NavPage();
-
-            //MainPage = new AccountSettingsView();
-            //MainPage = new EditBioInfo();
+            }
         }
 
         protected override void OnStart()

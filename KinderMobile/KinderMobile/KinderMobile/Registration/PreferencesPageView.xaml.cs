@@ -1,4 +1,5 @@
-﻿using System;
+﻿using KinderMobile.DTOs;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,11 +13,11 @@ namespace KinderMobile.Registration
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class PreferencesPageView : ContentPage
     {
-        public PreferencesPageView()
+        public PreferencesPageView(RegisterUserDto registerUserDto)
         {
             InitializeComponent();
 
-            this.BindingContext = new PreferenceInfoPageViewModel();
+            this.BindingContext = new PreferenceInfoPageViewModel(registerUserDto);
         }
     }
 }

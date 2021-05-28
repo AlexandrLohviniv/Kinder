@@ -1,5 +1,8 @@
 ﻿using KinderMobile.DTOs;
+using KinderMobile.Helpers;
+using KinderMobile.Popup;
 using KinderMobile.PopupChoice;
+using KinderMobile.PopupYesNo;
 using Rg.Plugins.Popup.Services;
 using System;
 using System.Collections.Generic;
@@ -20,11 +23,20 @@ namespace KinderMobile.Registration
 
         public ICommand MakeChoiceCommandPreference { get; set; }
 
+        public ICommand GoToBasicSettingsCommand { get; set; }
+        public ICommand RegisterUserCommand { get; set; }
+
         private PropertyInfo selectedPropertyInfo;
 
-        public PreferenceInfoPageViewModel()
+        RegisterUserDto UserToRegister { get; set; }
+
+
+        public PreferenceInfoPageViewModel(RegisterUserDto userToRegister)
         {
             MakeChoiceCommandPreference = new Command<string>(async (propName) => await MakeChoice(propName, userPreferences));
+
+            GoToBasicSettingsCommand = new Command(async () => await GoToBasicSettings());
+            RegisterUserCommand = new Command(async () => await RegisterUser());
 
             userPreferences = new UserPreferenceDto()
             {
@@ -36,9 +48,8 @@ namespace KinderMobile.Registration
                 Sex = Sexuality.NotDefined,
                 SmokeRate = Rate.Negative
             };
-
+            UserToRegister = userToRegister;
         }
-
 
 
         async Task MakeChoice<T>(string propName, T model)
@@ -122,6 +133,44 @@ namespace KinderMobile.Registration
             {
                 System.Console.WriteLine(e.InnerException);
             }
+        }
+
+
+        private async Task GoToBasicSettings()
+        {
+            await PopupNavigation.Instance.PushAsync(new PopupYesNoView(() =>
+            {
+                Task.Run(async () => { await NavigationDispetcher.Instance.Navigation.PopModalAsync(); });
+            }, () => { }, "All your choice will be lost. Are you sure?"));
+        }
+
+        private async Task RegisterUser()
+        {
+            if (UserToRegister.Preferences == null)
+                UserToRegister.Preferences = new List<UserPreferenceDto>();
+
+            UserToRegister.Preferences.Add(userPreferences);
+
+
+            await PopupNavigation.Instance.PushAsync(new PopupYesNoView(() =>
+            {
+                Task.Run(async () => {
+                    bool result = await HttpClientImpl.Instance.RegisterUser(UserToRegister);
+                    if (result)
+                    {
+                        await PopupNavigation.Instance.PushAsync(new PopupView("You are succesfully registered", MessageType.Notification));
+
+                        Page popedPage= await NavigationDispetcher.Instance.Navigation.PopModalAsync();
+                        
+                        await NavigationDispetcher.Instance.Navigation.PopModalAsync(); //TODO: go to main page
+                    }
+                    else 
+                    {
+                        await PopupNavigation.Instance.PushAsync(new PopupView("Something went wrong. Try again later", MessageType.Error));
+                    }
+                });
+            }, 
+            () => {}, "Register?"));
         }
 
 

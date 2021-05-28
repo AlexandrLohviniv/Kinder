@@ -15,6 +15,12 @@ namespace KinderMobile.Registration
         public BasicInputInfoPageView()
         {
             InitializeComponent();
+            this.BindingContext = new BasicInputInfoPageViewModel();
+        }
+
+        private void CheckBox_CheckChanged(object sender, EventArgs e)
+        {
+            password2.IsPassword = password1.IsPassword = (sender as Plugin.InputKit.Shared.Controls.CheckBox).IsChecked;
         }
     }
 }

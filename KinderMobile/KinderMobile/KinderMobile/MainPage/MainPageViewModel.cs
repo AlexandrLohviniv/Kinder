@@ -1,6 +1,7 @@
 ﻿using KinderMobile.DTOs;
 using KinderMobile.Helpers;
 using KinderMobile.Popup;
+using KinderMobile.Registration;
 using Newtonsoft.Json;
 using Plugin.FacebookClient;
 using Rg.Plugins.Popup.Services;
@@ -26,9 +27,7 @@ namespace KinderMobile.MainPage
         public ICommand UsualLoginCommand { get; set; }
         public ICommand GoogleLoginCommand { get; set; }
         public ICommand FacebookLoginCommand { get; set; }
-
-
-        //IHttpClient http;
+        public ICommand GoToRegistrationPageCommand { get; set; }
 
 
         Account account;
@@ -45,7 +44,7 @@ namespace KinderMobile.MainPage
             UsualLoginCommand = new Command(async () => await UsualLogin());
             GoogleLoginCommand = new Command(async () => await GoogleLogin());
             FacebookLoginCommand = new Command(async () => await FacebookLogin());
-
+            GoToRegistrationPageCommand = new Command(async () => await GoToRegistrationPage());
 
             //http = DependencyService.Get<IHttpClient>();
 
@@ -265,6 +264,11 @@ namespace KinderMobile.MainPage
             Debug.WriteLine("Authentication error: " + e.Message);
         }
 
+
+        public async Task GoToRegistrationPage() 
+        {
+            await NavigationDispetcher.Instance.Navigation.PushModalAsync(new BasicInputInfoPageView());
+        }
 
     }
 }

@@ -89,8 +89,11 @@
                     </Grid>
                 </Frame>
                 <Grid ColumnDefinitions="*,*" Margin="5,20,5,0">
-                    <Button Command="{Binding SubmitCommand}" Grid.Column="0" HorizontalOptions="FillAndExpand" Text="Back to basic info" BackgroundColor="#0a8b70" CornerRadius="20" TextColor="White" />
-                    <Button Command="{Binding SubmitCommand}" Grid.Column="1" HorizontalOptions="FillAndExpand" Text="Submit" BackgroundColor="#0a8b70" CornerRadius="20" TextColor="White" />
+                    <Button Command="{Binding SubmitCommand}" Grid.Column="0" HorizontalOptions="FillAndExpand" 
+                            Text="Back to basic info" BackgroundColor="#0a8b70" CornerRadius="20" TextColor="White" 
+                            touch:TouchEff.Command="{Binding GoToBasicSettingsCommand}"/>
+                    <Button Command="{Binding SubmitCommand}" Grid.Column="1" HorizontalOptions="FillAndExpand" Text="Submit" BackgroundColor="#0a8b70" CornerRadius="20" TextColor="White" 
+                            touch:TouchEff.Command="{Binding RegisterUserCommand}"/>
                 </Grid>
 
 

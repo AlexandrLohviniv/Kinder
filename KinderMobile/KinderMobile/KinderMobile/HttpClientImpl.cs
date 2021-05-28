@@ -268,5 +268,18 @@ namespace KinderMobile
 
             return messagesToReturn;
         }
+
+
+        public async Task<bool> RegisterUser(RegisterUserDto registerUserDto) 
+        {
+            string url = $"http://{serverAddr}/Register/registerUser";
+
+            if (client == null)
+                client = new HttpClient();
+
+            HttpResponseMessage response = await registerUserDto.SendModel(client, url);
+
+            return response.IsSuccessStatusCode;
+        }
     }
 }
