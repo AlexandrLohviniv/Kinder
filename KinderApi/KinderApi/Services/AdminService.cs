@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using KinderApi.helper;
 using KinderApi.Models;
 using KinderApi.ServiceProtos;
 using Microsoft.EntityFrameworkCore;
@@ -16,17 +17,15 @@ namespace KinderApi.Services
             this.context = context;
         }
 
-        public async Task<List<User>> GetBannedUsers()
+        public async Task<PagedList<User>> GetBannedUsers(PaginationParams userParams)
         {
-            var users = context.BannedUsers.Include(x => x.User);
-            if (users == null)
-                return new List<User>();
+            var usersQuery = context.BannedUsers.Include(x => x.User);
 
-            List<User> usersToReturn = await users.Select(u => u.User).ToListAsync();
+            var users = usersQuery.Select(u => u.User);
 
-            return usersToReturn;
+            PagedList<User> result = await PagedList<User>.CreateAsync(users, userParams.PageNumber, userParams.PageSize);
+
+            return result;
         }
-
-
     }
 }

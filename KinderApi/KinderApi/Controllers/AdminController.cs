@@ -86,16 +86,16 @@ namespace KinderApi.Controllers
 
 
         [HttpGet("bannedUsers")]
-        public async Task<IActionResult> GetBannedUsers()
+        public async Task<IActionResult> GetBannedUsers([FromQuery]PaginationParams userParams)
         {
-            var users = await adminService.GetBannedUsers();
+            PagedList<User> users = await adminService.GetBannedUsers(userParams);
 
             List<UserToReturnDto> userToReturn = mapper.Map<List<UserToReturnDto>>(users);
 
+             Response.AddPagination(users.CurrentPage,users.PageSize, 
+                users.TotalCount, users.TotalPages);
+
             return Ok(userToReturn);
         }
-
-
-       
     }
 }
