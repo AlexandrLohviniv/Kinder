@@ -50,5 +50,16 @@
             </StackLayout>
         </Frame>
 
+         <Frame CornerRadius="3" BackgroundColor="White" HeightRequest="60" Margin="15, 20" Padding="0" HasShadow="false" 
+               HorizontalOptions="FillAndExpand" BorderColor="#0a8b70">
+            <FlexLayout JustifyContent="Center">
+                <Image HeightRequest="55" Aspect="AspectFill" 
+                       Source="KinderLogo.png" 
+                        FlexLayout.AlignSelf="Center"/>
+                <Label Text="Register" FontSize="20" FlexLayout.AlignSelf="Center" FontAttributes="Bold" TextColor="Black"/>
+            </FlexLayout>
+        </Frame>
+
+
     </StackLayout>
 </ContentPage>

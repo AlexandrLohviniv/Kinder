@@ -1,0 +1,114 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="KinderMobile.Registration.BasicInputInfoPageView"
+             xmlns:input="clr-namespace:Plugin.InputKit.Shared.Controls;assembly=Plugin.InputKit"
+             xmlns:ctrls="clr-namespace:KinderMobile;assembly=KinderMobile">
+    <ContentPage.Content>
+        <ScrollView Padding="30">
+            <input:FormView>
+
+                <input:AdvancedEntry 
+                    IsRequired="True"
+                    Title="Place your first name:"
+                    Annotation="LettersOnly"
+                    Placeholder="your first name..."
+                    AnnotationColor="Accent"
+                    ValidationMessage="Please, enter valid value"
+                    IconImage="personIcon.png"
+                    MinLength="3"
+                    MaxLength="30"
+                    TextColor="Black"
+                    />
+
+                <input:AdvancedEntry 
+                    IsRequired="True"
+                    Title="Place your second name:"
+                    Annotation="LettersOnly"
+                    Placeholder="your seond name..."
+                    AnnotationColor="Accent"
+                    ValidationMessage="Please, enter valid value"
+                    IconImage="personIcon.png"
+                    MinLength="3"
+                    MaxLength="30"
+                    TextColor="Black"/>
+
+                <Grid ColumnDefinitions="Auto,Auto, *" Margin="0,10,0,0">
+                    <Image Source="genderIcon.png" WidthRequest="30" Grid.Column="0"></Image>
+                    <Label Grid.Column="1" VerticalTextAlignment="Center">Gender</Label>
+                    <input:RadioButtonGroupView Orientation="Horizontal" Grid.Column="2" HorizontalOptions="End">
+                        <input:RadioButton Text="Male" TextFontSize="15" Margin="0,0,20,0" IsChecked="True"/>
+                        <input:RadioButton Text="Female" TextFontSize="15"/>
+                    </input:RadioButtonGroupView>
+                </Grid>
+
+                <Grid ColumnDefinitions="Auto,Auto, *">
+                    <Image Source="dateIcon.png" WidthRequest="30" Grid.Column="0"></Image>
+                    <Label Grid.Column="1" VerticalTextAlignment="Center">Birthdate</Label>
+                    <DatePicker Grid.Column="2" HorizontalOptions="Center"></DatePicker>
+                </Grid>
+                <ctrls:PlaceholderEditor VerticalOptions="Fill" 
+                                     Placeholder="Add your Bio" 
+                                     HeightRequest="100" 
+                                     Margin="0,5">
+                </ctrls:PlaceholderEditor>
+
+                <input:AdvancedEntry 
+                    IsRequired="True"
+                    Title="Place your nickname:"
+                    Placeholder="your nickname..."
+                    AnnotationColor="Accent"
+                    ValidationMessage="Please, enter valid value"
+                    IconImage="personIcon.png"
+                    MinLength="2"
+                    MaxLength="30"
+                    TextColor="Black"/>
+
+                <input:AdvancedEntry 
+                    IsRequired="True"
+                    Title="Place your mail:"
+                    Annotation="Email"
+                    Placeholder="some@some.some"
+                    AnnotationColor="Accent"
+                    ValidationMessage="Please, enter valid value"
+                    IconImage="emailIcon.png"
+                    MinLength="2"
+                    MaxLength="30"
+                    TextColor="Black"/>
+
+
+                <input:AdvancedEntry 
+                    IsRequired="True"
+                    Title="Place your pass(letters, digits and at least 6 letters):"
+                    Annotation="Password"
+                    Placeholder="don't dell it"
+                    AnnotationColor="Accent"
+                    ValidationMessage="Please, enter valid value"
+                    IconImage="passwordIcon.png"
+                    MinLength="2"
+                    MaxLength="30"
+                    TextColor="Black"/>
+
+                <input:AdvancedEntry 
+                    IsRequired="True"
+                    Title="Enter your pass once again"
+                    Annotation="Password"
+                    Placeholder="don't dell it"
+                    AnnotationColor="Accent"
+                    ValidationMessage="Please, enter valid value"
+                    IconImage="passwordIcon.png"
+                    MinLength="2"
+                    MaxLength="30"
+                    TextColor="Black"
+                    IsPassword="True"/>
+
+                <input:CheckBox Text="Show password" Type="Check"/>
+
+                <Grid ColumnDefinitions="*,*">
+                    <Button Command="{Binding SubmitCommand}" Grid.Column="0" HorizontalOptions="FillAndExpand" Text="Back to main page" BackgroundColor="Accent" CornerRadius="20" TextColor="White" />
+                    <Button Command="{Binding SubmitCommand}" Grid.Column="1" HorizontalOptions="FillAndExpand" Text="Next Page" BackgroundColor="Accent" CornerRadius="20" TextColor="White" />
+                </Grid>
+            </input:FormView>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

@@ -31,7 +31,7 @@ namespace KinderMobile.Droid
                 var element = e.NewElement as PlaceholderEditor;
 
                 this.Control.Background = Resources.GetDrawable(Resource.Drawable.borderEditText);
-
+                this.Control.SetPadding(50,20,50,20);
                 this.Control.Hint = element.Placeholder;
             }
         }
