@@ -19,7 +19,7 @@
                     MinLength="3"
                     MaxLength="30"
                     TextColor="Black"
-                    />
+                    IconColor="#0a8b70"/>
 
                 <input:AdvancedEntry 
                     IsRequired="True"
@@ -31,21 +31,22 @@
                     IconImage="personIcon.png"
                     MinLength="3"
                     MaxLength="30"
-                    TextColor="Black"/>
+                    TextColor="Black"
+                    IconColor="#0a8b70"/>
 
                 <Grid ColumnDefinitions="Auto,Auto, *" Margin="0,10,0,0">
                     <Image Source="genderIcon.png" WidthRequest="30" Grid.Column="0"></Image>
                     <Label Grid.Column="1" VerticalTextAlignment="Center">Gender</Label>
-                    <input:RadioButtonGroupView Orientation="Horizontal" Grid.Column="2" HorizontalOptions="End">
-                        <input:RadioButton Text="Male" TextFontSize="15" Margin="0,0,20,0" IsChecked="True"/>
-                        <input:RadioButton Text="Female" TextFontSize="15"/>
+                    <input:RadioButtonGroupView Orientation="Horizontal" Grid.Column="2" HorizontalOptions="End" >
+                        <input:RadioButton Text="Male" TextFontSize="15" Margin="0,0,20,0" IsChecked="True" CircleColor="#0a8b70" Color="#0a8b70"/>
+                        <input:RadioButton Text="Female" TextFontSize="15" CircleColor="#0a8b70" Color="#0a8b70"/>
                     </input:RadioButtonGroupView>
                 </Grid>
 
                 <Grid ColumnDefinitions="Auto,Auto, *">
                     <Image Source="dateIcon.png" WidthRequest="30" Grid.Column="0"></Image>
                     <Label Grid.Column="1" VerticalTextAlignment="Center">Birthdate</Label>
-                    <DatePicker Grid.Column="2" HorizontalOptions="Center"></DatePicker>
+                    <DatePicker Grid.Column="2" HorizontalOptions="Center" TextColor="#0a8b70"></DatePicker>
                 </Grid>
                 <ctrls:PlaceholderEditor VerticalOptions="Fill" 
                                      Placeholder="Add your Bio" 
@@ -62,7 +63,8 @@
                     IconImage="personIcon.png"
                     MinLength="2"
                     MaxLength="30"
-                    TextColor="Black"/>
+                    TextColor="Black"
+                    IconColor="#0a8b70"/>
 
                 <input:AdvancedEntry 
                     IsRequired="True"
@@ -74,7 +76,8 @@
                     IconImage="emailIcon.png"
                     MinLength="2"
                     MaxLength="30"
-                    TextColor="Black"/>
+                    TextColor="Black"
+                    IconColor="#0a8b70"/>
 
 
                 <input:AdvancedEntry 
@@ -87,7 +90,8 @@
                     IconImage="passwordIcon.png"
                     MinLength="2"
                     MaxLength="30"
-                    TextColor="Black"/>
+                    TextColor="Black"
+                    IconColor="#0a8b70"/>
 
                 <input:AdvancedEntry 
                     IsRequired="True"
@@ -100,13 +104,14 @@
                     MinLength="2"
                     MaxLength="30"
                     TextColor="Black"
-                    IsPassword="True"/>
+                    IsPassword="True"
+                    IconColor="#0a8b70"/>
 
-                <input:CheckBox Text="Show password" Type="Check"/>
+                <input:CheckBox Text="Show password" Type="Check" BorderColor="#0a8b70" TextColor="#0a8b70"/>
 
                 <Grid ColumnDefinitions="*,*">
-                    <Button Command="{Binding SubmitCommand}" Grid.Column="0" HorizontalOptions="FillAndExpand" Text="Back to main page" BackgroundColor="Accent" CornerRadius="20" TextColor="White" />
-                    <Button Command="{Binding SubmitCommand}" Grid.Column="1" HorizontalOptions="FillAndExpand" Text="Next Page" BackgroundColor="Accent" CornerRadius="20" TextColor="White" />
+                    <Button Command="{Binding SubmitCommand}" Grid.Column="0" HorizontalOptions="FillAndExpand" Text="Back to main page" BackgroundColor="#0a8b70" CornerRadius="20" TextColor="White" />
+                    <Button Command="{Binding SubmitCommand}" Grid.Column="1" HorizontalOptions="FillAndExpand" Text="Next Page" BackgroundColor="#0a8b70" CornerRadius="20" TextColor="White" />
                 </Grid>
             </input:FormView>
         </ScrollView>

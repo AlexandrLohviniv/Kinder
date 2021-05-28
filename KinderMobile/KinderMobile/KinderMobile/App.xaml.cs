@@ -14,7 +14,7 @@ namespace KinderMobile
         public App()
         {
             InitializeComponent();
-           // MainPage = new MainPage.MainPage();
+            // MainPage = new MainPage.MainPage();
 
             //NavigationDispetcher.Instance.Initialize(MainPage.Navigation);
             //if (!string.IsNullOrEmpty(HttpClientImpl.Instance.Token))
@@ -28,6 +28,8 @@ namespace KinderMobile
             //}
 
             MainPage = new BasicInputInfoPageView();
+
+            // MainPage = new PreferencesPageView();
 
 
 

@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="KinderMobile.Registration.PreferencesPageView"
+              xmlns:touch="clr-namespace:TouchEffect;assembly=TouchEffect">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="AnimatedChoice" TargetType="Frame">
+                <Setter Property="touch:TouchEff.PressedAnimationDuration" Value="300"/>
+                <Setter Property="touch:TouchEff.RegularAnimationDuration" Value="300"/>
+                <Setter Property="touch:TouchEff.RegularBackgroundColor" Value="White"/>
+                <Setter Property="touch:TouchEff.PressedBackgroundColor" Value="LightGreen"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout>
+                <Label FontSize="30" TextColor="#0a8b70" Margin="10,30" VerticalTextAlignment="Center" HorizontalTextAlignment="Center">Choose your preferences to make your matching better</Label>
+                <Frame Margin="10,5" Padding="10,10" touch:TouchEff.Command="{Binding MakeChoiceCommandPreference}" touch:TouchEff.CommandParameter="SmokeRate" Style="{StaticResource AnimatedChoice}">
+                    <Grid ColumnDefinitions="Auto, *">
+                        <Label Grid.Column="0" VerticalTextAlignment="Center" FontFamily="MyIcon" FontSize="20" TextColor="#0a8b70">&#x000f1189;</Label>
+                        <FlexLayout Direction="Row" AlignItems="Center" JustifyContent="SpaceBetween" Grid.Column="1">
+                            <Label FontSize="20" FontFamily="MyIcon" FlexLayout.Basis="120">Smoke Rate</Label>
+                            <Label FontSize="20" Text="{Binding userPreferences.SmokeRate, Mode=TwoWay}"/>
+                            <Label FontSize="20" Margin="0,0,10,0" FontFamily="MyIcon">&#x000f0734;</Label>
+                        </FlexLayout>
+                    </Grid>
+                </Frame>
+                <Frame Margin="10,5" Padding="10,10" touch:TouchEff.Command="{Binding MakeChoiceCommandPreference}" touch:TouchEff.CommandParameter="BabyRate" Style="{StaticResource AnimatedChoice}">
+                    <Grid  ColumnDefinitions="Auto, *">
+                        <Label Grid.Column="0" VerticalTextAlignment="Center" FontFamily="MyIcon" FontSize="20" TextColor="#0a8b70">&#x000f006c;</Label>
+                        <FlexLayout Direction="Row" AlignItems="Center" JustifyContent="SpaceBetween" Grid.Column="1">
+                            <Label FontSize="20" FlexLayout.Basis="120">Baby Rate</Label>
+                            <Label FontSize="20" Text="{Binding userPreferences.BabyRate, Mode=TwoWay}"/>
+                            <Label FontSize="20" Margin="0,0,10,0" FontFamily="MyIcon">&#x000f0734;</Label>
+                        </FlexLayout>
+                    </Grid>
+                </Frame>
+                <Frame Margin="10,5" Padding="10,10" touch:TouchEff.Command="{Binding MakeChoiceCommandPreference}" touch:TouchEff.CommandParameter="HeightRate" Style="{StaticResource AnimatedChoice}">
+                    <Grid  ColumnDefinitions="Auto, *">
+                        <Label Grid.Column="0" VerticalTextAlignment="Center" FontFamily="MyIcon" FontSize="20" TextColor="#0a8b70">&#x000f046d;</Label>
+                        <FlexLayout Direction="Row" AlignItems="Center" JustifyContent="SpaceBetween" Grid.Column="1">
+                            <Label FontSize="20" FlexLayout.Basis="120">Height Rate</Label>
+                            <Label FontSize="20" Text="{Binding userPreferences.HeightRate, Mode=TwoWay}"/>
+                            <Label FontSize="20" Margin="0,0,10,0" FontFamily="MyIcon">&#x000f0734;</Label>
+                        </FlexLayout>
+                    </Grid>
+                </Frame>
+                <Frame Margin="10,5" Padding="10,10" touch:TouchEff.Command="{Binding MakeChoiceCommandPreference}" touch:TouchEff.CommandParameter="PetsRate" Style="{StaticResource AnimatedChoice}">
+                    <Grid  ColumnDefinitions="Auto, *">
+                        <Label Grid.Column="0" VerticalTextAlignment="Center" FontFamily="MyIcon" FontSize="20" TextColor="#0a8b70">&#x000f0a43;</Label>
+                        <FlexLayout Direction="Row" AlignItems="Center" JustifyContent="SpaceBetween" Grid.Column="1">
+                            <Label FontSize="20" FlexLayout.Basis="120">Pet</Label>
+                            <Label FontSize="20" Text="{Binding userPreferences.PetsRate, Mode=TwoWay}"/>
+                            <Label FontSize="20" Margin="0,0,10,0" FontFamily="MyIcon">&#x000f0734;</Label>
+                        </FlexLayout>
+                    </Grid>
+                </Frame>
+                <Frame Margin="10,5" Padding="10,10" touch:TouchEff.Command="{Binding MakeChoiceCommandPreference}" touch:TouchEff.CommandParameter="RelationshipRate" Style="{StaticResource AnimatedChoice}">
+                    <Grid  ColumnDefinitions="Auto, *">
+                        <Label Grid.Column="0" VerticalTextAlignment="Center" FontFamily="MyIcon" FontSize="20" TextColor="#0a8b70">&#x000f14a3;</Label>
+                        <FlexLayout Direction="Row" AlignItems="Center" JustifyContent="SpaceBetween" Grid.Column="1">
+                            <Label FontSize="20" FlexLayout.Basis="120">Relationship</Label>
+                            <Label FontSize="20" Text="{Binding userPreferences.RelationshipRate, Mode=TwoWay}"/>
+                            <Label FontSize="20" Margin="0,0,10,0" FontFamily="MyIcon">&#x000f0734;</Label>
+                        </FlexLayout>
+                    </Grid>
+                </Frame>
+                <Frame Margin="10,5" Padding="10,10" touch:TouchEff.Command="{Binding MakeChoiceCommandPreference}" touch:TouchEff.CommandParameter="Sex" Style="{StaticResource AnimatedChoice}">
+                    <Grid  ColumnDefinitions="Auto, *">
+                        <Label Grid.Column="0" VerticalTextAlignment="Center" FontFamily="MyIcon" FontSize="20" TextColor="#0a8b70">&#x000f029e;</Label>
+                        <FlexLayout Direction="Row" AlignItems="Center" JustifyContent="SpaceBetween" Grid.Column="1">
+                            <Label FontSize="20" FlexLayout.Basis="120">Sex</Label>
+                            <Label FontSize="20" Text="{Binding userPreferences.Sex, Mode=TwoWay}"/>
+                            <Label FontSize="20" Margin="0,0,10,0" FontFamily="MyIcon">&#x000f0734;</Label>
+                        </FlexLayout>
+                    </Grid>
+                </Frame>
+                <Frame Margin="10,5" Padding="10,10" touch:TouchEff.Command="{Binding MakeChoiceCommandPreference}"  touch:TouchEff.CommandParameter="DrinkingRate" Style="{StaticResource AnimatedChoice}">
+                    <Grid  ColumnDefinitions="Auto, *">
+                        <Label Grid.Column="0" VerticalTextAlignment="Center" FontFamily="MyIcon" FontSize="20" TextColor="#0a8b70">&#x000f0098;</Label>
+                        <FlexLayout Direction="Row" AlignItems="Center" JustifyContent="SpaceBetween" Grid.Column="1">
+                            <Label FontSize="20" FlexLayout.Basis="120">Drinkin rate</Label>
+                            <Label FontSize="20" Text="{Binding userPreferences.DrinkingRate, Mode=TwoWay}"/>
+                            <Label FontSize="20" Margin="0,0,10,0" FontFamily="MyIcon">&#x000f0734;</Label>
+                        </FlexLayout>
+                    </Grid>
+                </Frame>
+                <Grid ColumnDefinitions="*,*" Margin="5,20,5,0">
+                    <Button Command="{Binding SubmitCommand}" Grid.Column="0" HorizontalOptions="FillAndExpand" Text="Back to basic info" BackgroundColor="#0a8b70" CornerRadius="20" TextColor="White" />
+                    <Button Command="{Binding SubmitCommand}" Grid.Column="1" HorizontalOptions="FillAndExpand" Text="Submit" BackgroundColor="#0a8b70" CornerRadius="20" TextColor="White" />
+                </Grid>
+
+
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>
