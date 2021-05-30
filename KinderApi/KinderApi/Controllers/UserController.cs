@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -47,6 +48,19 @@ namespace KinderApi.Controllers
 
             return Ok(preferences);
         }
+
+        [HttpPost("{userId}/UpdateLastSeen")]
+        public async Task<IActionResult> UpdateLastSeenParam(int userId)
+        {
+            var user = await context.Users.FirstOrDefaultAsync(u => u.Id == userId);
+            if(user == null)
+                return BadRequest("There is no such user");
+
+            user.LastSeen = DateTime.Now;
+            await context.SaveChangesAsync();
+            return Ok();
+        }
+
 
         [HttpPost("{userId}/UpdateInfo")]
         public async Task<IActionResult> UpdateUserInfo(int userId, [FromBody] UpdateUserDto newUser)

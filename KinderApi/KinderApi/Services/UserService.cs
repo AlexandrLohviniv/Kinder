@@ -65,11 +65,14 @@ namespace KinderApi.Services
 
         public async Task<List<User>> GetUsersForMathcByPreference(int currentUserId, PreferenceDto prefernces = null)
         {
+            User currentUser = await GetUserById(currentUserId);
+            if(DateTime.Now.SubstrHourse(currentUser.LastSeen) < 24)
+                return new List<User>();
+            
             List<User> allUsers = await context.Users.Include(u => u.Preferences).ToListAsync();
 
             List<User> userToReturn = new List<User>();
 
-            User currentUser = await GetUserById(currentUserId);
 
             PreferenceDto currentUserPrefs = null;
             if (prefernces == null)
@@ -82,6 +85,9 @@ namespace KinderApi.Services
             foreach (User user in allUsers)
             {
                 if (user.Id == currentUser.Id)
+                    continue;
+
+                if(context.Likes.Any(l => l.SenderId == currentUserId && l.ReceiverId == user.Id))
                     continue;
 
                 PreferenceDto userPrefs = mapper.Map<PreferenceDto>(user.Preferences.First());

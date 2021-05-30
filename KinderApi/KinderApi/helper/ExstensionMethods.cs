@@ -9,6 +9,13 @@ namespace KinderApi.helper
 {
     public static class ExstensionMethods
     {
+
+        public static int SubstrHourse(this DateTime time1, DateTime time2)
+        {
+            TimeSpan ts = time1 - time2;
+            return Convert.ToInt32(ts.TotalHours);
+        }
+
         public static int GetYears(this DateTime birthdate)
         {
             DateTime zeroTime = new DateTime(1, 1, 1);

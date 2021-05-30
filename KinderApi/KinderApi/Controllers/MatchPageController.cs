@@ -52,7 +52,7 @@ namespace KinderApi.Controllers
             return Ok(returnUsers);
         }
 
-        [HttpGet("{userId}/nearByPreferenceUsers")]
+        [HttpPost("{userId}/nearByPreferenceUsers")]
         public async Task<IActionResult> GetMatchUsersByPreference(int userId)
         {
             string body;
@@ -66,7 +66,7 @@ namespace KinderApi.Controllers
             {
                 userPref = JsonConvert.DeserializeObject<PreferenceDto>(body);
             }
-
+        
 
             List<User> allUsers = await userService.GetUsersForMathcByPreference(userId, userPref);
             List<UserToReturnDto> returnUsers = mapper.Map<List<UserToReturnDto>>(allUsers);

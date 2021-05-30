@@ -12,6 +12,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
+using KinderMobile.MainPage;
 
 namespace KinderMobile.Registration
 {
@@ -161,8 +162,11 @@ namespace KinderMobile.Registration
                         await PopupNavigation.Instance.PushAsync(new PopupView("You are succesfully registered", MessageType.Notification));
 
                         Page popedPage= await NavigationDispetcher.Instance.Navigation.PopModalAsync();
+                        while (popedPage.GetType() != typeof(KinderMobile.MainPage.MainPage)) 
+                        {
+                            popedPage = await NavigationDispetcher.Instance.Navigation.PopModalAsync();
+                        }
                         
-                        await NavigationDispetcher.Instance.Navigation.PopModalAsync(); //TODO: go to main page
                     }
                     else 
                     {

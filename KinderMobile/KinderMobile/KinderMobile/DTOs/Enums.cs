@@ -18,8 +18,9 @@ namespace KinderMobile.DTOs
     public enum Rate
     {
         Positive,
-        Negative,
-        Neutral
+        Neutral,
+        Negative
+       
     }
 
     public enum InputType 

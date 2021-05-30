@@ -2,6 +2,7 @@
 using KinderMobile.Helpers;
 using KinderMobile.Popup;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using Rg.Plugins.Popup.Services;
 using System;
 using System.Collections.Generic;
@@ -269,7 +270,6 @@ namespace KinderMobile
             return messagesToReturn;
         }
 
-
         public async Task<bool> RegisterUser(RegisterUserDto registerUserDto) 
         {
             string url = $"http://{serverAddr}/Register/registerUser";
@@ -278,6 +278,47 @@ namespace KinderMobile
                 client = new HttpClient();
 
             HttpResponseMessage response = await registerUserDto.SendModel(client, url);
+
+            return response.IsSuccessStatusCode;
+        }
+
+        public async Task<ObservableCollection<UserDto>> GetUserByPreference(int userId, UserPreferenceDto preference) 
+        {
+            string url = $"http://{serverAddr}/MatchPage/{userId}/nearByPreferenceUsers";
+
+            ObservableCollection<UserDto> usersByPreference = null;
+
+            var serializerSettings = new JsonSerializerSettings();
+            serializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+
+            string json = JsonConvert.SerializeObject(preference, serializerSettings);
+
+
+            HttpResponseMessage response = await client.PostAsync(url, new StringContent(json, Encoding.UTF8, "application/json"));
+
+            if (response.IsSuccessStatusCode)
+            {
+                var responseBody = await response.Content.ReadAsStringAsync();
+                usersByPreference = JsonConvert.DeserializeObject<ObservableCollection<UserDto>>(responseBody);
+            }
+
+            return usersByPreference;
+        }
+
+        public async Task<bool> UpdateLastSeenTime(int userId) 
+        {
+            string url = $"http://{serverAddr}/User/{userId}/UpdateLastSeen";
+
+            HttpResponseMessage response = await client.PostAsync(url, null);
+
+            return response.IsSuccessStatusCode;
+        }
+
+        public async Task<bool> SendLike(int userId, int senderId) 
+        {
+            string url = $"http://{serverAddr}/Like/{userId}/like/{senderId}";
+
+            HttpResponseMessage response = await client.PostAsync(url, null);
 
             return response.IsSuccessStatusCode;
         }

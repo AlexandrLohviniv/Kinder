@@ -51,6 +51,11 @@ namespace KinderApi.Models
                         .HasIndex(p => new { p.SenderId, p.ReceiverId })
                         .IsUnique(true);
 
+            modelBuilder.Entity<User>()
+                        .HasIndex(p => new { p.Email })
+                        .IsUnique(true);
+
+
             base.OnModelCreating(modelBuilder);
         }
 
