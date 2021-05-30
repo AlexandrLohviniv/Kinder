@@ -1,5 +1,7 @@
 ﻿using KinderMobile.Helpers;
+using KinderMobile.NavMenu.MatchPage;
 using KinderMobile.PersonalAccountSettings;
+using KinderMobile.Registration;
 using System;
 using System.Threading.Tasks;
 using Xamarin.Forms;
@@ -21,19 +23,10 @@ namespace KinderMobile
                 CurrentUser.InstantiateUser(HttpClientImpl.Instance.UserId);
                 if (CurrentUser.Instance != null)
                 {
-                    Task.Run(()=> NavigationDispetcher.Instance.Navigation.PushModalAsync(new NavPage())).Wait();
+                    Task.Run(() => NavigationDispetcher.Instance.Navigation.PushModalAsync(new NavPage())).Wait();
                 }
 
             }
-
-
-
-
-
-            // MainPage = new NavPage();
-
-                //MainPage = new AccountSettingsView();
-                //MainPage = new EditBioInfo();
         }
 
         protected override void OnStart()

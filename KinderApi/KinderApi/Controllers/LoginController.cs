@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using KinderApi.Models;
 using Newtonsoft.Json;
 using System.Text;
+using KinderApi.helper;
 
 namespace KinderApi.Controllers
 {
@@ -33,7 +34,7 @@ namespace KinderApi.Controllers
         public async Task<IActionResult> LogIn([FromBody]LoginDto loginData)
         {
           
-            User user = await loginService.LoginUser(loginData.Mail, loginData.Password);
+            User user = await loginService.LoginUser(loginData.Mail, MyEncoder.ComputeSha256Hash(loginData.Password));
 
             if (user == null)
             {

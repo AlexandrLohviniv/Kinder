@@ -2,13 +2,13 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
             xmlns:page="clr-namespace:KinderMobile.NavMenu"  
-            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:page1="clr-namespace:KinderMobile.NavMenu.MatchPage"
              x:Class="KinderMobile.NavPage">
 
 
     <ContentPage.Content>
         <Grid>
-            <xct:TabView TabStripPlacement="Bottom" IsSwipeEnabled="True">
+            <xct:TabView TabStripPlacement="Bottom" IsSwipeEnabled="False">
 
                 <xct:TabView.TabStripBackgroundView >
                     <BoxView BackgroundColor="LightGreen" CornerRadius="20, 20, 0, 0"/>
@@ -28,7 +28,7 @@
                     FontSizeSelected="25"
                     FontFamily="MyIcon"
                     TextColorSelected="White">
-                    <page:Matches></page:Matches>
+                    <page1:MatchView></page1:MatchView>
                 </xct:TabViewItem>
                 <xct:TabViewItem 
                     x:Name="MessageSection"

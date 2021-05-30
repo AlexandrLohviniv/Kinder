@@ -16,6 +16,7 @@ using Newtonsoft.Json;
 using System.IO;
 using AutoMapper;
 using KinderApi.Hubs;
+using KinderApi.helper;
 
 namespace KinderApi
 {
@@ -29,6 +30,10 @@ namespace KinderApi
                 if (context.Users.ToList().Count == 0)
                 {
                     List<User> users = JsonConvert.DeserializeObject<List<User>>(File.ReadAllText(@"users.json"));
+                    foreach (var user in users)
+                    {
+                        user.Password = MyEncoder.ComputeSha256Hash(user.Password);
+                    }
                     context.Users.AddRange(users);
                     context.SaveChanges();
                 }
@@ -47,7 +52,10 @@ namespace KinderApi
             services.AddAutoMapper(typeof(Startup));
             services.AddControllersWithViews();
             services.AddScoped<ILoginService, LoginService>();
+            services.AddScoped<IAdminService, AdminService>();
+            
             services.AddScoped<IUserService, UserService>();
+
             services.AddScoped<IPhotoService, PhotoService>();
             services.AddScoped<ILikeService, LikeService>();
             services.AddScoped<IMessageService, MessageService>();

@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="KinderMobile.NavMenu.MatchPage.MatchView"
+              xmlns:cards="clr-namespace:PanCardView;assembly=PanCardView"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             xmlns:cacheImg="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             x:Name="mainContent">
+    <ContentView.Content>
+        <StackLayout x:Name="mainCardViewHolder">
+            <cards:CardsView 
+                    ItemsSource="{Binding Items}"
+                    SelectedIndex="{Binding CurrentIndex}"
+                    IsCyclical="True"
+                    IsUserInteractionEnabled="False" 
+                    IsRightToLeftFlowDirectionEnabled="{Binding Source={x:Reference mainContent},Path=BindingContext.IsRightToLeft}"
+                    ItemDisappearing="CardsView_ItemDisappearing"
+                ItemAppeared="mainCardView_ItemAppeared"
+                    x:Name="mainCardView">
+                <cards:CardsView.ItemTemplate>
+                    <DataTemplate x:Name="cardDataTemplate">
+                        <ScrollView Margin="10,10,10,70">
+                            <StackLayout>
+                                <Grid>
+                                    <Frame Padding="0" HasShadow="False" CornerRadius="10" IsClippedToBounds="True" BackgroundColor="{Binding Color}">
+                                        <cacheImg:CachedImage
+                                            Aspect="AspectFill"
+                                            Source="{Binding GetMainPhoto}"
+                                                HeightRequest="500">
+                                        </cacheImg:CachedImage>
+                                    </Frame>
+                                    <Button Text="Like" WidthRequest="100" HeightRequest="100" CornerRadius="50"
+                                                Command="{Binding Source={x:Reference mainContent},Path=BindingContext.RemoveCurrentItemByLikeCommand}"
+                                                CommandParameter="{Binding Id}"
+                                                HorizontalOptions="Start" VerticalOptions="End" Margin="50,0,0,10"/>
+                                    <Button Text="Dislike" WidthRequest="100" HeightRequest="100" CornerRadius="50" 
+                                                Command="{Binding Source={x:Reference mainContent},Path=BindingContext.RemoveCurrentItemByDislikeCommand}"
+                                                HorizontalOptions="End" VerticalOptions="End" Margin="0,0,50,10"/>
+                                </Grid>
+                                <Grid ColumnDefinitions="Auto, *" RowDefinitions="Auto, Auto">
+                                    <Image Source="personIcon.png" xct:IconTintColorEffect.TintColor="#0a8b70"/>
+                                    <Label Grid.Column="1" FontSize="20" HorizontalTextAlignment="Center" HorizontalOptions="Start" VerticalTextAlignment="Center" 
+                                           Text="{Binding GetFullName}"/>
+
+
+                                    <Image Grid.Column="0" Grid.Row="1" Source="bioIcon.png" WidthRequest="50" xct:IconTintColorEffect.TintColor="#0a8b70"/>
+                                    <Label Grid.Column="1" Grid.Row="1" FontSize="20" HorizontalTextAlignment="Center" HorizontalOptions="Start" VerticalTextAlignment="Center"
+                                           Text="{Binding AboutMe}"/>
+                                </Grid>
+                                <FlexLayout Wrap="Wrap" AlignItems="Start" Direction="Row" JustifyContent="Start" BackgroundColor="Azure" x:Name="prefHolder" BindingContextChanged="prefHolder_BindingContextChanged">
+                                </FlexLayout>
+                            </StackLayout>
+                        </ScrollView>
+                    </DataTemplate>
+                </cards:CardsView.ItemTemplate>
+            </cards:CardsView>
+        </StackLayout>
+    </ContentView.Content>
+</ContentView>

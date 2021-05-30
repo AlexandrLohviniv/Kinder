@@ -84,6 +84,5 @@ namespace KinderMobile
             hubConnection.On("RecievePrivateMessage", GetMessageAndUser);
             hubConnection.On("RecieveOwnMessage", GetMyMessage);
         }
-
     }
 }

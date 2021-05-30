@@ -17,5 +17,24 @@ namespace KinderMobile.DTOs
         public string Email { get; set; }
         public DateTime LastSeen { get; set; }
         public string mainPhotoUrl { get; set; }
-    }
+
+
+        public string GetMainPhoto 
+        {
+            get 
+            {
+                if (string.IsNullOrEmpty(mainPhotoUrl))
+                    return "defaultUser.jpg";
+                return mainPhotoUrl;
+            } 
+        }
+
+        public string GetFullName 
+        {
+            get 
+            {
+                return string.Format("{0} {1}", FirstName, LastName);
+            }
+        }
+   }
 }

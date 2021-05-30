@@ -1,6 +1,8 @@
 ﻿using KinderMobile.DTOs;
 using KinderMobile.Helpers;
 using KinderMobile.Popup;
+using KinderMobile.PopupYesNo;
+using KinderMobile.Registration;
 using Newtonsoft.Json;
 using Plugin.FacebookClient;
 using Rg.Plugins.Popup.Services;
@@ -26,9 +28,7 @@ namespace KinderMobile.MainPage
         public ICommand UsualLoginCommand { get; set; }
         public ICommand GoogleLoginCommand { get; set; }
         public ICommand FacebookLoginCommand { get; set; }
-
-
-        //IHttpClient http;
+        public ICommand GoToRegistrationPageCommand { get; set; }
 
 
         Account account;
@@ -45,7 +45,7 @@ namespace KinderMobile.MainPage
             UsualLoginCommand = new Command(async () => await UsualLogin());
             GoogleLoginCommand = new Command(async () => await GoogleLogin());
             FacebookLoginCommand = new Command(async () => await FacebookLogin());
-
+            GoToRegistrationPageCommand = new Command(async () => await GoToRegistrationPage());
 
             //http = DependencyService.Get<IHttpClient>();
 
@@ -178,6 +178,68 @@ namespace KinderMobile.MainPage
                                 Picture = facebookProfile.Picture.Data.Url,
                                 Name = $"{facebookProfile.FirstName} {facebookProfile.LastName}",
                             };
+
+                            string mail = facebookProfile.Email;
+                            string pass = facebookProfile.Email;
+
+                            bool result = await HttpClientImpl.Instance.authUser(mail, pass);
+
+                            if (!result)
+                            {
+                                await PopupNavigation.Instance.PushAsync(new PopupYesNoView(() =>
+                                {
+                                    RegisterUserDto userToRegister = new RegisterUserDto()
+                                    {
+                                        AboutMe = "Default string",
+                                        DateOfBith = DateTime.Now.AddYears(-18),
+                                        Email = facebookProfile.Email,
+                                        FirstName = facebookProfile.FirstName,
+                                        LastName = facebookProfile.LastName,
+                                        Sex = Sexuality.NotDefined,
+                                        NickName = facebookProfile.FirstName,
+                                        Password = facebookProfile.Email,
+                                        Role = Role.SimpleUser,
+                                        Preferences = new List<UserPreferenceDto>()
+                                        {
+                                            new UserPreferenceDto()
+                                            {
+                                                BabyRate = Rate.Neutral,
+                                                DrinkingRate = Rate.Neutral,
+                                                HeightRate = 125,
+                                                PetsRate = Rate.Neutral,
+                                                RelationshipRate = Rate.Neutral,
+                                                Sex = Sexuality.NotDefined,
+                                                SmokeRate = Rate.Neutral
+                                            }
+                                        }
+                                    };
+
+                                    Task.Run(async () =>
+                                    {
+                                        bool b = await HttpClientImpl.Instance.RegisterUser(userToRegister);
+                                        if (b)
+                                        {
+                                            await PopupNavigation.Instance.PushAsync(new PopupView("You are registered successfully. " +
+                                                "After you log in, change your account settings", MessageType.Notification));
+                                        }
+                                        else
+                                        {
+                                            await PopupNavigation.Instance.PushAsync(new PopupView("Something went wrong? Try again", MessageType.Notification));
+                                        }
+                                    });
+                                }, () => { }, "Would you like to registre?"));
+                            }
+                            else
+                            {
+                                CurrentUser.InstantiateUser(HttpClientImpl.Instance.UserId);
+
+                                NavPage navPage = new NavPage();
+
+                                await NavigationDispetcher.Instance.Navigation.PushModalAsync(navPage);
+                            }
+
+
+
                             await PopupNavigation.Instance.PushAsync(new PopupView("Well done", MessageType.Notification));
                             break;
                         case FacebookActionStatus.Canceled:
@@ -244,9 +306,65 @@ namespace KinderMobile.MainPage
                     store.Delete(account, AuthConstants.AppName);
                 }
 
-                await store.SaveAsync(account = e.Account, AuthConstants.AppName);
 
-                await PopupNavigation.Instance.PushAsync(new PopupView("Well done", MessageType.Notification));
+                string mail = user.Email;
+                string pass = user.Email;
+
+                bool result = await HttpClientImpl.Instance.authUser(mail, pass);
+
+                if (!result)
+                {
+                    await PopupNavigation.Instance.PushAsync(new PopupYesNoView(() =>
+                    {
+                        RegisterUserDto userToRegister = new RegisterUserDto()
+                        {
+                            AboutMe = "Default string",
+                            DateOfBith = DateTime.Now.AddYears(-18),
+                            Email = user.Email,
+                            FirstName = user.Name,
+                            LastName = user.FamilyName,
+                            Sex = Sexuality.NotDefined,
+                            NickName = user.Name,
+                            Password = user.Email,
+                            Role = Role.SimpleUser,
+                            Preferences = new List<UserPreferenceDto>()
+                            {
+                                new UserPreferenceDto()
+                                {
+                                    BabyRate = Rate.Neutral,
+                                    DrinkingRate = Rate.Neutral,
+                                    HeightRate = 125,
+                                    PetsRate = Rate.Neutral,
+                                    RelationshipRate = Rate.Neutral,
+                                    Sex = Sexuality.NotDefined,
+                                    SmokeRate = Rate.Neutral
+                                }
+                            }
+                        };
+
+                        Task.Run(async () =>
+                        {
+                            bool b = await HttpClientImpl.Instance.RegisterUser(userToRegister);
+                            if (b)
+                            {
+                                await PopupNavigation.Instance.PushAsync(new PopupView("You are registered successfully. " +
+                                    "After you log in, change your account settings", MessageType.Notification));
+                            }
+                            else
+                            {
+                                await PopupNavigation.Instance.PushAsync(new PopupView("Something went wrong? Try again", MessageType.Notification));
+                            }
+                        });
+                    }, () => { }, "Would you like to registre?"));
+                }
+                else
+                {
+                    CurrentUser.InstantiateUser(HttpClientImpl.Instance.UserId);
+
+                    NavPage navPage = new NavPage();
+
+                    await NavigationDispetcher.Instance.Navigation.PushModalAsync(navPage);
+                }
             }
 
 
@@ -265,6 +383,11 @@ namespace KinderMobile.MainPage
             Debug.WriteLine("Authentication error: " + e.Message);
         }
 
+
+        public async Task GoToRegistrationPage()
+        {
+            await NavigationDispetcher.Instance.Navigation.PushModalAsync(new BasicInputInfoPageView());
+        }
 
     }
 }

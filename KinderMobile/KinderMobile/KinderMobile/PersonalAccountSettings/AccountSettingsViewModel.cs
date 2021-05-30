@@ -75,8 +75,6 @@ namespace KinderMobile.PersonalAccountSettings
         public bool IsUserInteractionRunning { get; set; }
 
 
-
-
         public AccountSettingsViewModel(EventHandler updateMainPhoto)
         {
 
@@ -139,6 +137,9 @@ namespace KinderMobile.PersonalAccountSettings
             DeleteCurrentPhotoCommand = new Command(async () => await DeleteCurrentPhoto());
             UpdateUserInfoCommand = new Command(async () => await UpdateUserInfo());
             BackButtonCommand = new Command(async () => await BackButton());
+
+
+
 
         }
 

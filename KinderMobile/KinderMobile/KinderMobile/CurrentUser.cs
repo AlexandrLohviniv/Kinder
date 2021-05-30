@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using Xamarin.Forms;
 
 namespace KinderMobile
 {
@@ -77,7 +78,14 @@ namespace KinderMobile
                 Task.Run(() => ChatService.Instance.Disconnect()).Wait();
 
 
-                Task.Run(() => NavigationDispetcher.Instance.Navigation.PopModalAsync(true));
+                Task.Run(async () => 
+                {
+                    Page popedPage = await NavigationDispetcher.Instance.Navigation.PopModalAsync();
+                    while (popedPage.GetType() != typeof(KinderMobile.MainPage.MainPage))
+                    {
+                        popedPage = await NavigationDispetcher.Instance.Navigation.PopModalAsync();
+                    }
+                });
             }
         }
 
