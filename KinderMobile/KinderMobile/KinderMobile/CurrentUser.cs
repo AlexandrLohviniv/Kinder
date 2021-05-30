@@ -39,7 +39,7 @@ namespace KinderMobile
 
                 Task.Run(async () => { PhotoDtos = await HttpClientImpl.Instance.GetUserPhotos(userId); }).Wait();
 
-
+                
                 _instance = new CurrentUser(UserDto, UserPreferenceDto, PhotoDtos);
 
 
