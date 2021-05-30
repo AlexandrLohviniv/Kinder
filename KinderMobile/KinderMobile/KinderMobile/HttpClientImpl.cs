@@ -135,6 +135,10 @@ namespace KinderMobile
             return false;
         }
 
+
+
+
+
         public async Task<List<UserDto>> getAllUsers()
         {
             List<UserDto> output = await client.GetData<List<UserDto>>($"http://{serverAddr}/MatchPage/users");

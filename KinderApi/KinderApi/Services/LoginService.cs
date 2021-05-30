@@ -1,5 +1,6 @@
 using System.Linq;
 using System.Threading.Tasks;
+using KinderApi.helper;
 using KinderApi.Models;
 using KinderApi.ServiceProtos;
 using Microsoft.EntityFrameworkCore;
@@ -34,6 +35,8 @@ namespace KinderApi.Services
         {
             try
             {
+                user.Password = MyEncoder.ComputeSha256Hash(user.Password);
+
                 await context.Users.AddAsync(user);
                 await context.SaveChangesAsync();
             }
