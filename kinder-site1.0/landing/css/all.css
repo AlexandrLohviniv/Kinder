@@ -329,7 +329,7 @@ p {
     line-height: 1.107;
     font-weight: bold; }
 .heading-holder h1 {
-  color: #30a05d;
+  color: #4fbe9f;
 }
 .slide-holder {
   padding: 0 0 0 65px; }
@@ -550,8 +550,13 @@ p {
   letter-spacing: 0;
   white-space: normal;
   text-align: center;
+  transition: .6s;
   color: #fff; }
-  .plan .head {
+.plan:hover {
+  transition: .6s;
+
+}
+    .plan .head {
     background: rgba(255, 255, 255, 0.05);
     padding: 8px 0 13px;
     margin-bottom: 30px; }
@@ -631,11 +636,11 @@ p {
   width: 60px;
   margin: 0 0 0 -30px;
   height: 5px;
-  background: #8d81ac; }
+  background: #4fbe9f; }
 
 .plan:hover {
-  margin-top: 0;
-  width: 28%;
+
+  width: 25%;
   position: relative;
   z-index: 99;
   background: rgba(0, 0, 0, 0.2);
@@ -711,7 +716,7 @@ p {
     font-size: 1.5rem;
     line-height: 1.55; }
     .footer-holder ul a {
-      color: #8d81ac; }
+      color: #398e76; }
       .footer-holder ul a:hover {
         color: #716298; }
   .footer-holder .text-holder {
