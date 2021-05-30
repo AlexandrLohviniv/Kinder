@@ -198,7 +198,20 @@ namespace KinderMobile.MainPage
                                         Sex = Sexuality.NotDefined,
                                         NickName = facebookProfile.FirstName,
                                         Password = facebookProfile.Email,
-                                        Role = Role.SimpleUser
+                                        Role = Role.SimpleUser,
+                                        Preferences = new List<UserPreferenceDto>()
+                                        {
+                                            new UserPreferenceDto()
+                                            {
+                                                BabyRate = Rate.Neutral,
+                                                DrinkingRate = Rate.Neutral,
+                                                HeightRate = 125,
+                                                PetsRate = Rate.Neutral,
+                                                RelationshipRate = Rate.Neutral,
+                                                Sex = Sexuality.NotDefined,
+                                                SmokeRate = Rate.Neutral
+                                            }
+                                        }
                                     };
 
                                     Task.Run(async () =>
@@ -209,12 +222,12 @@ namespace KinderMobile.MainPage
                                             await PopupNavigation.Instance.PushAsync(new PopupView("You are registered successfully. " +
                                                 "After you log in, change your account settings", MessageType.Notification));
                                         }
-                                        else 
+                                        else
                                         {
                                             await PopupNavigation.Instance.PushAsync(new PopupView("Something went wrong? Try again", MessageType.Notification));
                                         }
                                     });
-                                }, () => {}, "Would you like to registre?"));
+                                }, () => { }, "Would you like to registre?"));
                             }
                             else
                             {
@@ -313,7 +326,20 @@ namespace KinderMobile.MainPage
                             Sex = Sexuality.NotDefined,
                             NickName = user.Name,
                             Password = user.Email,
-                            Role = Role.SimpleUser
+                            Role = Role.SimpleUser,
+                            Preferences = new List<UserPreferenceDto>()
+                            {
+                                new UserPreferenceDto()
+                                {
+                                    BabyRate = Rate.Neutral,
+                                    DrinkingRate = Rate.Neutral,
+                                    HeightRate = 125,
+                                    PetsRate = Rate.Neutral,
+                                    RelationshipRate = Rate.Neutral,
+                                    Sex = Sexuality.NotDefined,
+                                    SmokeRate = Rate.Neutral
+                                }
+                            }
                         };
 
                         Task.Run(async () =>
