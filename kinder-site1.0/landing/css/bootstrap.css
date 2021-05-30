@@ -1071,7 +1071,7 @@ textarea {
   line-height: inherit; }
 
 a {
-  color: #8d81ac;
+  color: #398e76;
   text-decoration: none; }
   a:hover, a:focus {
     color: #665987;
@@ -1140,7 +1140,7 @@ h1, h2, h3, h4, h5, h6,
   font-family: inherit;
   font-weight: 500;
   line-height: 1.1;
-  color: #2f6928c7; }
+  color: #398e76; }
   h1 small,
   h1 .small, h2 small,
   h2 .small, h3 small,
@@ -2891,17 +2891,17 @@ select[multiple].input-lg,
 
     .btn-primary {
       color: #fff;
-      background-color: #30a05d;
-      border-color: #228c4c; }
+      background-color: #09816c;
+      border-color: #09816c; }
       .btn-primary:hover, .btn-primary:focus, .btn-primary.focus, .btn-primary:active, .btn-primary.active, .open > .btn-primary.dropdown-toggle {
         color: #fff;
-        background-color: #3d7559;
-        border-color: #207f22; }
+        background-color: #07584a;
+        border-color: #07584a; }
       .btn-primary:active, .btn-primary.active, .open > .btn-primary.dropdown-toggle {
         background-image: none; }
       .btn-primary.disabled, .btn-primary.disabled:hover, .btn-primary.disabled:focus, .btn-primary.disabled.focus, .btn-primary.disabled:active, .btn-primary.disabled.active, .btn-primary[disabled], .btn-primary[disabled]:hover, .btn-primary[disabled]:focus, .btn-primary[disabled].focus, .btn-primary[disabled]:active, .btn-primary[disabled].active, fieldset[disabled] .btn-primary, fieldset[disabled] .btn-primary:hover, fieldset[disabled] .btn-primary:focus, fieldset[disabled] .btn-primary.focus, fieldset[disabled] .btn-primary:active, fieldset[disabled] .btn-primary.active {
-        background-color: #81ac8d;
-        border-color: #3d7559; }
+        background-color: #4fbe9f;
+        border-color: #4fbe9f; }
       .btn-primary .badge {
         color: #3d7559;;
         background-color: #fff; }
@@ -2975,7 +2975,7 @@ select[multiple].input-lg,
     background-color: #fff; }
 
 .btn-link {
-  color: #8d81ac;
+  color: #398e76;
   font-weight: normal;
   border-radius: 0; }
   .btn-link, .btn-link:active, .btn-link.active, .btn-link[disabled], fieldset[disabled] .btn-link {
