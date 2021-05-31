@@ -326,5 +326,15 @@ namespace KinderMobile
 
             return response.IsSuccessStatusCode;
         }
+
+
+        public async Task<bool> GetBackLike(int userId, int senderId) 
+        {
+            string url = $"http://{serverAddr}/Like/{userId}/unlike/{senderId}";
+
+            HttpResponseMessage response = await client.PostAsync(url, null);
+
+            return response.IsSuccessStatusCode;
+        }
     }
 }

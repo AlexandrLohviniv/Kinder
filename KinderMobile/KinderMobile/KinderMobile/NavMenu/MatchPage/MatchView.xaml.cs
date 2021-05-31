@@ -8,6 +8,8 @@ using PanCardView;
 using PanCardView.Extensions;
 using Rg.Plugins.Popup.Services;
 using Xamarin.Forms;
+using TouchEffect;
+using System.Linq;
 
 namespace KinderMobile.NavMenu.MatchPage
 {
@@ -15,19 +17,34 @@ namespace KinderMobile.NavMenu.MatchPage
     {
         FlexLayout container = null;
 
+
         public MatchView()
         {
             InitializeComponent();
             BindingContext = new MatchPageViewModel();
-            
+            (BindingContext as MatchPageViewModel).OnUserUpdateing += (object sender, EventArgs e) =>
+              {
+
+                  CardsView_ItemDisappearing(mainCardView, null);
+                  
+                  Task.Run(async () =>
+                  {
+                      await PopupNavigation.Instance.PushAsync(new PopupView("Updatated", MessageType.Warning));
+                  });
+              };
+
+
             CardsView_ItemDisappearing(mainCardView, null);
         }
 
         private void CardsView_ItemDisappearing(CardsView view, PanCardView.EventArgs.ItemDisappearingEventArgs args)
         {
-            if (view.ItemsSource.Count() == 0)
+            if (view.ItemsSource == null || view.ItemsSource.Count() == 0)
             {
-                mainCardViewHolder.Children.Remove(mainCardView);
+                foreach (var elem in mainCardViewHolder.Children.ToList())
+                {
+                    mainCardViewHolder.Children.Remove(elem);
+                }
 
                 Label afterMatchingLbl = new Label()
                 {
@@ -39,7 +56,7 @@ namespace KinderMobile.NavMenu.MatchPage
                     VerticalOptions = LayoutOptions.CenterAndExpand
                 };
 
-                int restTimeHoures = CurrentUser.Instance.UserDto.LastSeen.Hour + 24 - DateTime.Now.Hour;
+                int restTimeHoures = (CurrentUser.Instance.UserDto.LastSeen.AddHours(24) - DateTime.Now).Hours;
 
                 Label restTimeLbl = new Label()
                 {
@@ -51,15 +68,43 @@ namespace KinderMobile.NavMenu.MatchPage
                     VerticalOptions = LayoutOptions.CenterAndExpand
                 };
 
+                Frame buttonRefreshButton = new Frame()
+                {
+                    CornerRadius = 50,
+                    IsClippedToBounds = true,
+                    Padding = 0,
+                    Margin = 5,
+                    BackgroundColor = Color.FromHex("#4fbe9f"),
+                    HorizontalOptions = LayoutOptions.Center,
+                    VerticalOptions = LayoutOptions.CenterAndExpand,
+                };
+
+                TapGestureRecognizer gestureRecognizer = new TapGestureRecognizer(); ;
+
+                gestureRecognizer.SetBinding(TapGestureRecognizer.CommandProperty, "UpdateUsers");
+
+                buttonRefreshButton.GestureRecognizers.Add(gestureRecognizer);
+
+                Image refreshButton = new Image()
+                {
+                    Source = "refreshIcon.png",
+                    WidthRequest = 100,
+                    HeightRequest = 100
+                };
+
+
+                buttonRefreshButton.Content = refreshButton;
+
+
                 mainCardViewHolder.Children.Add(afterMatchingLbl);
                 mainCardViewHolder.Children.Add(restTimeLbl);
+                mainCardViewHolder.Children.Add(buttonRefreshButton);
 
                 if (restTimeHoures >= 24)
                 {
                     Task.Run(async () =>
                     {
                         await HttpClientImpl.Instance.UpdateLastSeenTime(HttpClientImpl.Instance.UserId);
-                        await PopupNavigation.Instance.PushAsync(new PopupView("The next matches will be ready in 24 hours", MessageType.Notification));
                     });
                 }
             }
@@ -101,7 +146,7 @@ namespace KinderMobile.NavMenu.MatchPage
 
                         frame.Content = label;
 
-                     
+
                         container.Children.Add(frame);
                     }
                 }

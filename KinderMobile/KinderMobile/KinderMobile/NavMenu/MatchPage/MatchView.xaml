@@ -49,6 +49,7 @@
                                 </Grid>
                                 <FlexLayout Wrap="Wrap" AlignItems="Start" Direction="Row" JustifyContent="Start" BackgroundColor="Azure" x:Name="prefHolder" BindingContextChanged="prefHolder_BindingContextChanged">
                                 </FlexLayout>
+
                             </StackLayout>
                         </ScrollView>
                     </DataTemplate>
