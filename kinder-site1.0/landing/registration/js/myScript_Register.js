@@ -1,39 +1,59 @@
 const user = {};
+let msg = {};
 
-let shownContent = 1;
 
 const signUpBtn = document.querySelector('.sign-up-btn'),
       inputDataToCheck = document.querySelectorAll('[data-check]'),
       listItems = document.querySelectorAll('.dropdown-menu'),
-      heightPreference = document.querySelector('#height'),
-      userPreferences = {};
+      heightPreference  = document.querySelector('#height'),
+      genderInputs = document.querySelectorAll('.sex-radio-btn'),
+      userPreferences = {    
+        SmokeRate: null,
+        BabyRate: null,
+        HeightRate: null,
+        PetsRate: null,
+        RelationshipRate: null,
+        DrinkingRate: null,
+        Sex: null
+    };
 
-async function getResourse(url) {
+
+    async function getResourse(url) {
+        const _apiBase = 'http://localhost:5000';
+        //const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IjEiLCJyb2xlIjoiU2ltcGxlVXNlciIsIm5iZiI6MTYyMTg0NjE0MiwiZXhwIjoxNjIxOTMyNTQyLCJpYXQiOjE2MjE4NDYxNDJ9.RMCCwEeD4_UHty9YK53LFU_AC5ScDd5JkqQPltaLlLs";
+        const myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+    
+        const data = JSON.stringify({
+            "mail": user.Email,
+            "password": user.Password
+        });
+    
+        const requestOptions = {
+        method: 'POST',
+        headers: myHeaders,
+        body: data,
+        redirect: 'follow'
+        };
+    
+        const res = await fetch(`${_apiBase}${url}`, requestOptions);
+    
+        if(!res.ok) {
+            //TODO: Добавить оповещение, что такой пользователь не найден
+            return;
+            //console.log(`ERROR at ${_apiBase}${url}. RESPONSE STATUS: ${res.status}`);
+        }
+    
+        return await res.json();
+        //return res;
+    }
+
+async function postResourse(url) {
+    const _apiBase = 'http://localhost:5000';
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
 
-    var data = JSON.stringify({
-    "firstName": "Alexandr",
-    "lastName": "Lohvinov",
-    "Sex": 0,
-    "Role": 0,
-    "DateOfBith": "2002-07-31",
-    "AboutMe": "Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum",
-    "NickName": "Logarifm",
-    "Email": "ato31ato@gmail.com",
-    "Password": "12345",
-    "Preferences": [
-        {
-            "SmokeRate": 1,
-            "BabyRate": 1,
-            "HeightRate": 1,
-            "PetsRate": 1,
-            "RelationshipRate": 1,
-            "DrinkingRate": 1,
-            "Sex": 0
-        }
-    ]
-    });
+    var data = JSON.stringify(user);
 
     var requestOptions = {
     method: 'POST',
@@ -44,43 +64,53 @@ async function getResourse(url) {
     const res = await fetch(`${_apiBase}${url}`, requestOptions);
 
     if(!res.ok) {
-        //TODO: Добавить оповещение, что такой пользователь не найден
-        inputs.forEach(input => {
-            showValidate(input);
-        });
-        return;
-        //console.log(`ERROR at ${_apiBase}${url}. RESPONSE STATUS: ${res.status}`);
+        console.log(`ERROR at ${_apiBase}${url}. RESPONSE STATUS: ${res.status}`);
     }
 
     return await res.json();
     //return res;
 }
 
-function checkPreferences(preferences) {
+function checkPrefences(preferences) {
 
-    preferences.forEach(preference => {
-        if(preference == "") {
-            
+    for(let p in preferences) {
+        if(preferences[p] == null) {
+            if(p === "Sex") {
+                preferences[p] = 2;
+            } else {
+                preferences[p] = 1;
+            }
         }
-    });
+    }
 
 }
 
-function showNotValidString(msg) {
+function getUserSex() {
+    let res = "";
+    genderInputs.forEach(input => {
+        if(input.checked) {
+            res = input.attributes[4].nodeValue;
+        } 
+    });
+    return res = res !== "" ? res : "0";
+}
 
+function showNotValidString({notValidString}) {
+    document.querySelector('#sign-up-lable').innerText = notValidString;
 }
 
 function checkValidation(msg) {
-
+    let res = true;
     inputDataToCheck.forEach(input => {
-        if(input.value == "") {
+        if(input.value === "") {
             msg.notValidString = "Empty fields are not allowed";
-            return false;
+            res = false;
         }
     });
+    if(!res) return false;
 
-    const inputsPass = document.querySelector('.checkPass');
-    if(inputsPass[0] != inputsPass[1]) {
+    const inputsPass = document.querySelectorAll('.checkPass');
+    if(inputsPass[0].value !== inputsPass[1].value) {
         msg.notValidString = "Fields 'password' and 'repeat password' are not equal";
         return false;
     }
@@ -88,8 +118,8 @@ function checkValidation(msg) {
     return true;
 }
 
-function getInfoAboutUser(role = 0, AboutMe = "", ) {
-    msg = {};
+function getAndCheckInfoAboutUser(role = 0, AboutMe = "", ) {
+    
 
     if(!checkValidation(msg)) {
         showNotValidString(msg);
@@ -103,7 +133,7 @@ function getInfoAboutUser(role = 0, AboutMe = "", ) {
     user.DateOfBith = document.querySelector('#date-of-birth').value;
     user.Email = document.querySelector('.email').value;
 
-    user.Sex = 0;
+    user.Sex = getUserSex();
     user.Role = role;
     user.AboutMe = AboutMe;
 
@@ -114,11 +144,22 @@ function getInfoAboutUser(role = 0, AboutMe = "", ) {
         userPreferences
     ];
 
-    checkPreferences(user.Preferences);
+    checkPrefences(user.Preferences[0]);
 }
 
-function register() {
-    getInfoAboutUser();
+async function register() {
+    getAndCheckInfoAboutUser();
+    await postResourse('/Register/registerUser')
+    .then((res) => getResourse('/Login')
+          .then(res => {
+
+            localStorage.setItem("token", res.token);
+          
+          })
+          .catch(e => console.error(e)))
+    .catch(e => console.error(e));
+    
+    document.location.href = '../../index.html';
 }
 
 
@@ -127,12 +168,12 @@ signUpBtn.addEventListener('click', (e) => {
     register();
 });
 
-//Event for list preferences
-function getPreferenceName(e) {
+//Event for list ps
+function getpName(e) {
     return e.target.parentElement.attributes[1].nodeValue;
 }
 
-function getPreferenceValue(e) {
+function getpValue(e) {
     return e.target.attributes[1].nodeValue;
 }
 
@@ -143,7 +184,7 @@ listItems.forEach(ul => {
     }
     uls.forEach(li => {
         li.addEventListener('click', (e) => {
-            userPreferences[getPreferenceName(e)] = getPreferenceValue(e);
+            userPreferences[getpName(e)] = getpValue(e);
          });
     });
 });

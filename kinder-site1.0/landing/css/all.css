@@ -3,7 +3,8 @@
 
 html {
   font-size: 62.5%;
-  height: 100%; }
+  height: 100%;
+scroll-behavior: smooth;}
 
 body {
   margin: 0;
@@ -100,7 +101,7 @@ p {
   #nav .nav-drop {
     overflow: hidden; }
   #nav ul {
-    padding: 9px 0 5px;
+    padding: 9px 0 9px;
     margin: 0; }
   #nav li {
     display: inline-block;
@@ -327,7 +328,8 @@ p {
     margin: 0 0 28px;
     font-size: 4rem;
     line-height: 1.107;
-    font-weight: bold; }
+    font-weight: bold;
+  float: right;}
 .heading-holder h1 {
   color: #4fbe9f;
 }
@@ -338,14 +340,24 @@ p {
     margin: 0 0 -140px; }
     .slide-holder .img-slide img {
       position: relative;
-      top: 0;
-      left: -20px; }
+      top: -35px;
+      left: 55px; }
 
 /* See Blueprint http://tympanus.net/codrops/2013/07/18/on-scroll-effect-layout/ */
 .scroll-effect-init .img-slide {
   -webkit-transition: -webkit-transform 1s;
   transition: transform 1s; }
-
+#download {
+  padding: 10px;
+  transition: .4s;
+  color: #09816c;
+  border-radius: 5px;
+  border: 1px solid #09816c;
+}
+#download:hover {
+background-color: #09816c;
+color: #fff;
+}
 .scroll-effect-init .img-slide {
   -webkit-transform: translateX(50px);
   -moz-transform: translateX(50px);
@@ -673,7 +685,6 @@ p {
     font-weight: bold;
     box-shadow: 0 0 0 #fff; }
   .subscribe .btn {
-    float: right;
     height: 42px;
     font-size: 1.3rem;
     line-height: 20px;
@@ -894,7 +905,9 @@ p {
   .text-box h2 {
     font-size: 4.8rem;
     line-height: 1.333333; }
-
+html {
+  scroll-behavior: smooth;
+}
   .visual-list {
     margin: 0;
     padding: 28px 0 0 15px; }
@@ -911,7 +924,8 @@ p {
 
   .slide-holder .img-slide img {
     position: relative;
-    left: -3px; }
+    left: -3px;
+  display: none; }
 
   .area h2 {
     text-align: center;
@@ -1125,7 +1139,7 @@ p {
   .slide-holder {
     margin: 0 0 -80px; }
     .slide-holder .img-slide img {
-      height: 416px;
+      height: 270px;
       width: auto; }
 
   .cycle-gallery {
