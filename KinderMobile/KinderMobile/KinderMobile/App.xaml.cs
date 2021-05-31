@@ -13,9 +13,12 @@ namespace KinderMobile
         public App()
         {
             InitializeComponent();
-            PeopleNearByPage peopleNearByPage = new PeopleNearByPage();
-            MainPage = peopleNearByPage;
-            //NavigationDispetcher.Instance.Initialize(MainPage.Navigation);
+            //PeopleNearByPage peopleNearByPage = new PeopleNearByPage();
+            //MainPage = peopleNearByPage;
+
+
+            MainPage = new MainPage.MainPage();
+            NavigationDispetcher.Instance.Initialize(MainPage.Navigation);
             //if (!string.IsNullOrEmpty(HttpClientImpl.Instance.Token))
             //{
             //    CurrentUser.InstantiateUser(HttpClientImpl.Instance.UserId);

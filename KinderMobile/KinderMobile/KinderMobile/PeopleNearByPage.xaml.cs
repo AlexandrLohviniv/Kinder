@@ -79,6 +79,7 @@ namespace KinderMobile
         }
         private void InitializeCircles()
         {
+
             bool makeUpheal = false;
             int count = 0;
             List<UserDto> tempUserList = new List<UserDto>();

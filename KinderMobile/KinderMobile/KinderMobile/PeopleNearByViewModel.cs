@@ -100,7 +100,10 @@ namespace KinderMobile
  
         public ICommand TapCommand
         {
-            get { return tapCommand; }
+            get 
+            {
+                return tapCommand; 
+            }
         }
         public event PropertyChangedEventHandler PropertyChanged;
         protected virtual void OnPropertyChanged(string propertyName)
