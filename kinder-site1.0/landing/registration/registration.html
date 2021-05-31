@@ -2,12 +2,12 @@
 <html lang="en">
 <head>
 	<title>РЕГИСТРАЦИЯ | KINDER</title>
-	
+
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	
+
 <!--===============================================================================================-->
-	<link rel="icon" type="image/png" href="images/icons/favicon.ico"/>
+	<link rel="icon" type="image/png" href="../images/icons/K_logo.ico"/>
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
 <!--===============================================================================================-->
@@ -49,69 +49,73 @@
 
 					<div class="wrap-input100 validate-input" data-validate="Name is required">
 						<span class="label-input100">First name</span>
-						<input class="input100 first-name" type="text" name="name" placeholder="First name...">
+						<input class="input100 first-name" data-check type="text" name="name" placeholder="First name...">
 						<span class="focus-input100"></span>
 					</div>
 
 					<div class="wrap-input100 validate-input" data-validate="Name is required">
 						<span class="label-input100 ">Last name</span>
-						<input class="input100 last-name" type="text" name="name" placeholder="Last name...">
+						<input class="input100 last-name" data-check type="text" name="name" placeholder="Last name...">
 						<span class="focus-input100"></span>
 					</div>
 
 
 					<div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
 						<span class="label-input100">Email</span>
-						<input class="input100 email" type="text" name="email" placeholder="Email addess...">
+						<input class="input100 email" data-check type="text" name="email" placeholder="Email addess...">
 						<span class="focus-input100"></span>
 					</div>
 
 					<div class="wrap-input100 validate-input" data-validate="Username is required">
 						<span class="label-input100">Username</span>
-						<input class="input100 username" type="text" name="username" placeholder="Username...">
+						<input class="input100 username" data-check type="text" name="username" placeholder="Username...">
 						<span class="focus-input100"></span>
 					</div>
 
 					<div class="wrap-input100 validate-input" data-validate = "Password is required">
 						<span class="label-input100">Password</span>
-						<input class="input100 password" type="password" name="pass" placeholder="*************">
+						<input class="input100 password checkPass" data-check type="password" name="pass" placeholder="*************">
 						<span class="focus-input100"></span>
 					</div>
 
-					<div class="wrap-input100 validate-input" data-validate = "Repeat Password is required">
+					<div class="wrap-input100 validate-input" style="margin-bottom: 20px;" data-validate = "Repeat Password is required">
 						<span class="label-input100">Repeat Password</span>
-						<input class="input100" type="password" name="repeat-pass" placeholder="*************">
+						<input class="input100 checkPass" type="password" name="repeat-pass" placeholder="*************">
 						<span class="focus-input100"></span>
 					</div>
+					<span id="sign-up-lable">Something wrong up here. .!.</span>
 
 					<section class="preferences">
-
+<span class="choose">Choose your preferences</span>
 						<div class="container">
-					    	<span class="choose">Choose your preferences</span>
-					  		
+
+
 					  		<!-- SMOKERATE -->
+							  <span class="pref">Smoking Rate:</span>
 					      	<div class="dropdown">
 					        	<div class="select">
+
 						          	<span>SmokeRate</span>
 						          	<i class="fa fa-chevron-left"></i>
 					        	</div>
-					        	<input type="hidden" name="gender">
-					        	<ul class="dropdown-menu">
+					        	<input type="hidden" name="smokerate">
+					        	<ul class="dropdown-menu" id="SmokeRate">
 							        <li id="Positive" value="0">Positive</li>
 							        <li id="Neutral" value="1">Neutral</li>
 							        <li id="Negative" value="2">Negative</li>
 									<span class="getDataPreferences" style="display: none;">-1</span>
 					        	</ul>
 					      	</div>
-					  		
+
 					  		<!-- BABYRATE -->
+								<span class="pref">Smoking Rate:</span>
 					      	<div class="dropdown">
 					        	<div class="select">
 						          	<span>BabyRate</span>
 						          	<i class="fa fa-chevron-left"></i>
 					        	</div>
 					        	<input type="hidden" name="gender">
-					        	<ul class="dropdown-menu">
+					        	<ul class="dropdown-menu" id="BabyRate">
 							        <li id="Positive" value="0">Positive</li>
 							        <li id="Neutral" value="1">Neutral</li>
 							        <li id="Negative" value="2">Negative</li>
@@ -119,28 +123,30 @@
 					      	</div>
 
 					      	<!-- PETSRATE -->
+									<span class="pref">Smoking Rate:</span>
 					      	<div class="dropdown">
 					        	<div class="select">
 						          	<span>PetsRate</span>
 						          	<i class="fa fa-chevron-left"></i>
 					        	</div>
 					        	<input type="hidden" name="gender">
-					        	<ul class="dropdown-menu">
+					        	<ul class="dropdown-menu" id="PetsRate">
 							        <li id="Positive" value="0">Positive</li>
 							        <li id="Neutral" value="1">Neutral</li>
 							        <li id="Negative" value="2">Negative</li>
 					        	</ul>
 					      	</div>
-					  
-					  
+
+
 					  		<!-- RELATIONSHIP -->
+								<span class="pref">Smoking Rate:</span>
 					      	<div class="dropdown">
 					        	<div class="select">
 						          	<span>DrinkingRate</span>
 						          	<i class="fa fa-chevron-left"></i>
 					        	</div>
 					        	<input type="hidden" name="gender">
-					        	<ul class="dropdown-menu">
+					        	<ul class="dropdown-menu" id="DrinkingRate">
 							        <li id="Positive" value="0">Positive</li>
 							        <li id="Neutral" value="1">Neutral</li>
 							        <li id="Negative" value="2">Negative</li>
@@ -148,13 +154,14 @@
 					      	</div>
 
 					      	<!-- SEX -->
+									<span class="pref">Smoking Rate:</span>
 					      	<div class="dropdown">
 					        	<div class="select">
 						          	<span>Sex</span>
 						          	<i class="fa fa-chevron-left"></i>
 					        	</div>
 					        	<input type="hidden" name="gender">
-					        	<ul class="dropdown-menu">
+					        	<ul class="dropdown-menu" id="Sex">
 							        <li id="Male" value="0">Male</li>
 							        <li id="Female" value="1">Female</li>
 							        <li id="NotDefined" value="2">Not defined</li>
@@ -162,21 +169,56 @@
 					      	</div>
 							  <!-- <span class="msg"></span> -->
 
-					      	<span class="choose">Enter your height</span>
-					      	<span id="valBox">170</span>
+					      	<span class="pref" style ="padding: 5px 0 10px; display: block;">Enter your height</span>
+					      	<span id="height" class="valBox">170</span>
 							<input type="range" min="100" max="250" step="1" onchange="showVal(this.value)">
+							<span class="pref dss" style ="padding: 5px 0 10px; display: block;">Hide your preferences</span>
+
+
+
 					      	<!-- <div class="wrap-input100 validate-input height-input" data-validate="Enter only digits please">
 								<input class="input100" type="number"  min="0" max="999999" name="username" placeholder="Height...">
 								<span class="focus-input100"></span>
 							</div> -->
 					  <!-- <span class="msg"></span> -->
 					</div>
-					<br><br> <!-- СДЕЛАТЬ ПО-НОРМАЛЬНОМУ!!!! --->
+<span class="pref label-input100" style ="padding: 5px 0 10px; display: block;">Choose your gender:</span>
+<!--
+					<form>
+						<div class="form_radio_btn">
+    <p><input id="radio-1" name="gender" type="radio" value="Male">Male</p>
+		<label for="radio-1">Radio button 1</label>
+	</div>
+		<div class="form_radio_btn">
+    <p><input id="radio-2" name="gender" type="radio" value="Female">Female</p>
+			<label for="radio-2">Radio button 1</label>
+		</div>
+			<div class="form_radio_btn">
+    <p><input id="radio-3" name="gender" type="radio" value="Other" checked>Other</p>
+			<label for="radio-3">Radio button 1</label>
+		</div>
 
+  </form>
+-->
+<div class="form_radio_btn">
+	<input id="radio-1" type="radio" name="radio" value="Male">
+	<label for="radio-1">Male</label>
+</div>
+
+<div class="form_radio_btn">
+	<input id="radio-2" type="radio" name="radio" value="Female">
+	<label for="radio-2">Female</label>
+</div>
+
+<div class="form_radio_btn">
+	<input id="radio-3" type="radio" name="radio" value="Other">
+	<label for="radio-3">Other</label>
+</div>
+<br><br> <!-- СДЕЛАТЬ ПО-НОРМАЛЬНОМУ!!!! --->
 					<form>
 					  <div class="form-group">
 					    <label for="inputDate">Enter date of birth:</label>
-					    <input type="date" class="form-control">
+					    <input type="date" data-check class="form-control" id="date-of-birth">
 					  </div>
 					</form>
 

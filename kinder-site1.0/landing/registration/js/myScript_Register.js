@@ -3,8 +3,10 @@ const user = {};
 let shownContent = 1;
 
 const signUpBtn = document.querySelector('.sign-up-btn'),
-      heightInput = document.querySelector('.height-input'),
-      inputData = document.querySelectorAll('input');
+      inputDataToCheck = document.querySelectorAll('[data-check]'),
+      listItems = document.querySelectorAll('.dropdown-menu'),
+      heightPreference = document.querySelector('#height'),
+      userPreferences = {};
 
 async function getResourse(url) {
     var myHeaders = new Headers();
@@ -54,38 +56,65 @@ async function getResourse(url) {
     //return res;
 }
 
-function shownContentOnPage() {
-    switch (shownContent) {
-        case 1:
-                        
-            break;
-        default:
-            // statements_def
-            break;
-    }
+function checkPreferences(preferences) {
+
+    preferences.forEach(preference => {
+        if(preference == "") {
+            
+        }
+    });
+
 }
 
-function getUserPreferences() {
-    return {
-        SmokeRate: 
-    }
+function showNotValidString(msg) {
+
 }
 
-function getInfoAboutUser() {
+function checkValidation(msg) {
+
+    inputDataToCheck.forEach(input => {
+        if(input.value == "") {
+            msg.notValidString = "Empty fields are not allowed";
+            return false;
+        }
+    });
+
+    const inputsPass = document.querySelector('.checkPass');
+    if(inputsPass[0] != inputsPass[1]) {
+        msg.notValidString = "Fields 'password' and 'repeat password' are not equal";
+        return false;
+    }
+
+    return true;
+}
+
+function getInfoAboutUser(role = 0, AboutMe = "", ) {
+    msg = {};
+
+    if(!checkValidation(msg)) {
+        showNotValidString(msg);
+        return;
+    }
+
     user.firstName = document.querySelector('.first-name').value;
     user.lastName = document.querySelector('.last-name').value;
-    user.nickName = document.querySelector('.username').value;
-    user.password = document.querySelector('.password').value;
-    user.preferences = [{
-        "SmokeRate": 1,
-        "BabyRate": 1,
-        "HeightRate": 1,
-        "PetsRate": 1,
-        "RelationshipRate": 1,
-        "DrinkingRate": 1,
-        "Sex": 0
-    }];
+    user.NickName = document.querySelector('.username').value;
+    user.Password = document.querySelector('.password').value;
+    user.DateOfBith = document.querySelector('#date-of-birth').value;
+    user.Email = document.querySelector('.email').value;
+
+    user.Sex = 0;
+    user.Role = role;
+    user.AboutMe = AboutMe;
+
+    userPreferences.HeightRate = heightPreference.innerText;
+    userPreferences.RelationshipRate = 0;
     
+    user.Preferences = [
+        userPreferences
+    ];
+
+    checkPreferences(user.Preferences);
 }
 
 function register() {
@@ -98,6 +127,28 @@ signUpBtn.addEventListener('click', (e) => {
     register();
 });
 
+//Event for list preferences
+function getPreferenceName(e) {
+    return e.target.parentElement.attributes[1].nodeValue;
+}
+
+function getPreferenceValue(e) {
+    return e.target.attributes[1].nodeValue;
+}
+
+listItems.forEach(ul => {
+    let uls = [];
+    for(let i = 0; i < ul.children.length; ++i) {
+        uls[uls.length] = ul.children[i];
+    }
+    uls.forEach(li => {
+        li.addEventListener('click', (e) => {
+            userPreferences[getPreferenceName(e)] = getPreferenceValue(e);
+         });
+    });
+});
+
+
 function showVal(newVal){
-    document.getElementById("valBox").innerHTML = newVal;
+    document.getElementById("height").innerHTML = newVal;
 }
