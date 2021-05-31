@@ -83,6 +83,9 @@
     <PackageReference Include="TouchView">
       <Version>4.1.100</Version>
     </PackageReference>
+    <PackageReference Include="Xam.Plugin.Geolocator">
+      <Version>4.6.2-beta</Version>
+    </PackageReference>
     <PackageReference Include="Xam.Plugin.TabView">
       <Version>1.1.1</Version>
     </PackageReference>

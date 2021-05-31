@@ -12,7 +12,7 @@ namespace KinderMobile
         {
             InitializeComponent();
 
-            PeopleNearbySection.Text = "\U000f034e";
+            //PeopleNearbySection.Text = "\U000f034e";
             MatchSection.Text = "\U000f1571";
             MessageSection.Text = "\U000f0369";
             PersonalSection.Text = "\U000f0009";

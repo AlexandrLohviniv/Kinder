@@ -19,7 +19,7 @@ namespace KinderMobile
     public class HttpClientImpl
     {
 
-        private const string serverAddr = "192.168.1.104:5000";
+        private const string serverAddr = "192.168.1.107:5000";
 
         private static HttpClientImpl _instance;
 
@@ -335,6 +335,35 @@ namespace KinderMobile
             HttpResponseMessage response = await client.PostAsync(url, null);
 
             return response.IsSuccessStatusCode;
+        }
+
+        public async Task<bool> SendGeolocation(int userId, string location)
+        {
+            string url = $"http://{serverAddr}/MatchPage/{userId}/updateLocation/{location}";
+
+            HttpResponseMessage response = await client.PostAsync(url, null);
+
+            return response.IsSuccessStatusCode;
+        }
+
+        public async Task<string> GetGeolocation(int userId)
+        {
+            string url = $"http://{serverAddr}/MatchPage/{userId}/getLocation";
+
+            string response = await client.GetData<string>(url);
+
+            return response;
+        }
+
+        public async Task<List<UserDto>> GetUsersByDistance(int userId, int distance = 500000) 
+        {
+            
+            string url = $"http://{serverAddr}/MatchPage/{userId}/nearByDistanceUsers/{distance}";
+
+            List<UserDto> users = await client.GetData<List<UserDto>>(url);
+
+            users = users ?? new List<UserDto>();
+            return users;
         }
     }
 }

@@ -5,6 +5,9 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
+using Xamarin.Essentials;
+using System.Diagnostics;
+using Plugin.Geolocator;
 
 namespace KinderMobile
 {
@@ -40,6 +43,27 @@ namespace KinderMobile
 
                 Task.Run(async () => { PhotoDtos = await HttpClientImpl.Instance.GetUserPhotos(userId); }).Wait();
 
+                //Task.Run(async () =>
+                //{
+
+                //    var locator = CrossGeolocator.Current;
+                //    locator.DesiredAccuracy = 100;
+
+                //    var location = await locator.GetPositionAsync(TimeSpan.FromMilliseconds(1000));
+
+
+                //    //var request = new GeolocationRequest(GeolocationAccuracy.Medium, TimeSpan.FromSeconds(10));
+                //    //var location = await Geolocation.GetLocationAsync(request);
+
+                //    string latitude = location.Latitude.ToString();
+                //    string longtitude = location.Longitude.ToString();
+
+                //    string valueToUpdate = string.Format("{0},{1}", latitude, longtitude);
+
+                //    await HttpClientImpl.Instance.SendGeolocation(UserDto.Id, valueToUpdate);
+
+                //});
+
 
                 _instance = new CurrentUser(UserDto, UserPreferenceDto, PhotoDtos);
 
@@ -48,7 +72,9 @@ namespace KinderMobile
                 ChatService.InitializaClient(HttpClientImpl.Instance.Token);
                 Task.Run(() => ChatService.Instance.Connect()).Wait();
             }
-            catch { }
+            catch (Exception e){
+                Debug.Write(e.Message);
+            }
         }
 
         public CurrentUser(UserDto UserDto, UserPreferenceDto UserPreferenceDto, List<PhotoDto> PhotoDtos)
