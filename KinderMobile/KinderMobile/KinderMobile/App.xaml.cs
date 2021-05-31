@@ -13,22 +13,17 @@ namespace KinderMobile
         public App()
         {
             InitializeComponent();
-            MainPage = new MainPage.MainPage();
-
-            NavigationDispetcher.Instance.Initialize(MainPage.Navigation);
-            if (!string.IsNullOrEmpty(HttpClientImpl.Instance.Token))
-            {
-                CurrentUser.InstantiateUser(HttpClientImpl.Instance.UserId);
-                if (CurrentUser.Instance != null)
-                {
-                    Task.Run(()=> NavigationDispetcher.Instance.Navigation.PushModalAsync(new NavPage())).Wait();
-                }
-
-            }
-
-
-
-
+            PeopleNearByPage peopleNearByPage = new PeopleNearByPage();
+            MainPage = peopleNearByPage;
+            //NavigationDispetcher.Instance.Initialize(MainPage.Navigation);
+            //if (!string.IsNullOrEmpty(HttpClientImpl.Instance.Token))
+            //{
+            //    CurrentUser.InstantiateUser(HttpClientImpl.Instance.UserId);
+            //    if (CurrentUser.Instance != null)
+            //    {
+            //        Task.Run(()=> NavigationDispetcher.Instance.Navigation.PushModalAsync(new NavPage())).Wait();
+            //    }
+            //}
 
             // MainPage = new NavPage();
 
@@ -38,10 +33,13 @@ namespace KinderMobile
 
         protected override void OnStart()
         {
+
+
         }
 
         protected override void OnSleep()
         {
+
         }
 
         protected override void OnResume()
