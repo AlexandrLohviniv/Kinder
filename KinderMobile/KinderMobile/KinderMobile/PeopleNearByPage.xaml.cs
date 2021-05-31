@@ -1,7 +1,10 @@
 ﻿using KinderMobile.AppFonts;
 using KinderMobile.DTOs;
+using KinderMobile.Popup;
+using Rg.Plugins.Popup.Services;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using TouchEffect;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -16,17 +19,28 @@ namespace KinderMobile
         private TapGestureRecognizer filtersRecognizer;
         private StackLayout _mainLayout;
         private int radius = 0;
+
+
+        EventHandler filterPageClosingPreessing;
+
         public PeopleNearByPage()
         {
+
+            filterPageClosingPreessing += (object sender, EventArgs args) =>
+              {
+                  radius = (int)sender;
+                  Task.Run(async()=> await PopupNavigation.Instance.PushAsync(new PopupView("The distance is: " + radius, MessageType.Notification)));
+              };
+
             viewModel = new PeopleNearByViewModel();
             this.BindingContext = viewModel;
             gestureRecognizer = new TapGestureRecognizer();
             gestureRecognizer.SetBinding(TapGestureRecognizer.CommandProperty, "TapCommand");
             filtersRecognizer = new TapGestureRecognizer();
-            filtersRecognizer.Tapped += async (s, e) => {
-                DistanceFilterPage distanceFilterPage = new DistanceFilterPage(ref radius);
-                await Navigation.PushModalAsync(distanceFilterPage);
+            filtersRecognizer.Tapped += (s, e) => {
+                Task.Run( async()=> await PopupNavigation.Instance.PushAsync(new DistanceFilterPage(filterPageClosingPreessing)));
             };
+
             InitializeComponents();
         }
 
