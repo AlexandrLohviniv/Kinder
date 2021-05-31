@@ -4,7 +4,7 @@ export default class KinderService {
 
     async getResourse(url, method) {
 
-        const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IjEiLCJyb2xlIjoiU2ltcGxlVXNlciIsIm5iZiI6MTYyMTg0NjE0MiwiZXhwIjoxNjIxOTMyNTQyLCJpYXQiOjE2MjE4NDYxNDJ9.RMCCwEeD4_UHty9YK53LFU_AC5ScDd5JkqQPltaLlLs";
+        const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IjEiLCJyb2xlIjoiU2ltcGxlVXNlciIsIm5iZiI6MTYyMjE1NDk4NCwiZXhwIjoxNjIyMjQxMzg0LCJpYXQiOjE2MjIxNTQ5ODR9.t5xGh0XhxCGWWyDzt_gdEhhqCfG8mVqCQlfcZA16Ur4";
         const myHeaders = new Headers();
         myHeaders.append("Authorization", `Bearer ${token}`);
 

@@ -1,7 +1,9 @@
 import React from 'react';
 import DropdownRightButton from '../Dropdown-right-button';
 import {Button} from 'react-bootstrap';
+import DatePicker from "react-datepicker";
 
+import "react-datepicker/dist/react-datepicker.css";
 
 const MyTableItem = ({user, isBannedPage}) => {
 
@@ -19,6 +21,7 @@ const MyTableItem = ({user, isBannedPage}) => {
                     <Button variant="secondary" size="sm" disabled>
                         Ban
                     </Button>
+                    <DatePicker/>
                 </>
             )
         }

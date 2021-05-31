@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import {Container, InputGroup, FormControl} from 'react-bootstrap';
 import LoadingButton from '../LoadingButton';
 
+
+
 export default class SearchPanel extends Component {
 
     
@@ -12,13 +14,13 @@ export default class SearchPanel extends Component {
                 <br></br> {/* Временный отступ. TODO: добавить отступ в css */}
                 <Container>
 
-                    {/* Поиск по id */}
+                    {/* Поиск по id
                     <InputGroup size="default" className="mb-3">
                         <InputGroup.Prepend>
                             <InputGroup.Text id="inputGroup-sizing-default">Id</InputGroup.Text>
                         </InputGroup.Prepend>
                         <FormControl aria-label="id" aria-describedby="inputGroup-sizing-default" />
-                    </InputGroup>
+                    </InputGroup> */}
                 
                     {/* Поиск по имени и фамилии */}
                     <InputGroup className="mb-3">
