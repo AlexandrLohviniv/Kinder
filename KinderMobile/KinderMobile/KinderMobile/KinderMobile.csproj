@@ -31,6 +31,7 @@
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.11.0" />
     <PackageReference Include="System.Text.Json" Version="5.0.2" />
     <PackageReference Include="TouchView" Version="4.1.100" />
+    <PackageReference Include="Xam.Plugin.Geolocator" Version="4.6.2-beta" />
     <PackageReference Include="Xam.Plugin.TabView" Version="1.1.1" />
     <PackageReference Include="Xamarin.Auth" Version="1.7.0" />
     <PackageReference Include="Xamarin.CommunityToolkit" Version="1.1.0" />
@@ -41,6 +42,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="NavMenu\PeopleNearBy\PeopleNearByPage.xaml.cs">
+      <DependentUpon>PeopleNearByPage.xaml</DependentUpon>
+    </Compile>
     <Compile Update="NavPage.xaml.cs">
       <DependentUpon>NavPage.xaml</DependentUpon>
     </Compile>
@@ -53,7 +57,10 @@
     <EmbeddedResource Update="NavMenu\MessagePage\Messages.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="NavMenu\PeopleNearBy.xaml">
+    <EmbeddedResource Update="NavMenu\PeopleNearBy\DistanceFiltering\DIstanceFilterPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="NavMenu\PeopleNearBy\PeopleNearByPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="NavMenu\PersonalProfilePage\Personal.xaml">

@@ -29,7 +29,7 @@ namespace KinderMobile
 
         public ChatService(string Token)
         {
-            hubConnection = new HubConnectionBuilder().WithUrl("http://192.168.1.104:5000/ChatHub", options => 
+            hubConnection = new HubConnectionBuilder().WithUrl("http://192.168.1.107:5000/ChatHub", options => 
             {
                 options.AccessTokenProvider = () => Task.FromResult(Token);
             }).WithAutomaticReconnect().Build();

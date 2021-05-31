@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:PopupPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="KinderMobile.NavMenu.PeopleNearBy.DistanceFiltering.DIstanceFilterPage"
+              xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+             xmlns:input="clr-namespace:Plugin.InputKit.Shared.Controls;assembly=Plugin.InputKit">
+    <ContentPage.Content>
+        <Frame Margin="12"
+               Padding="24, 24, 24, 24"
+               BackgroundColor="White"
+               HorizontalOptions="Center"
+               VerticalOptions="Center"
+               WidthRequest="300"
+               IsClippedToBounds="True"
+               CornerRadius="20">
+            <StackLayout>
+                <input:AdvancedSlider 
+                    MaxValue="1000" 
+                    MinValue="1" 
+                    StepValue="1" 
+                    ValuePrefix="Distance: " 
+                    ValueSuffix=" km"
+                    Title="Choose the distance"
+                    MaxValueSuffix=" km"
+                    MinValueSuffix=" km"
+                    Value="{Binding Distance}">
+                </input:AdvancedSlider>
+
+                <Button WidthRequest="100" HeightRequest="50" Text="Ok" Command="{Binding GetDistance}"/>
+            </StackLayout>
+        </Frame>
+    </ContentPage.Content>
+</pages:PopupPage>

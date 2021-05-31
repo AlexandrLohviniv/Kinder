@@ -80,7 +80,19 @@ namespace KinderMobile.NavMenu.MatchPage
 				Items.RemoveAt(CurrentIndex.ToCyclicalIndex(Items.Count));
 			});
 
+			UpdateUsers = new Command(async () => { await UpdateMatchUsers(); });
+
 		}
+
+		public async Task UpdateMatchUsers() 
+		{
+			Items = await HttpClientImpl.Instance.GetUserByPreference(HttpClientImpl.Instance.UserId, CurrentUser.Instance.UserPreferenceDto);
+			OnUserUpdateing.Invoke(null, null);
+		}
+
+		public EventHandler OnUserUpdateing { get; set; }
+
+		public ICommand UpdateUsers { get; set; }
 
 		public ICommand PanPositionChangedCommand { get; }
 

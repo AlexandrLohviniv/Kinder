@@ -50,6 +50,9 @@ namespace KinderApi.Services
                     continue;
 
                 UsersCoordinates coords = UsersCoordinates.Parse(currentUser.Coordinate, user.Coordinate);
+                if(coords == null)
+                    continue;
+
                 if (coords.Distance < distance &&
                     Math.Abs(currentUser.DateOfBith.GetYears() - user.DateOfBith.GetYears()) <= 5)
                     userToReturn.Add(user);
@@ -63,7 +66,7 @@ namespace KinderApi.Services
 
 
 
-        public async Task<List<User>> GetUsersForMathcByPreference(int currentUserId, PreferenceDto prefernces = null)
+        public async Task<List<User>> GetUsersForMathcByPreference(int currentUserId,PreferenceDto prefernces = null)
         {
             User currentUser = await GetUserById(currentUserId);
             if(DateTime.Now.SubstrHourse(currentUser.LastSeen) < 24)

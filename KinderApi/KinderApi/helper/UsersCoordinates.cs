@@ -24,24 +24,31 @@ namespace KinderApi.helper
 
         public static UsersCoordinates Parse(string coords1, string coords2, char delimeter = ',')
         {
-            NumberFormatInfo nfi = new NumberFormatInfo();
-            nfi.NumberDecimalSeparator = ".";
-
-            string[] users1Coords = coords1.Split(delimeter);
-            string[] users2Coords = coords2.Split(delimeter);
-
-            double lat1 = Convert.ToDouble(users1Coords[0], nfi);
-            double long1 = Convert.ToDouble(users1Coords[1], nfi);
-            double lat2 = Convert.ToDouble(users2Coords[0], nfi);
-            double long2 = Convert.ToDouble(users2Coords[1], nfi);
-
-            return new UsersCoordinates
+            try
             {
-                LatitudeUser1 = lat1,
-                LongtitudeUser1 = long1,
-                LatitudeUser2 = lat2,
-                LongtitudeUser2 = long2
-            };
+                NumberFormatInfo nfi = new NumberFormatInfo();
+                nfi.NumberDecimalSeparator = ".";
+
+                string[] users1Coords = coords1.Split(delimeter);
+                string[] users2Coords = coords2.Split(delimeter);
+
+                double lat1 = Convert.ToDouble(users1Coords[0], nfi);
+                double long1 = Convert.ToDouble(users1Coords[1], nfi);
+                double lat2 = Convert.ToDouble(users2Coords[0], nfi);
+                double long2 = Convert.ToDouble(users2Coords[1], nfi);
+
+                return new UsersCoordinates
+                {
+                    LatitudeUser1 = lat1,
+                    LongtitudeUser1 = long1,
+                    LatitudeUser2 = lat2,
+                    LongtitudeUser2 = long2
+                };
+            }
+            catch
+            {
+                return null;
+            }
         }
 
     }

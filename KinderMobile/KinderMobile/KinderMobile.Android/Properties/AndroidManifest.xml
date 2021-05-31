@@ -1,15 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="1" android:versionName="1.0" package="com.companyname.kindermobile" android:installLocation="auto">
-	<uses-sdk android:minSdkVersion="21" android:targetSdkVersion="30" />
+	<uses-sdk android:minSdkVersion="21" android:targetSdkVersion="29" />
 	<application android:label="KinderMobile.Android" android:theme="@style/MainTheme">
-		<meta-data android:name="com.facebook.sdk.ApplicationId"  android:value="@string/facebook_app_id"/>
-		<activity android:name="com.facebook.FacebookActivity"
-			android:configChanges=
-                "keyboard|keyboardHidden|screenLayout|screenSize|orientation"
-			android:label="@string/facebook_app_name" />
-		<activity
-			android:name="com.facebook.CustomTabActivity"
-			android:exported="true">
+		<meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id" />
+		<activity android:name="com.facebook.FacebookActivity" android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation" android:label="@string/facebook_app_name" />
+		<activity android:name="com.facebook.CustomTabActivity" android:exported="true">
 			<intent-filter>
 				<action android:name="android.intent.action.VIEW" />
 				<category android:name="android.intent.category.DEFAULT" />
@@ -27,4 +22,10 @@
 	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 	<uses-permission android:name="android.permission.INTERNET" />
 	<uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+	<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+	<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+	<uses-feature android:name="android.hardware.location" android:required="false" />
+	<uses-feature android:name="android.hardware.location.gps" android:required="false" />
+	<uses-feature android:name="android.hardware.location.network" android:required="false" />
+	<uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
 </manifest>

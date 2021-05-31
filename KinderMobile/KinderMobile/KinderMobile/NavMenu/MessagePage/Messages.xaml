@@ -6,15 +6,27 @@
              x:Name="MessagePage">
     <ContentView.Content>
         <Grid RowDefinitions="Auto,50">
-            <ListView ItemsSource="{Binding ContactInfos}" HasUnevenRows="True" Grid.Row="0" SeparatorVisibility="None">
+
+            <ListView ItemsSource="{Binding ContactInfos}" 
+                      HasUnevenRows="True" Grid.Row="0" 
+                      SeparatorVisibility="None" 
+                      BindingContextChanged="ListView_BindingContextChanged"
+                      IsPullToRefreshEnabled="True"
+                      RefreshCommand="{Binding Source={x:Reference MessagePage}, Path=BindingContext.RefreshCommand}"
+                      IsRefreshing="{Binding Source={x:Reference MessagePage}, Path=BindingContext.IsRefreshing}" >
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
-                            <Frame CornerRadius="50" IsClippedToBounds="True" Padding="0" Margin="5,5,5,5" 
+                            <Frame CornerRadius="50" IsClippedToBounds="True" Padding="0" Margin="5,5,5,5"
                                    touch:TouchEff.Command="{Binding Source={x:Reference MessagePage}, Path=BindingContext.GoToPrivateMessageCommand}"
                                    touch:TouchEff.CommandParameter="{Binding Instance}"
+                                   
+                                   touch:TouchEff.LongPressCommand="{Binding BindingContext.DeleteChatCommand, Source={x:Reference MessagePage}}"
+                                   touch:TouchEff.LongPressCommandParameter="{Binding Id}"
+                                   
                                    touch:TouchEff.RegularBackgroundColor="AliceBlue"
                                    touch:TouchEff.PressedBackgroundColor="Blue">
+
                                 <Grid BackgroundColor="Azure">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="Auto"/>

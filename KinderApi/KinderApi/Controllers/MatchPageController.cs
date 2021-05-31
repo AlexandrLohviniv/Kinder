@@ -32,19 +32,19 @@ namespace KinderApi.Controllers
 
         [Authorize(Roles = "SimpleUser,Admin")]
         [HttpGet("users")]
-        public async Task<IActionResult> GetAllUSers([FromQuery]PaginationParams userParams)
+        public async Task<IActionResult> GetAllUSers([FromQuery] PaginationParams userParams)
         {
             PagedList<User> allUsers = await userService.GetAllUsers(userParams);
             List<UserToReturnDto> returnUsers = mapper.Map<List<UserToReturnDto>>(allUsers);
 
-            Response.AddPagination(allUsers.CurrentPage,allUsers.PageSize, 
+            Response.AddPagination(allUsers.CurrentPage, allUsers.PageSize,
                 allUsers.TotalCount, allUsers.TotalPages);
 
             return Ok(returnUsers);
         }
 
         [HttpGet("{userId}/nearByDistanceUsers/{distance?}")]
-        public async Task<IActionResult> GetMatchUsersByDistance(int userId,int? distance)
+        public async Task<IActionResult> GetMatchUsersByDistance(int userId, int? distance)
         {
             List<User> allUsers = await userService.GetUsersForMatchByDistance(userId, distance);
             List<UserToReturnDto> returnUsers = mapper.Map<List<UserToReturnDto>>(allUsers);
@@ -66,12 +66,37 @@ namespace KinderApi.Controllers
             {
                 userPref = JsonConvert.DeserializeObject<PreferenceDto>(body);
             }
-        
+
 
             List<User> allUsers = await userService.GetUsersForMathcByPreference(userId, userPref);
             List<UserToReturnDto> returnUsers = mapper.Map<List<UserToReturnDto>>(allUsers);
 
             return Ok(returnUsers);
+        }
+
+        [HttpPost("{userId}/updateLocation/{location}")]
+        public async Task<IActionResult> UpdateUserLocation(int userId, string location)
+        {
+            var user = await userService.GetUserById(userId);
+
+            if (user == null)
+                return BadRequest("Something wnet wrong");
+
+            user.Coordinate = location;
+            await context.SaveChangesAsync();
+
+            return Ok();
+        }
+
+        [HttpPost("{userId}/getLocation")]
+        public async Task<IActionResult> GetUserLocation(int userId)
+        {
+            var user = await userService.GetUserById(userId);
+
+            if (user == null)
+                return BadRequest("Something wnet wrong");
+
+            return Ok(user.Coordinate);
         }
     }
 }
