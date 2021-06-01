@@ -32,8 +32,7 @@ namespace KinderApi.Controllers
             this.mapper = mapper;
             this.userService = userService;
         }
-
-        [Authorize]
+        
         [HttpPost("AddPhoto")]
         public async Task<IActionResult> AddPhoto(int userId, [FromForm] IFormFile file)
         {

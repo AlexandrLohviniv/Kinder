@@ -4,6 +4,7 @@ using AutoMapper;
 using KinderApi.DTOs;
 using KinderApi.Models;
 using KinderApi.ServiceProtos;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace KinderApi.Controllers
@@ -22,6 +23,7 @@ namespace KinderApi.Controllers
         }
 
         [HttpPost("like/{receiverId}")]
+        [Authorize(Roles = "SimpleUser,Admin")]
         public async Task<IActionResult> SendLike(int userId, int receiverId)
         {
             await likeService.SendLike(userId,receiverId);
@@ -29,6 +31,7 @@ namespace KinderApi.Controllers
         }
 
         [HttpPost("unlike/{receiverId}")]
+        [Authorize(Roles = "SimpleUser,Admin")]
         public async Task<IActionResult> GetbackLike(int userId, int receiverId)
         {
             await likeService.GetbackLike(userId, receiverId);
@@ -36,6 +39,7 @@ namespace KinderApi.Controllers
         }
 
         [HttpGet("pairs")]
+        [Authorize(Roles = "SimpleUser,Admin")]
         public async Task<IActionResult> GetUserPairs(int userId)
         {
             var users = await likeService.PairsForUser(userId);
