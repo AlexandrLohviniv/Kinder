@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using KinderApi.helper;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using Microsoft.AspNetCore.Authorization;
 
 namespace KinderApi.Controllers
 {
@@ -35,6 +36,7 @@ namespace KinderApi.Controllers
 
         [HttpPost]
         [Route("ban/{userId}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> BanUser(int userId, [FromBody] BanUserData lastDay)
         {
             User userToBan = await userService.GetUserById(userId);
@@ -53,6 +55,7 @@ namespace KinderApi.Controllers
 
         [HttpPost]
         [Route("unban/{userId}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> UnbanUser(int userId)
         {
             BannedUsers userToUnBan = await context.BannedUsers.AsQueryable().FirstOrDefaultAsync(u => u.UserId == userId);
@@ -71,6 +74,8 @@ namespace KinderApi.Controllers
 
         [HttpPut]
         [Route("upgardeRole/{userId}")]
+        [Authorize(Roles = "Admin")]
+
         public async Task<IActionResult> UpgradeUserAccount(int userId, [FromBody] Role newRole)
         {
             User user = await userService.GetUserById(userId);
@@ -86,6 +91,7 @@ namespace KinderApi.Controllers
 
 
         [HttpGet("bannedUsers")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetBannedUsers([FromQuery]PaginationParams userParams)
         {
             PagedList<User> users = await adminService.GetBannedUsers(userParams);

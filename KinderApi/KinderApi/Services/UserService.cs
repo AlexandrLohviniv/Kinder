@@ -72,7 +72,7 @@ namespace KinderApi.Services
             if(DateTime.Now.SubstrHourse(currentUser.LastSeen) < 24)
                 return new List<User>();
             
-            List<User> allUsers = await context.Users.Include(u => u.Preferences).ToListAsync();
+            List<User> allUsers = await context.Users.Include(u => u.Preferences).Include(p => p.Images).ToListAsync();
 
             List<User> userToReturn = new List<User>();
 

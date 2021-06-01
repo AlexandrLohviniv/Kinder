@@ -6,6 +6,7 @@ using AutoMapper;
 using KinderApi.DTOs;
 using KinderApi.Models;
 using KinderApi.ServiceProtos;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -29,6 +30,7 @@ namespace KinderApi.Controllers
         }
 
         [HttpGet("{userId}/Info")]
+        [Authorize(Roles = "SimpleUser,Admin")]
         public async Task<IActionResult> GetUserById(int userId)
         {
             var user = await userService.GetUserById(userId);
@@ -40,6 +42,7 @@ namespace KinderApi.Controllers
 
 
         [HttpGet("{userId}/Preference")]
+        [Authorize(Roles = "SimpleUser,Admin")]
         public async Task<IActionResult> GetUserPreferenceById(int userId)
         {
             var user = await userService.GetUserById(userId);
@@ -50,6 +53,7 @@ namespace KinderApi.Controllers
         }
 
         [HttpPost("{userId}/UpdateLastSeen")]
+        [Authorize(Roles = "SimpleUser,Admin")]
         public async Task<IActionResult> UpdateLastSeenParam(int userId)
         {
             var user = await context.Users.FirstOrDefaultAsync(u => u.Id == userId);
@@ -63,6 +67,7 @@ namespace KinderApi.Controllers
 
 
         [HttpPost("{userId}/UpdateInfo")]
+        [Authorize(Roles = "SimpleUser,Admin")]
         public async Task<IActionResult> UpdateUserInfo(int userId, [FromBody] UpdateUserDto newUser)
         {
             var user = await userService.GetUserById(userId);
@@ -83,6 +88,7 @@ namespace KinderApi.Controllers
         }
 
         [HttpGet("Find")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> FindUsers([FromBody] UserToFindDto newUser)
         {
             List<User> users = await userService.SortUsersByData(newUser);

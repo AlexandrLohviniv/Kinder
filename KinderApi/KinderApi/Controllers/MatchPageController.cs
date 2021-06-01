@@ -44,6 +44,7 @@ namespace KinderApi.Controllers
         }
 
         [HttpGet("{userId}/nearByDistanceUsers/{distance?}")]
+        [Authorize(Roles = "SimpleUser,Admin")]
         public async Task<IActionResult> GetMatchUsersByDistance(int userId, int? distance)
         {
             List<User> allUsers = await userService.GetUsersForMatchByDistance(userId, distance);
@@ -53,6 +54,7 @@ namespace KinderApi.Controllers
         }
 
         [HttpPost("{userId}/nearByPreferenceUsers")]
+        [Authorize(Roles = "SimpleUser,Admin")]
         public async Task<IActionResult> GetMatchUsersByPreference(int userId)
         {
             string body;

@@ -2,6 +2,7 @@ using System.Threading.Tasks;
 using KinderApi.helper;
 using KinderApi.Models;
 using KinderApi.ServiceProtos;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace KinderApi.Controllers
@@ -18,6 +19,7 @@ namespace KinderApi.Controllers
         }
 
         [HttpPost("{fromId}/complain/{toId}")]
+        [Authorize(Roles = "SimpleUser,Admin")]
         public async Task<IActionResult> Complain(int fromId, int toId, [FromBody] ComplaintType type)
         {
             await complaintService.complain(fromId, toId, type);
@@ -25,6 +27,7 @@ namespace KinderApi.Controllers
         }
 
         [HttpGet("allComplaints")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetAllComplaints([FromQuery] PaginationParams paginationParams)
         {
             PagedList<Complaint> complaints = await complaintService.GetAllComplaints(paginationParams);
@@ -36,6 +39,7 @@ namespace KinderApi.Controllers
         }
 
         [HttpGet("fromUserComplaints/{fromId}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetAllComplaintsFromUser(int fromId, [FromQuery] PaginationParams paginationParams)
         {
             PagedList<Complaint> complaints = await complaintService.GetAllFromUserComplaints(fromId, paginationParams);
@@ -47,6 +51,7 @@ namespace KinderApi.Controllers
         }
 
         [HttpGet("forUserComplaints/{fromId}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetAllComplaintsForUser(int toId, [FromQuery] PaginationParams paginationParams)
         {
             PagedList<Complaint> complaints = await complaintService.GetAllForUserComplaints(toId, paginationParams);
